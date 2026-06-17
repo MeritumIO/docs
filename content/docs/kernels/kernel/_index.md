@@ -9,6 +9,8 @@ description = "Dependency injection, modules, and the boot lifecycle"
 
 The kernel is the foundation of every Meritum application. It manages dependency injection, wires modules together, and controls the boot lifecycle. Every Meritum package — including `meritum/http` and `meritum/cli` — extends the kernel rather than replacing it, so the concepts here apply everywhere.
 
+The design is built around a strict separation between two phases: a **boot phase** where services are registered and the dependency graph is assembled, and a **run phase** where that graph is sealed and used. For the architectural reasoning behind this, see [Two Phases, Two APIs](https://dev.to/georgeff/two-phases-two-apis-425j).
+
 ```
 composer require georgeff/kernel
 ```

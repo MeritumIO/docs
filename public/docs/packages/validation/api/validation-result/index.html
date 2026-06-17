@@ -8,33 +8,32 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Public classes and interfaces for meritum/validation.
-">
+<meta name="description" content="Immutable result returned by Validator::validate()">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://10.10.3.33:1313/docs/packages/validation/api/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://10.10.3.33:1313/docs/packages/validation/api/validation-result/">
 	<meta property="og:site_name" content="Meritum">
-	<meta property="og:title" content="API Reference">
-	<meta property="og:description" content="Public classes and interfaces for meritum/validation.">
+	<meta property="og:title" content="ValidationResult">
+	<meta property="og:description" content="Immutable result returned by Validator::validate()">
 	<meta property="og:locale" content="en">
-	<meta property="og:type" content="website">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="docs">
 
 
-	<meta itemprop="name" content="API Reference">
-	<meta itemprop="description" content="Public classes and interfaces for meritum/validation.">
-	<meta itemprop="wordCount" content="6">
+	<meta itemprop="name" content="ValidationResult">
+	<meta itemprop="description" content="Immutable result returned by Validator::validate()">
+	<meta itemprop="wordCount" content="103">
 
-<title>API Reference • Meritum</title>
+<title>ValidationResult • Meritum</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="http://10.10.3.33:1313/docs/packages/validation/api/">
+<link rel="canonical" href="http://10.10.3.33:1313/docs/packages/validation/api/validation-result/">
 <link rel="stylesheet" href="/book.min.98c83e4c8e1c8661368bcb29bbaf4dcc9d31b8164f76aae322d82d86a9750c65.css" integrity="sha256-mMg&#43;TI4chmE2i8spu69NzJ0xuBZPdqrjItgthql1DGU=" crossorigin="anonymous">
 
-<link rel="alternate" type="application/rss+xml" href="http://10.10.3.33:1313/docs/packages/validation/api/index.xml" title="API Reference" />
 
   
 </head>
-<body dir="ltr" class="book-kind-section book-type-docs">
+<body dir="ltr" class="book-kind-page book-type-docs">
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
@@ -609,7 +608,7 @@ https://github.com/alex-shpak/hugo-book
   
     <input type="checkbox" id="section-cf19f23a374cc7f733a4ff430f3ce50e" class="toggle" checked />
     <label for="section-cf19f23a374cc7f733a4ff430f3ce50e" class="flex">
-      <a href="/docs/packages/validation/api/" class="active">
+      <a href="/docs/packages/validation/api/" class="">
         API Reference</a>
       <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
     </label>
@@ -639,7 +638,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/packages/validation/api/validation-result/" class="">
+    <a href="/docs/packages/validation/api/validation-result/" class="active">
       ValidationResult</a>
   
 
@@ -1030,7 +1029,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>API Reference</h3>
+  <h3>ValidationResult</h3>
 
   <label for="toc-control">
     
@@ -1044,8 +1043,23 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><p>Public classes and interfaces for <code>meritum/validation</code>.</p>
-</article>
+  <article class="markdown book-article"><h1 id="validationresult">ValidationResult<a class="anchor" href="#validationresult">#</a></h1>
+<p><code>Meritum\Validation\ValidationResult</code></p>
+<p>Immutable result object returned by <code>Validator::validate()</code>. Holds the pass/fail outcome and all error messages.</p>
+<h2 id="methods">Methods<a class="anchor" href="#methods">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">passed</span>()<span style="color:#ff79c6">:</span> bool;</span></span></code></pre></div><p>Returns <code>true</code> if no rules failed.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f1fa8c">/** @return array&lt;string, string[]&gt; */</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">getErrors</span>()<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">array</span>;</span></span></code></pre></div><p>Returns all validation errors, keyed by field name. Each key maps to an array of error message strings — one per failed rule. Fields with no errors are absent from the returned array.</p>
+<h2 id="example">Example<a class="anchor" href="#example">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$result</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">$validator</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">validate</span>([
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#39;name&#39;</span>  <span style="color:#ff79c6">=&gt;</span> [<span style="color:#f1fa8c">&#39;required&#39;</span>, <span style="color:#f1fa8c">&#39;string&#39;</span>, <span style="color:#f1fa8c">&#39;lengthMax&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#bd93f9">100</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#39;email&#39;</span> <span style="color:#ff79c6">=&gt;</span> [<span style="color:#f1fa8c">&#39;required&#39;</span>, <span style="color:#f1fa8c">&#39;email&#39;</span>],
+</span></span><span style="display:flex;"><span>], <span style="color:#8be9fd;font-style:italic">$input</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span><span style="color:#8be9fd;font-style:italic">$result</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">passed</span>()) {
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// e.g. [&#39;email&#39; =&gt; [&#39;The email must be a valid email address&#39;]]
+</span></span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">$errors</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">$result</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getErrors</span>();
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></article>
  
       
 
@@ -1066,16 +1080,16 @@ https://github.com/alex-shpak/hugo-book
 <div class="flex flex-wrap justify-between">
     <span>
     
-      <a href="/docs/packages/validation/" class="flex align-center">
+      <a href="/docs/packages/validation/api/validator/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>meritum/validation</span>
+        <span>Validator</span>
       </a>
     
     </span>
     <span>
     
-      <a href="/docs/packages/validation/api/validator/" class="flex align-center">
-        <span>Validator</span>
+      <a href="/docs/packages/validation/api/rule-interface/" class="flex align-center">
+        <span>RuleInterface</span>
         <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
       </a>
     

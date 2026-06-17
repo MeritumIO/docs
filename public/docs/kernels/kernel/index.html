@@ -21,7 +21,7 @@ https://github.com/alex-shpak/hugo-book
 
 	<meta itemprop="name" content="georgeff/kernel">
 	<meta itemprop="description" content="Dependency injection, modules, and the boot lifecycle">
-	<meta itemprop="wordCount" content="1010">
+	<meta itemprop="wordCount" content="1056">
 
 <title>georgeff/kernel • Meritum</title>
 <link rel="icon" href="/favicon.png" >
@@ -617,6 +617,90 @@ https://github.com/alex-shpak/hugo-book
           
   <ul>
     
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/validator/" class="">
+      Validator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/validation-result/" class="">
+      ValidationResult</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/rule-interface/" class="">
+      RuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/stoppable-rule-interface/" class="">
+      StoppableRuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/field-referencing-rule-interface/" class="">
+      FieldReferencingRuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/rules/" class="">
+      Built-in Rules</a>
+  
+
+        </li>
+      
+    
   </ul>
 
         </li>
@@ -961,6 +1045,7 @@ https://github.com/alex-shpak/hugo-book
       
   <article class="markdown book-article"><h1 id="georgeffkernel">georgeff/kernel<a class="anchor" href="#georgeffkernel">#</a></h1>
 <p>The kernel is the foundation of every Meritum application. It manages dependency injection, wires modules together, and controls the boot lifecycle. Every Meritum package — including <code>meritum/http</code> and <code>meritum/cli</code> — extends the kernel rather than replacing it, so the concepts here apply everywhere.</p>
+<p>The design is built around a strict separation between two phases: a <strong>boot phase</strong> where services are registered and the dependency graph is assembled, and a <strong>run phase</strong> where that graph is sealed and used. For the architectural reasoning behind this, see <a href="https://dev.to/georgeff/two-phases-two-apis-425j">Two Phases, Two APIs</a>.</p>
 <pre tabindex="0"><code>composer require georgeff/kernel</code></pre><h2 id="defining-services">Defining Services<a class="anchor" href="#defining-services">#</a></h2>
 <p>Services are registered with <code>define()</code>, which returns a <a href="/kernel/api/definition-interface/"><code>DefinitionInterface</code></a> you can configure with a fluent API.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(CacheInterface<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn() <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> RedisCache());</span></span></code></pre></div><p>By default, the factory is called fresh on every resolution. Use <code>share()</code> to make the service a singleton:</p>

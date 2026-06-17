@@ -8,33 +8,32 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Public classes and interfaces for meritum/validation.
-">
+<meta name="description" content="Complete reference for all rules shipped with meritum/validation">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://10.10.3.33:1313/docs/packages/validation/api/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://10.10.3.33:1313/docs/packages/validation/api/rules/">
 	<meta property="og:site_name" content="Meritum">
-	<meta property="og:title" content="API Reference">
-	<meta property="og:description" content="Public classes and interfaces for meritum/validation.">
+	<meta property="og:title" content="Built-in Rules">
+	<meta property="og:description" content="Complete reference for all rules shipped with meritum/validation">
 	<meta property="og:locale" content="en">
-	<meta property="og:type" content="website">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="docs">
 
 
-	<meta itemprop="name" content="API Reference">
-	<meta itemprop="description" content="Public classes and interfaces for meritum/validation.">
-	<meta itemprop="wordCount" content="6">
+	<meta itemprop="name" content="Built-in Rules">
+	<meta itemprop="description" content="Complete reference for all rules shipped with meritum/validation">
+	<meta itemprop="wordCount" content="387">
 
-<title>API Reference • Meritum</title>
+<title>Built-in Rules • Meritum</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="http://10.10.3.33:1313/docs/packages/validation/api/">
+<link rel="canonical" href="http://10.10.3.33:1313/docs/packages/validation/api/rules/">
 <link rel="stylesheet" href="/book.min.98c83e4c8e1c8661368bcb29bbaf4dcc9d31b8164f76aae322d82d86a9750c65.css" integrity="sha256-mMg&#43;TI4chmE2i8spu69NzJ0xuBZPdqrjItgthql1DGU=" crossorigin="anonymous">
 
-<link rel="alternate" type="application/rss+xml" href="http://10.10.3.33:1313/docs/packages/validation/api/index.xml" title="API Reference" />
 
   
 </head>
-<body dir="ltr" class="book-kind-section book-type-docs">
+<body dir="ltr" class="book-kind-page book-type-docs">
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
@@ -609,7 +608,7 @@ https://github.com/alex-shpak/hugo-book
   
     <input type="checkbox" id="section-cf19f23a374cc7f733a4ff430f3ce50e" class="toggle" checked />
     <label for="section-cf19f23a374cc7f733a4ff430f3ce50e" class="flex">
-      <a href="/docs/packages/validation/api/" class="active">
+      <a href="/docs/packages/validation/api/" class="">
         API Reference</a>
       <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
     </label>
@@ -695,7 +694,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/packages/validation/api/rules/" class="">
+    <a href="/docs/packages/validation/api/rules/" class="active">
       Built-in Rules</a>
   
 
@@ -1030,7 +1029,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>API Reference</h3>
+  <h3>Built-in Rules</h3>
 
   <label for="toc-control">
     
@@ -1044,8 +1043,268 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><p>Public classes and interfaces for <code>meritum/validation</code>.</p>
-</article>
+  <article class="markdown book-article"><h1 id="built-in-rules">Built-in Rules<a class="anchor" href="#built-in-rules">#</a></h1>
+<p>All rules shipped with <code>meritum/validation</code>. Rules listed as stoppable halt propagation to subsequent rules for the same field when the stop condition is met.</p>
+<h2 id="presence--flow">Presence / flow<a class="anchor" href="#presence--flow">#</a></h2>
+<table>
+	<thead>
+			<tr>
+					<th>Rule</th>
+					<th>Params</th>
+					<th>Stop condition</th>
+					<th>Description</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>required</code></td>
+					<td>—</td>
+					<td>on failure</td>
+					<td>Fails if absent, <code>null</code>, or empty string</td>
+			</tr>
+			<tr>
+					<td><code>optional</code></td>
+					<td>—</td>
+					<td>if absent or <code>null</code></td>
+					<td>Always passes; skips subsequent rules if absent or <code>null</code></td>
+			</tr>
+			<tr>
+					<td><code>nullable</code></td>
+					<td>—</td>
+					<td>if <code>null</code></td>
+					<td>Always passes; skips subsequent rules if <code>null</code></td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="type">Type<a class="anchor" href="#type">#</a></h2>
+<table>
+	<thead>
+			<tr>
+					<th>Rule</th>
+					<th>Params</th>
+					<th>Description</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>string</code></td>
+					<td>—</td>
+					<td><code>is_string()</code></td>
+			</tr>
+			<tr>
+					<td><code>integer</code></td>
+					<td>—</td>
+					<td><code>is_int()</code></td>
+			</tr>
+			<tr>
+					<td><code>float</code></td>
+					<td>—</td>
+					<td><code>is_float()</code> — integers do not pass; use <code>numeric</code> for numeric strings</td>
+			</tr>
+			<tr>
+					<td><code>boolean</code></td>
+					<td>—</td>
+					<td><code>is_bool()</code></td>
+			</tr>
+			<tr>
+					<td><code>array</code></td>
+					<td>—</td>
+					<td><code>is_array()</code></td>
+			</tr>
+			<tr>
+					<td><code>numeric</code></td>
+					<td>—</td>
+					<td><code>is_numeric()</code> — accepts integers, floats, and numeric strings</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="string">String<a class="anchor" href="#string">#</a></h2>
+<table>
+	<thead>
+			<tr>
+					<th>Rule</th>
+					<th>Params</th>
+					<th>Description</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>alpha</code></td>
+					<td>—</td>
+					<td>Alphabetic characters only</td>
+			</tr>
+			<tr>
+					<td><code>alphaNum</code></td>
+					<td>—</td>
+					<td>Alphanumeric characters only</td>
+			</tr>
+			<tr>
+					<td><code>email</code></td>
+					<td>—</td>
+					<td>Valid email address</td>
+			</tr>
+			<tr>
+					<td><code>url</code></td>
+					<td>—</td>
+					<td>Valid URL</td>
+			</tr>
+			<tr>
+					<td><code>uuid</code></td>
+					<td>—</td>
+					<td>Valid UUID</td>
+			</tr>
+			<tr>
+					<td><code>ip</code></td>
+					<td>—</td>
+					<td>Valid IP address (v4 or v6)</td>
+			</tr>
+			<tr>
+					<td><code>ipv4</code></td>
+					<td>—</td>
+					<td>Valid IPv4 address</td>
+			</tr>
+			<tr>
+					<td><code>ipv6</code></td>
+					<td>—</td>
+					<td>Valid IPv6 address</td>
+			</tr>
+			<tr>
+					<td><code>regex</code></td>
+					<td><code>pattern</code></td>
+					<td>Matches a regular expression pattern</td>
+			</tr>
+			<tr>
+					<td><code>lengthMin</code></td>
+					<td><code>min</code></td>
+					<td>String length ≥ min (<code>mb_strlen</code>)</td>
+			</tr>
+			<tr>
+					<td><code>lengthMax</code></td>
+					<td><code>max</code></td>
+					<td>String length ≤ max (<code>mb_strlen</code>)</td>
+			</tr>
+			<tr>
+					<td><code>lengthBetween</code></td>
+					<td><code>min, max</code></td>
+					<td>String length between min and max inclusive (<code>mb_strlen</code>)</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="numeric">Numeric<a class="anchor" href="#numeric">#</a></h2>
+<table>
+	<thead>
+			<tr>
+					<th>Rule</th>
+					<th>Params</th>
+					<th>Description</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>min</code></td>
+					<td><code>min</code></td>
+					<td>Value ≥ min (numeric)</td>
+			</tr>
+			<tr>
+					<td><code>max</code></td>
+					<td><code>max</code></td>
+					<td>Value ≤ max (numeric)</td>
+			</tr>
+			<tr>
+					<td><code>between</code></td>
+					<td><code>min, max</code></td>
+					<td>Value between min and max inclusive (numeric)</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="comparison">Comparison<a class="anchor" href="#comparison">#</a></h2>
+<table>
+	<thead>
+			<tr>
+					<th>Rule</th>
+					<th>Params</th>
+					<th>Description</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>equals</code></td>
+					<td><code>value</code></td>
+					<td>Strict equality to <code>value</code></td>
+			</tr>
+			<tr>
+					<td><code>notEquals</code></td>
+					<td><code>value</code></td>
+					<td>Strict inequality to <code>value</code></td>
+			</tr>
+			<tr>
+					<td><code>in</code></td>
+					<td><code>val, ...</code></td>
+					<td>Value is in the list (strict comparison)</td>
+			</tr>
+			<tr>
+					<td><code>notIn</code></td>
+					<td><code>val, ...</code></td>
+					<td>Value is not in the list (strict comparison)</td>
+			</tr>
+			<tr>
+					<td><code>sameAs</code></td>
+					<td><code>field</code></td>
+					<td>Strict equality to another field&rsquo;s value</td>
+			</tr>
+			<tr>
+					<td><code>differentFrom</code></td>
+					<td><code>field</code></td>
+					<td>Strict inequality from another field&rsquo;s value</td>
+			</tr>
+	</tbody>
+</table>
+<p><code>sameAs</code> and <code>differentFrom</code> are field-referencing rules — see <a href="/docs/packages/validation/api/field-referencing-rule-interface/"><code>FieldReferencingRuleInterface</code></a>.</p>
+<h2 id="date">Date<a class="anchor" href="#date">#</a></h2>
+<table>
+	<thead>
+			<tr>
+					<th>Rule</th>
+					<th>Params</th>
+					<th>Description</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>date</code></td>
+					<td>—</td>
+					<td>Parseable date string (validated with <code>checkdate</code>)</td>
+			</tr>
+			<tr>
+					<td><code>dateFormat</code></td>
+					<td><code>format</code></td>
+					<td>Date string matching a PHP <code>date()</code> format (e.g. <code>Y-m-d</code>)</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="schema-examples">Schema examples<a class="anchor" href="#schema-examples">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#6272a4">// Presence
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">&#39;name&#39;</span>  <span style="color:#ff79c6">=&gt;</span> [<span style="color:#f1fa8c">&#39;required&#39;</span>, <span style="color:#f1fa8c">&#39;string&#39;</span>],
+</span></span><span style="display:flex;"><span><span style="color:#f1fa8c">&#39;bio&#39;</span>   <span style="color:#ff79c6">=&gt;</span> [<span style="color:#f1fa8c">&#39;nullable&#39;</span>, <span style="color:#f1fa8c">&#39;string&#39;</span>],
+</span></span><span style="display:flex;"><span><span style="color:#f1fa8c">&#39;alias&#39;</span> <span style="color:#ff79c6">=&gt;</span> [<span style="color:#f1fa8c">&#39;optional&#39;</span>, <span style="color:#f1fa8c">&#39;string&#39;</span>],
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// Type + length
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">&#39;username&#39;</span> <span style="color:#ff79c6">=&gt;</span> [<span style="color:#f1fa8c">&#39;required&#39;</span>, <span style="color:#f1fa8c">&#39;string&#39;</span>, <span style="color:#f1fa8c">&#39;lengthBetween&#39;</span> <span style="color:#ff79c6">=&gt;</span> [<span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">32</span>]],
+</span></span><span style="display:flex;"><span><span style="color:#f1fa8c">&#39;age&#39;</span>      <span style="color:#ff79c6">=&gt;</span> [<span style="color:#f1fa8c">&#39;required&#39;</span>, <span style="color:#f1fa8c">&#39;integer&#39;</span>, <span style="color:#f1fa8c">&#39;between&#39;</span> <span style="color:#ff79c6">=&gt;</span> [<span style="color:#bd93f9">13</span>, <span style="color:#bd93f9">120</span>]],
+</span></span><span style="display:flex;"><span><span style="color:#f1fa8c">&#39;price&#39;</span>    <span style="color:#ff79c6">=&gt;</span> [<span style="color:#f1fa8c">&#39;required&#39;</span>, <span style="color:#f1fa8c">&#39;numeric&#39;</span>, <span style="color:#f1fa8c">&#39;min&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#bd93f9">0</span>],
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// Enum-like
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">&#39;status&#39;</span> <span style="color:#ff79c6">=&gt;</span> [<span style="color:#f1fa8c">&#39;required&#39;</span>, <span style="color:#f1fa8c">&#39;in&#39;</span> <span style="color:#ff79c6">=&gt;</span> [<span style="color:#f1fa8c">&#39;draft&#39;</span>, <span style="color:#f1fa8c">&#39;published&#39;</span>, <span style="color:#f1fa8c">&#39;archived&#39;</span>]],
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// Format
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">&#39;email&#39;</span>    <span style="color:#ff79c6">=&gt;</span> [<span style="color:#f1fa8c">&#39;required&#39;</span>, <span style="color:#f1fa8c">&#39;email&#39;</span>],
+</span></span><span style="display:flex;"><span><span style="color:#f1fa8c">&#39;website&#39;</span>  <span style="color:#ff79c6">=&gt;</span> [<span style="color:#f1fa8c">&#39;optional&#39;</span>, <span style="color:#f1fa8c">&#39;url&#39;</span>],
+</span></span><span style="display:flex;"><span><span style="color:#f1fa8c">&#39;slug&#39;</span>     <span style="color:#ff79c6">=&gt;</span> [<span style="color:#f1fa8c">&#39;required&#39;</span>, <span style="color:#f1fa8c">&#39;regex&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;/^[a-z0-9-]+$/&#39;</span>],
+</span></span><span style="display:flex;"><span><span style="color:#f1fa8c">&#39;birthday&#39;</span> <span style="color:#ff79c6">=&gt;</span> [<span style="color:#f1fa8c">&#39;optional&#39;</span>, <span style="color:#f1fa8c">&#39;dateFormat&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;Y-m-d&#39;</span>],
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// Cross-field
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">&#39;password_confirmation&#39;</span> <span style="color:#ff79c6">=&gt;</span> [<span style="color:#f1fa8c">&#39;required&#39;</span>, <span style="color:#f1fa8c">&#39;sameAs&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;password&#39;</span>],
+</span></span><span style="display:flex;"><span><span style="color:#f1fa8c">&#39;new_password&#39;</span>          <span style="color:#ff79c6">=&gt;</span> [<span style="color:#f1fa8c">&#39;required&#39;</span>, <span style="color:#f1fa8c">&#39;differentFrom&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;current_password&#39;</span>],</span></span></code></pre></div></article>
  
       
 
@@ -1066,16 +1325,16 @@ https://github.com/alex-shpak/hugo-book
 <div class="flex flex-wrap justify-between">
     <span>
     
-      <a href="/docs/packages/validation/" class="flex align-center">
+      <a href="/docs/packages/validation/api/field-referencing-rule-interface/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>meritum/validation</span>
+        <span>FieldReferencingRuleInterface</span>
       </a>
     
     </span>
     <span>
     
-      <a href="/docs/packages/validation/api/validator/" class="flex align-center">
-        <span>Validator</span>
+      <a href="/docs/packages/database/" class="flex align-center">
+        <span>meritum/database</span>
         <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
       </a>
     

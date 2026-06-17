@@ -8,33 +8,32 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Public classes and interfaces for meritum/validation.
-">
+<meta name="description" content="Rule contract for comparing a field against another field in the input">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://10.10.3.33:1313/docs/packages/validation/api/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://10.10.3.33:1313/docs/packages/validation/api/field-referencing-rule-interface/">
 	<meta property="og:site_name" content="Meritum">
-	<meta property="og:title" content="API Reference">
-	<meta property="og:description" content="Public classes and interfaces for meritum/validation.">
+	<meta property="og:title" content="FieldReferencingRuleInterface">
+	<meta property="og:description" content="Rule contract for comparing a field against another field in the input">
 	<meta property="og:locale" content="en">
-	<meta property="og:type" content="website">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="docs">
 
 
-	<meta itemprop="name" content="API Reference">
-	<meta itemprop="description" content="Public classes and interfaces for meritum/validation.">
-	<meta itemprop="wordCount" content="6">
+	<meta itemprop="name" content="FieldReferencingRuleInterface">
+	<meta itemprop="description" content="Rule contract for comparing a field against another field in the input">
+	<meta itemprop="wordCount" content="218">
 
-<title>API Reference • Meritum</title>
+<title>FieldReferencingRuleInterface • Meritum</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="http://10.10.3.33:1313/docs/packages/validation/api/">
+<link rel="canonical" href="http://10.10.3.33:1313/docs/packages/validation/api/field-referencing-rule-interface/">
 <link rel="stylesheet" href="/book.min.98c83e4c8e1c8661368bcb29bbaf4dcc9d31b8164f76aae322d82d86a9750c65.css" integrity="sha256-mMg&#43;TI4chmE2i8spu69NzJ0xuBZPdqrjItgthql1DGU=" crossorigin="anonymous">
 
-<link rel="alternate" type="application/rss+xml" href="http://10.10.3.33:1313/docs/packages/validation/api/index.xml" title="API Reference" />
 
   
 </head>
-<body dir="ltr" class="book-kind-section book-type-docs">
+<body dir="ltr" class="book-kind-page book-type-docs">
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
@@ -609,7 +608,7 @@ https://github.com/alex-shpak/hugo-book
   
     <input type="checkbox" id="section-cf19f23a374cc7f733a4ff430f3ce50e" class="toggle" checked />
     <label for="section-cf19f23a374cc7f733a4ff430f3ce50e" class="flex">
-      <a href="/docs/packages/validation/api/" class="active">
+      <a href="/docs/packages/validation/api/" class="">
         API Reference</a>
       <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
     </label>
@@ -681,7 +680,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/packages/validation/api/field-referencing-rule-interface/" class="">
+    <a href="/docs/packages/validation/api/field-referencing-rule-interface/" class="active">
       FieldReferencingRuleInterface</a>
   
 
@@ -1030,7 +1029,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>API Reference</h3>
+  <h3>FieldReferencingRuleInterface</h3>
 
   <label for="toc-control">
     
@@ -1044,8 +1043,48 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><p>Public classes and interfaces for <code>meritum/validation</code>.</p>
-</article>
+  <article class="markdown book-article"><h1 id="fieldreferencingruleinterface">FieldReferencingRuleInterface<a class="anchor" href="#fieldreferencingruleinterface">#</a></h1>
+<p><code>Meritum\Validation\FieldReferencingRuleInterface</code></p>
+<p>Extends <a href="/docs/packages/validation/api/rule-interface/"><code>RuleInterface</code></a>. Rules that implement this interface receive a field name as their schema parameter and have the target field&rsquo;s value resolved from the input before <code>validate()</code> is called.</p>
+<p><code>sameAs</code> and <code>differentFrom</code> implement this interface.</p>
+<h2 id="methods">Methods<a class="anchor" href="#methods">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f1fa8c">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c"> * @param array&lt;string, mixed&gt; $input
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c"> * @return mixed[]
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">resolveParams</span>(string <span style="color:#8be9fd;font-style:italic">$attribute</span>, <span style="color:#ff79c6">array</span> <span style="color:#8be9fd;font-style:italic">$input</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">array</span>;</span></span></code></pre></div><p>Called by the engine before <code>validate()</code>. <code>$attribute</code> is the target field name taken from the schema (e.g. <code>'password'</code> for <code>'sameAs' =&gt; 'password'</code>). Return the array of params to be spread into <code>validate()</code> and <code>message()</code>.</p>
+<p>Typically this returns the resolved value alongside the field name for use in error messages:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">resolveParams</span>(string <span style="color:#8be9fd;font-style:italic">$attribute</span>, <span style="color:#ff79c6">array</span> <span style="color:#8be9fd;font-style:italic">$input</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">array</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> [<span style="color:#8be9fd;font-style:italic">$input</span>[<span style="color:#8be9fd;font-style:italic">$attribute</span>] <span style="color:#ff79c6">??</span> <span style="color:#ff79c6">new</span> Missing(), <span style="color:#8be9fd;font-style:italic">$attribute</span>];
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>The engine validates that the schema param exists and is a string before calling <code>resolveParams()</code>. If it is missing or non-string, an <code>InvalidArgumentException</code> is thrown.</p>
+<h2 id="example">Example<a class="anchor" href="#example">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Validation\FieldReferencingRuleInterface;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Validation\Missing;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">GreaterThanFieldRule</span> <span style="color:#ff79c6">implements</span> FieldReferencingRuleInterface
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">name</span>()<span style="color:#ff79c6">:</span> string
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#39;greaterThanField&#39;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">resolveParams</span>(string <span style="color:#8be9fd;font-style:italic">$attribute</span>, <span style="color:#ff79c6">array</span> <span style="color:#8be9fd;font-style:italic">$input</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">array</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> [<span style="color:#8be9fd;font-style:italic">$input</span>[<span style="color:#8be9fd;font-style:italic">$attribute</span>] <span style="color:#ff79c6">??</span> <span style="color:#ff79c6">new</span> Missing(), <span style="color:#8be9fd;font-style:italic">$attribute</span>];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">validate</span>(mixed <span style="color:#8be9fd;font-style:italic">$value</span>, mixed <span style="color:#ff79c6">...</span><span style="color:#8be9fd;font-style:italic">$params</span>)<span style="color:#ff79c6">:</span> bool
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> is_numeric(<span style="color:#8be9fd;font-style:italic">$value</span>) <span style="color:#ff79c6">&amp;&amp;</span> is_numeric(<span style="color:#8be9fd;font-style:italic">$params</span>[<span style="color:#bd93f9">0</span>]) <span style="color:#ff79c6">&amp;&amp;</span> <span style="color:#8be9fd;font-style:italic">$value</span> <span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">$params</span>[<span style="color:#bd93f9">0</span>];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">message</span>(string <span style="color:#8be9fd;font-style:italic">$attribute</span>, mixed <span style="color:#ff79c6">...</span><span style="color:#8be9fd;font-style:italic">$params</span>)<span style="color:#ff79c6">:</span> string
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#34;The </span><span style="color:#f1fa8c">{</span><span style="color:#8be9fd;font-style:italic">$attribute</span><span style="color:#f1fa8c">}</span><span style="color:#f1fa8c"> must be greater than </span><span style="color:#f1fa8c">{</span><span style="color:#8be9fd;font-style:italic">$params</span>[<span style="color:#bd93f9">1</span>]<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>Usage:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f1fa8c">&#39;end_date&#39;</span> <span style="color:#ff79c6">=&gt;</span> [<span style="color:#f1fa8c">&#39;required&#39;</span>, <span style="color:#f1fa8c">&#39;date&#39;</span>, <span style="color:#f1fa8c">&#39;greaterThanField&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;start_date&#39;</span>],</span></span></code></pre></div></article>
  
       
 
@@ -1066,16 +1105,16 @@ https://github.com/alex-shpak/hugo-book
 <div class="flex flex-wrap justify-between">
     <span>
     
-      <a href="/docs/packages/validation/" class="flex align-center">
+      <a href="/docs/packages/validation/api/stoppable-rule-interface/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>meritum/validation</span>
+        <span>StoppableRuleInterface</span>
       </a>
     
     </span>
     <span>
     
-      <a href="/docs/packages/validation/api/validator/" class="flex align-center">
-        <span>Validator</span>
+      <a href="/docs/packages/validation/api/rules/" class="flex align-center">
+        <span>Built-in Rules</span>
         <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
       </a>
     
