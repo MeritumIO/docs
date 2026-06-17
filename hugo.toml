@@ -1,0 +1,23 @@
+baseURL = "https://meritum.georgeff.co"
+title = "Meritum"
+
+[module]
+  [[module.imports]]
+    path = "github.com/alex-shpak/hugo-book"
+
+[params]
+  BookTheme = "auto"
+  BookSearch = false
+  BookToC = false
+  BookSection = "docs"
+
+[[menu.after]]
+  name = "GitHub"
+  url = "https://github.com/MeritumIO"
+  weight = 1
+  [menu.after.params]
+    BookIcon = "github"
+
+[markup.highlight]
+  style = "dracula"
+  noClasses = true

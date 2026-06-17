@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Dependency injection, modules, and the boot lifecycle">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://10.10.3.33:1313/docs/kernels/kernel/">
+	<meta property="og:site_name" content="Meritum">
+	<meta property="og:title" content="georgeff/kernel">
+	<meta property="og:description" content="Dependency injection, modules, and the boot lifecycle">
+	<meta property="og:locale" content="en">
+	<meta property="og:type" content="website">
+
+
+	<meta itemprop="name" content="georgeff/kernel">
+	<meta itemprop="description" content="Dependency injection, modules, and the boot lifecycle">
+	<meta itemprop="wordCount" content="1010">
+
+<title>georgeff/kernel • Meritum</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://10.10.3.33:1313/docs/kernels/kernel/">
+<link rel="stylesheet" href="/book.min.98c83e4c8e1c8661368bcb29bbaf4dcc9d31b8164f76aae322d82d86a9750c65.css" integrity="sha256-mMg&#43;TI4chmE2i8spu69NzJ0xuBZPdqrjItgthql1DGU=" crossorigin="anonymous">
+
+<link rel="alternate" type="application/rss+xml" href="http://10.10.3.33:1313/docs/kernels/kernel/index.xml" title="georgeff/kernel" />
+
+  
+</head>
+<body dir="ltr" class="book-kind-section book-type-docs">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>Meritum</span>
+  </a>
+</h2>
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a>
+      Kernels</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-b5c3fcc26f8f81ef58071b8a4aa8a80c" class="toggle" checked />
+    <label for="section-b5c3fcc26f8f81ef58071b8a4aa8a80c" class="flex">
+      <a href="/docs/kernels/kernel/" class="active">
+        georgeff/kernel</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-04028bcd5e0496a76e89b673a7599ec4" class="toggle"  />
+    <label for="section-04028bcd5e0496a76e89b673a7599ec4" class="flex">
+      <a href="/docs/kernels/kernel/api/" class="">
+        API Reference</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/kernel/api/kernel-interface/" class="">
+      KernelInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/kernel/api/definition-interface/" class="">
+      DefinitionInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/kernel/api/module-interface/" class="">
+      ModuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/kernel/api/configurable-module-interface/" class="">
+      ConfigurableModuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/kernel/api/bootable-module-interface/" class="">
+      BootableModuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/kernel/api/module-repository-interface/" class="">
+      ModuleRepositoryInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/kernel/api/tag-registry-interface/" class="">
+      TagRegistryInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/kernel/api/environment/" class="">
+      Environment</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/kernel/api/kernel-exception/" class="">
+      KernelException</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/kernel/api/debuggable-interface/" class="">
+      DebuggableInterface</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8ae534f34ec70b730454c217af6b96e0" class="toggle"  />
+    <label for="section-8ae534f34ec70b730454c217af6b96e0" class="flex">
+      <a href="/docs/kernels/http/" class="">
+        meritum/http</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-b2bd39bbe190fa6dd0d8ec70ae1df97a" class="toggle"  />
+    <label for="section-b2bd39bbe190fa6dd0d8ec70ae1df97a" class="flex">
+      <a href="/docs/kernels/http/api/" class="">
+        API Reference</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-86bac8aef8f4a3984e34164d9656fad2" class="toggle"  />
+    <label for="section-86bac8aef8f4a3984e34164d9656fad2" class="flex">
+      <a href="/docs/kernels/cli/" class="">
+        meritum/cli</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-281e71f5e7aef8509aa2e9023d6fe6c6" class="toggle"  />
+    <label for="section-281e71f5e7aef8509aa2e9023d6fe6c6" class="flex">
+      <a href="/docs/kernels/cli/api/" class="">
+        API Reference</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a>
+      Packages</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2581b42c55598943ac6259a99d28c9af" class="toggle"  />
+    <label for="section-2581b42c55598943ac6259a99d28c9af" class="flex">
+      <a href="/docs/packages/validation/" class="">
+        meritum/validation</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-cf19f23a374cc7f733a4ff430f3ce50e" class="toggle"  />
+    <label for="section-cf19f23a374cc7f733a4ff430f3ce50e" class="flex">
+      <a href="/docs/packages/validation/api/" class="">
+        API Reference</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-07360c745ddfebc3d74972a2bf859716" class="toggle"  />
+    <label for="section-07360c745ddfebc3d74972a2bf859716" class="flex">
+      <a href="/docs/packages/database/" class="">
+        meritum/database</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-595fdccef239d6edd0900a81879e7e88" class="toggle"  />
+    <label for="section-595fdccef239d6edd0900a81879e7e88" class="flex">
+      <a href="/docs/packages/database/api/" class="">
+        API Reference</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-569ddd91f5f2f259cd8c99a1d5c7237a" class="toggle"  />
+    <label for="section-569ddd91f5f2f259cd8c99a1d5c7237a" class="flex">
+      <a href="/docs/packages/migrations/" class="">
+        meritum/migrations</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f4c17a12b7f75be5d6a2a022f819aa00" class="toggle"  />
+    <label for="section-f4c17a12b7f75be5d6a2a022f819aa00" class="flex">
+      <a href="/docs/packages/migrations/api/" class="">
+        API Reference</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2f049f8686765bbf26557dd84ee460a2" class="toggle"  />
+    <label for="section-2f049f8686765bbf26557dd84ee460a2" class="flex">
+      <a href="/docs/packages/serialization/" class="">
+        meritum/serialization</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-271d37e38f0a26257f129efbebf91bb8" class="toggle"  />
+    <label for="section-271d37e38f0a26257f129efbebf91bb8" class="flex">
+      <a href="/docs/packages/serialization/api/" class="">
+        API Reference</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-afc8c5d0f15005e77b27d3cdeb51ba9e" class="toggle"  />
+    <label for="section-afc8c5d0f15005e77b27d3cdeb51ba9e" class="flex">
+      <a href="/docs/packages/logger/" class="">
+        meritum/logger</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-c20d989c17886ef67d13663f2ad100d8" class="toggle"  />
+    <label for="section-c20d989c17886ef67d13663f2ad100d8" class="flex">
+      <a href="/docs/packages/logger/api/" class="">
+        API Reference</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-85520fc7f2a530fdc2601e8f8026189f" class="toggle"  />
+    <label for="section-85520fc7f2a530fdc2601e8f8026189f" class="flex">
+      <a href="/docs/packages/structured-logging/" class="">
+        meritum/structured-logging</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-1e7d3b649ecaf9ff9ed1c7e2e354e013" class="toggle"  />
+    <label for="section-1e7d3b649ecaf9ff9ed1c7e2e354e013" class="flex">
+      <a href="/docs/packages/structured-logging/api/" class="">
+        API Reference</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-aa5e09ae943b0ea946822aa79928e7b7" class="toggle"  />
+    <label for="section-aa5e09ae943b0ea946822aa79928e7b7" class="flex">
+      <a href="/docs/packages/http-exception-handler/" class="">
+        meritum/http-exception-handler</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-7f914e30805664f9dd67f077eabd61b1" class="toggle"  />
+    <label for="section-7f914e30805664f9dd67f077eabd61b1" class="flex">
+      <a href="/docs/packages/http-exception-handler/api/" class="">
+        API Reference</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+<ul><li><a href="https://github.com/MeritumIO" target="_blank" rel="noopener"><img src="/icons/github.svg" class="book-icon" alt="github" />GitHub</a></li></ul>
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>georgeff/kernel</h3>
+
+  <label for="toc-control">
+    
+  </label>
+</div>
+
+
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="georgeffkernel">georgeff/kernel<a class="anchor" href="#georgeffkernel">#</a></h1>
+<p>The kernel is the foundation of every Meritum application. It manages dependency injection, wires modules together, and controls the boot lifecycle. Every Meritum package — including <code>meritum/http</code> and <code>meritum/cli</code> — extends the kernel rather than replacing it, so the concepts here apply everywhere.</p>
+<pre tabindex="0"><code>composer require georgeff/kernel</code></pre><h2 id="defining-services">Defining Services<a class="anchor" href="#defining-services">#</a></h2>
+<p>Services are registered with <code>define()</code>, which returns a <a href="/kernel/api/definition-interface/"><code>DefinitionInterface</code></a> you can configure with a fluent API.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(CacheInterface<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn() <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> RedisCache());</span></span></code></pre></div><p>By default, the factory is called fresh on every resolution. Use <code>share()</code> to make the service a singleton:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(CacheInterface<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn() <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> RedisCache())
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">share</span>();</span></span></code></pre></div><p>Register an alias so the service can be resolved by multiple IDs:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(CacheInterface<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn() <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> RedisCache())
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">share</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">alias</span>(<span style="color:#f1fa8c">&#39;cache&#39;</span>);</span></span></code></pre></div><p>The factory receives a <code>Psr\Container\ContainerInterface</code> instance as its first argument, which lets you pull in other services:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(UserRepository<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn(<span style="color:#8be9fd;font-style:italic">$c</span>) <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> UserRepository(
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">$c</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">get</span>(DatabaseInterface<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>)
+</span></span><span style="display:flex;"><span>));</span></span></code></pre></div><blockquote class='book-hint '>
+<p><code>define()</code> throws <code>KernelException</code> if called after <code>boot()</code>. The service graph is sealed at boot time.</p>
+</blockquote><h2 id="service-tagging">Service Tagging<a class="anchor" href="#service-tagging">#</a></h2>
+<p>Tags group related services so they can be retrieved together. Tag a service at definition time:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(SlackNotifier<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn() <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> SlackNotifier(<span style="color:#8be9fd;font-style:italic">$config</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">tag</span>(<span style="color:#f1fa8c">&#39;notifiers&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(EmailNotifier<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn() <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> EmailNotifier(<span style="color:#8be9fd;font-style:italic">$config</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">tag</span>(<span style="color:#f1fa8c">&#39;notifiers&#39;</span>);</span></span></code></pre></div><p>Or tag after defining using <code>tag()</code> on the kernel directly:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(SlackNotifier<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn() <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> SlackNotifier(<span style="color:#8be9fd;font-style:italic">$config</span>));
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">tag</span>(SlackNotifier<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, [<span style="color:#f1fa8c">&#39;notifiers&#39;</span>]);</span></span></code></pre></div><blockquote class='book-hint '>
+<p>Calling <code>tag()</code> for an ID that has not been defined is a silent no-op. Always define the service first.</p>
+</blockquote><p>Inside the container (available after boot), retrieve all tagged services via the <a href="/kernel/api/tag-registry-interface/"><code>TagRegistryInterface</code></a>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$registry</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">$container</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">get</span>(TagRegistryInterface<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>);
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$notifiers</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">$registry</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getTagged</span>(<span style="color:#f1fa8c">&#39;notifiers&#39;</span>); <span style="color:#6272a4">// array of resolved instances
+</span></span></span></code></pre></div><p>The tag registry is available as <code>TagRegistryInterface::class</code> or <code>'kernel.tag.registry'</code>.</p>
+<h2 id="building-modules">Building Modules<a class="anchor" href="#building-modules">#</a></h2>
+<p>Modules are where you register services, provide configuration, and hook into the boot sequence. A module implements one or more of the three module interfaces.</p>
+<h3 id="moduleinterface">ModuleInterface<a class="anchor" href="#moduleinterface">#</a></h3>
+<p>The base contract. Every module must implement <code>register()</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Georgeff\Kernel\KernelInterface;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Georgeff\Kernel\Module\ModuleInterface;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">CacheModule</span> <span style="color:#ff79c6">implements</span> ModuleInterface
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">register</span>(KernelInterface <span style="color:#8be9fd;font-style:italic">$kernel</span>)<span style="color:#ff79c6">:</span> void
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(CacheInterface<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn() <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> RedisCache())
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">share</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><h3 id="configurablemoduleinterface">ConfigurableModuleInterface<a class="anchor" href="#configurablemoduleinterface">#</a></h3>
+<p>Extends <code>ModuleInterface</code> with a <code>config()</code> method that contributes entries to the kernel&rsquo;s shared config array (<code>kernel.config</code>). The <code>Environment</code> is passed so you can return environment-specific values:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Georgeff\Kernel\Environment;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Georgeff\Kernel\Support\Env;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Georgeff\Kernel\Module\ConfigurableModuleInterface;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">AppModule</span> <span style="color:#ff79c6">implements</span> ConfigurableModuleInterface
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">register</span>(KernelInterface <span style="color:#8be9fd;font-style:italic">$kernel</span>)<span style="color:#ff79c6">:</span> void
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(Mailer<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn(<span style="color:#8be9fd;font-style:italic">$c</span>) <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> Mailer(
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">$c</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">get</span>(<span style="color:#f1fa8c">&#39;kernel.config&#39;</span>)[<span style="color:#f1fa8c">&#39;mail&#39;</span>]
+</span></span><span style="display:flex;"><span>        ))<span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">share</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">config</span>(Environment <span style="color:#8be9fd;font-style:italic">$env</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">array</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> [
+</span></span><span style="display:flex;"><span>            <span style="color:#f1fa8c">&#39;mail&#39;</span> <span style="color:#ff79c6">=&gt;</span> [
+</span></span><span style="display:flex;"><span>                <span style="color:#f1fa8c">&#39;host&#39;</span>     <span style="color:#ff79c6">=&gt;</span> Env<span style="color:#ff79c6">::</span><span style="color:#50fa7b">get</span>(<span style="color:#f1fa8c">&#39;MAIL_HOST&#39;</span>, <span style="color:#f1fa8c">&#39;localhost&#39;</span>),
+</span></span><span style="display:flex;"><span>                <span style="color:#f1fa8c">&#39;port&#39;</span>     <span style="color:#ff79c6">=&gt;</span> (int) Env<span style="color:#ff79c6">::</span><span style="color:#50fa7b">get</span>(<span style="color:#f1fa8c">&#39;MAIL_PORT&#39;</span>, <span style="color:#bd93f9">25</span>),
+</span></span><span style="display:flex;"><span>                <span style="color:#f1fa8c">&#39;from&#39;</span>     <span style="color:#ff79c6">=&gt;</span> Env<span style="color:#ff79c6">::</span><span style="color:#50fa7b">get</span>(<span style="color:#f1fa8c">&#39;MAIL_FROM&#39;</span>, <span style="color:#f1fa8c">&#39;app@example.com&#39;</span>),
+</span></span><span style="display:flex;"><span>            ],
+</span></span><span style="display:flex;"><span>        ];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>Config from all modules is merged and registered as <code>kernel.config</code> in the container. It is available after boot.</p>
+<h3 id="bootablemoduleinterface">BootableModuleInterface<a class="anchor" href="#bootablemoduleinterface">#</a></h3>
+<p>Extends <code>ModuleInterface</code> with a <code>boot()</code> method called after the container is fully initialized. Use this when you need to resolve services from the container to perform setup work:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Psr\Container\ContainerInterface;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Georgeff\Kernel\Module\BootableModuleInterface;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">SchedulerModule</span> <span style="color:#ff79c6">implements</span> BootableModuleInterface
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">register</span>(KernelInterface <span style="color:#8be9fd;font-style:italic">$kernel</span>)<span style="color:#ff79c6">:</span> void
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(Scheduler<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn() <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> Scheduler())<span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">share</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">boot</span>(ContainerInterface <span style="color:#8be9fd;font-style:italic">$container</span>)<span style="color:#ff79c6">:</span> void
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$container</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">get</span>(Scheduler<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>)<span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">start</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>A single module can implement any combination of the three interfaces.</p>
+<h2 id="providing-modules">Providing Modules<a class="anchor" href="#providing-modules">#</a></h2>
+<p>Pass modules to the kernel individually or batch them through a <a href="/kernel/api/module-repository-interface/"><code>ModuleRepositoryInterface</code></a>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#6272a4">// Individually
+</span></span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addModule</span>(<span style="color:#ff79c6">new</span> CacheModule());
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addModule</span>(<span style="color:#ff79c6">new</span> AppModule());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// Via a repository
+</span></span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addRepository</span>(<span style="color:#ff79c6">new</span> ModuleRepository());</span></span></code></pre></div><p><code>ModuleRepository</code> returns an array of module instances from <code>modules(Environment $env)</code>, which lets you conditionally include modules by environment:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">ModuleRepository</span> <span style="color:#ff79c6">implements</span> ModuleRepositoryInterface
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">modules</span>(Environment <span style="color:#8be9fd;font-style:italic">$env</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">array</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$modules</span> <span style="color:#ff79c6">=</span> [
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">new</span> CacheModule(),
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">new</span> AppModule(),
+</span></span><span style="display:flex;"><span>        ];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">if</span> (<span style="color:#8be9fd;font-style:italic">$env</span> <span style="color:#ff79c6">===</span> Environment<span style="color:#ff79c6">::</span><span style="color:#50fa7b">Local</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">$modules</span>[] <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> DebugModule();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">$modules</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>Adding the same module class twice — whether directly or through a repository — throws <code>KernelException</code>.</p>
+<h2 id="boot-lifecycle">Boot Lifecycle<a class="anchor" href="#boot-lifecycle">#</a></h2>
+<p>Call <code>boot()</code> to start the kernel. The boot sequence runs through eight phases in order:</p>
+<table>
+	<thead>
+			<tr>
+					<th>Phase</th>
+					<th>What happens</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>preBoot</code></td>
+					<td><code>onBooting()</code> callbacks run</td>
+			</tr>
+			<tr>
+					<td><code>moduleLoad</code></td>
+					<td>Repositories are flattened; <code>config()</code> results are merged into <code>kernel.config</code>; <code>$booting</code> becomes <code>true</code></td>
+			</tr>
+			<tr>
+					<td><code>moduleRegistration</code></td>
+					<td><code>register()</code> is called on each module</td>
+			</tr>
+			<tr>
+					<td><code>serviceDecoration</code></td>
+					<td>Decorators are applied</td>
+			</tr>
+			<tr>
+					<td><code>serviceRegistration</code></td>
+					<td>Definitions are pushed into the container; tags are indexed</td>
+			</tr>
+			<tr>
+					<td><code>containerInit</code></td>
+					<td>The container is finalized and made available via <code>getContainer()</code></td>
+			</tr>
+			<tr>
+					<td><code>moduleBoot</code></td>
+					<td><code>boot()</code> is called on each <code>BootableModuleInterface</code> module</td>
+			</tr>
+			<tr>
+					<td><code>postBoot</code></td>
+					<td><code>onBooted()</code> callbacks run</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="lifecycle-hooks">Lifecycle Hooks<a class="anchor" href="#lifecycle-hooks">#</a></h3>
+<p>Register callbacks to run at specific points in the lifecycle:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">onBooting</span>(<span style="color:#ff79c6">function</span> (KernelInterface <span style="color:#8be9fd;font-style:italic">$kernel</span>)<span style="color:#ff79c6">:</span> void {
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// Runs before any modules are loaded
+</span></span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">onBooted</span>(<span style="color:#ff79c6">function</span> (KernelInterface <span style="color:#8be9fd;font-style:italic">$kernel</span>)<span style="color:#ff79c6">:</span> void {
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// Runs after the container is ready and all modules have booted
+</span></span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">$container</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getContainer</span>();
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">onShutdown</span>(<span style="color:#ff79c6">function</span> (KernelInterface <span style="color:#8be9fd;font-style:italic">$kernel</span>)<span style="color:#ff79c6">:</span> void {
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// Runs when shutdown() is called
+</span></span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">afterShutdown</span>(<span style="color:#ff79c6">function</span> (KernelInterface <span style="color:#8be9fd;font-style:italic">$kernel</span>)<span style="color:#ff79c6">:</span> void {
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// Runs after shutdown completes
+</span></span></span><span style="display:flex;"><span>});</span></span></code></pre></div><p>Multiple callbacks can be registered for each hook; they run in registration order.</p>
+<h2 id="service-decoration">Service Decoration<a class="anchor" href="#service-decoration">#</a></h2>
+<p>Decoration wraps an existing service without replacing its definition. The decorator receives the original service and the container:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(LoggerInterface<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn() <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> FileLogger(<span style="color:#f1fa8c">&#39;/var/log/app.log&#39;</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">share</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">decorate</span>(LoggerInterface<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, <span style="color:#ff79c6">function</span> (LoggerInterface <span style="color:#8be9fd;font-style:italic">$inner</span>, <span style="color:#8be9fd;font-style:italic">$container</span>)<span style="color:#ff79c6">:</span> LoggerInterface {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> CorrelationIdLogger(<span style="color:#8be9fd;font-style:italic">$inner</span>, <span style="color:#8be9fd;font-style:italic">$container</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">get</span>(CorrelationId<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>));
+</span></span><span style="display:flex;"><span>});</span></span></code></pre></div><p>Decoration is two-phase: decorators are registered eagerly but applied lazily at the <code>serviceDecoration</code> boot phase. Nothing runs until <code>boot()</code>.</p>
+<blockquote class='book-hint '>
+<p><code>decorate()</code> throws <code>KernelException</code> if called after <code>boot()</code> or if the target ID is a reserved service.</p>
+</blockquote><h2 id="the-immutable-service-graph">The Immutable Service Graph<a class="anchor" href="#the-immutable-service-graph">#</a></h2>
+<p>Once <code>boot()</code> completes, the service graph is sealed. Calling <code>define()</code> or <code>decorate()</code> after boot throws <code>KernelException</code>. Similarly, <code>addModule()</code> and <code>addRepository()</code> throw if called after boot has started.</p>
+<p>This guarantee means that the container you receive from <code>getContainer()</code> reflects the complete, final set of services. Nothing can be added or changed at runtime.</p>
+<h2 id="debug-mode">Debug Mode<a class="anchor" href="#debug-mode">#</a></h2>
+<p>Enable debug mode by passing <code>debug: true</code> to the kernel constructor:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Kernel(Environment<span style="color:#ff79c6">::</span><span style="color:#50fa7b">Local</span>, debug<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">true</span>);</span></span></code></pre></div><p>In debug mode, the kernel records boot phase durations and tracks every container resolution — when a service was resolved, how many times, and how long each resolution took. Services that implement <a href="/kernel/api/debuggable-interface/"><code>DebuggableInterface</code></a> automatically contribute their own debug output to the aggregated report.</p>
+<p>Dump the full debug snapshot at any point after boot:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$info</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getDebugInfo</span>();</span></span></code></pre></div><p>The returned array includes:</p>
+<ul>
+<li><code>bootProfile</code> — per-phase timing from the boot sequence</li>
+<li><code>container</code> — resolution counts, cumulative times, and unresolved services</li>
+<li>Debug output from any sub-system that implements <code>DebuggableInterface</code></li>
+</ul>
+<p>The <code>DebuggableInterface</code> auto-aggregation means that as the ecosystem grows, new debuggable sub-systems appear in the report without any changes to the kernel itself. Implement <code>getDebugInfo()</code> on any service registered in the container and it will be included automatically.</p>
+<blockquote class='book-hint '>
+<p><code>getStartTime()</code> returns the kernel&rsquo;s construction timestamp only in debug mode. Outside debug mode it returns <code>-INF</code>.</p>
+</blockquote></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+<div>
+
+</div>
+
+<div>
+
+</div>
+
+</div>
+
+<div class="flex flex-wrap justify-between">
+    <span>
+    
+    </span>
+    <span>
+    
+      <a href="/docs/kernels/kernel/api/" class="flex align-center">
+        <span>API Reference</span>
+        <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
+      </a>
+    
+    </span>
+  </div>
+
+ 
+        
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+        
+        
+  
+ 
+        
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
