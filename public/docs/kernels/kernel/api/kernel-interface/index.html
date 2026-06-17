@@ -440,6 +440,118 @@ https://github.com/alex-shpak/hugo-book
           
   <ul>
     
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/cli-kernel-interface/" class="">
+      CliKernelInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/command-interface/" class="">
+      CommandInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/command/" class="">
+      Command</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/argument/" class="">
+      Argument</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/option/" class="">
+      Option</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/sage-style-interface/" class="">
+      SageStyleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/exception-handler-interface/" class="">
+      ExceptionHandlerInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/exit-code/" class="">
+      ExitCode</a>
+  
+
+        </li>
+      
+    
   </ul>
 
         </li>
@@ -504,6 +616,90 @@ https://github.com/alex-shpak/hugo-book
 
           
   <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/validator/" class="">
+      Validator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/validation-result/" class="">
+      ValidationResult</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/rule-interface/" class="">
+      RuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/stoppable-rule-interface/" class="">
+      StoppableRuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/field-referencing-rule-interface/" class="">
+      FieldReferencingRuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/rules/" class="">
+      Built-in Rules</a>
+  
+
+        </li>
+      
     
   </ul>
 
@@ -866,7 +1062,8 @@ https://github.com/alex-shpak/hugo-book
 <p>Multiple callbacks can be registered for each hook; they run in registration order.</p>
 <hr>
 <h3 id="service-definitions">Service definitions<a class="anchor" href="#service-definitions">#</a></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">define</span>(string <span style="color:#8be9fd;font-style:italic">$id</span>, callable <span style="color:#8be9fd;font-style:italic">$factory</span>)<span style="color:#ff79c6">:</span> DefinitionInterface;</span></span></code></pre></div><p>Registers a service definition and returns a <a href="/kernel/api/definition-interface/"><code>DefinitionInterface</code></a> for further configuration. The factory signature is <code>callable(ContainerInterface): mixed</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">define</span>(string <span style="color:#8be9fd;font-style:italic">$id</span>, callable <span style="color:#8be9fd;font-style:italic">$factory</span>)<span style="color:#ff79c6">:</span> DefinitionInterface;</span></span></code></pre></div><p>Registers a service definition and returns a <a href="/kernel/api/definition-interface/"><code>DefinitionInterface</code></a>
+ for further configuration. The factory signature is <code>callable(ContainerInterface): mixed</code>.</p>
 <p>Throws <code>KernelException</code> if called after <code>boot()</code> or if <code>$id</code> is a reserved service.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">tag</span>(string <span style="color:#8be9fd;font-style:italic">$id</span>, <span style="color:#ff79c6">array</span> <span style="color:#8be9fd;font-style:italic">$tags</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">static</span>;</span></span></code></pre></div><p>Adds tags to an already-defined service. <code>$tags</code> is a <code>string[]</code>. Silent no-op if <code>$id</code> has not been defined.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">decorate</span>(string <span style="color:#8be9fd;font-style:italic">$id</span>, callable <span style="color:#8be9fd;font-style:italic">$decorator</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">static</span>;</span></span></code></pre></div><p>Wraps an existing service. The decorator signature is <code>callable(mixed $inner, ContainerInterface $c): mixed</code>.</p>

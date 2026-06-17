@@ -22,7 +22,7 @@ https://github.com/alex-shpak/hugo-book
 
 	<meta itemprop="name" content="Environment">
 	<meta itemprop="description" content="Enum representing the application environment">
-	<meta itemprop="wordCount" content="105">
+	<meta itemprop="wordCount" content="106">
 
 <title>Environment • Meritum</title>
 <link rel="icon" href="/favicon.png" >
@@ -468,6 +468,90 @@ https://github.com/alex-shpak/hugo-book
         </li>
       
     
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/command/" class="">
+      Command</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/argument/" class="">
+      Argument</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/option/" class="">
+      Option</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/sage-style-interface/" class="">
+      SageStyleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/exception-handler-interface/" class="">
+      ExceptionHandlerInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/exit-code/" class="">
+      ExitCode</a>
+  
+
+        </li>
+      
+    
   </ul>
 
         </li>
@@ -532,6 +616,90 @@ https://github.com/alex-shpak/hugo-book
 
           
   <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/validator/" class="">
+      Validator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/validation-result/" class="">
+      ValidationResult</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/rule-interface/" class="">
+      RuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/stoppable-rule-interface/" class="">
+      StoppableRuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/field-referencing-rule-interface/" class="">
+      FieldReferencingRuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/rules/" class="">
+      Built-in Rules</a>
+  
+
+        </li>
+      
     
   </ul>
 
@@ -877,7 +1045,9 @@ https://github.com/alex-shpak/hugo-book
       
   <article class="markdown book-article"><h1 id="environment">Environment<a class="anchor" href="#environment">#</a></h1>
 <p><code>Georgeff\Kernel\Environment</code></p>
-<p>A backed enum representing the application environment. Passed to the <code>Kernel</code> constructor and available to modules via <a href="/kernel/api/configurable-module-interface/"><code>ConfigurableModuleInterface::config()</code></a> and <a href="/kernel/api/module-repository-interface/"><code>ModuleRepositoryInterface::modules()</code></a>.</p>
+<p>A backed enum representing the application environment. Passed to the <code>Kernel</code> constructor and available to modules via <a href="/kernel/api/configurable-module-interface/"><code>ConfigurableModuleInterface::config()</code></a>
+ and <a href="/kernel/api/module-repository-interface/"><code>ModuleRepositoryInterface::modules()</code></a>
+.</p>
 <h2 id="cases">Cases<a class="anchor" href="#cases">#</a></h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span>enum Environment<span style="color:#ff79c6">:</span> string
 </span></span><span style="display:flex;"><span>{

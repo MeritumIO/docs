@@ -22,7 +22,7 @@ https://github.com/alex-shpak/hugo-book
 
 	<meta itemprop="name" content="BootableModuleInterface">
 	<meta itemprop="description" content="Module contract for running code after the container is initialized">
-	<meta itemprop="wordCount" content="114">
+	<meta itemprop="wordCount" content="115">
 
 <title>BootableModuleInterface • Meritum</title>
 <link rel="icon" href="/favicon.png" >
@@ -510,6 +510,48 @@ https://github.com/alex-shpak/hugo-book
         </li>
       
     
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/sage-style-interface/" class="">
+      SageStyleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/exception-handler-interface/" class="">
+      ExceptionHandlerInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/exit-code/" class="">
+      ExitCode</a>
+  
+
+        </li>
+      
+    
   </ul>
 
         </li>
@@ -574,6 +616,90 @@ https://github.com/alex-shpak/hugo-book
 
           
   <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/validator/" class="">
+      Validator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/validation-result/" class="">
+      ValidationResult</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/rule-interface/" class="">
+      RuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/stoppable-rule-interface/" class="">
+      StoppableRuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/field-referencing-rule-interface/" class="">
+      FieldReferencingRuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/rules/" class="">
+      Built-in Rules</a>
+  
+
+        </li>
+      
     
   </ul>
 
@@ -919,7 +1045,8 @@ https://github.com/alex-shpak/hugo-book
       
   <article class="markdown book-article"><h1 id="bootablemoduleinterface">BootableModuleInterface<a class="anchor" href="#bootablemoduleinterface">#</a></h1>
 <p><code>Georgeff\Kernel\Module\BootableModuleInterface</code></p>
-<p>Extends <a href="/kernel/api/module-interface/"><code>ModuleInterface</code></a>. Adds a <code>boot()</code> method that is called after the container is fully initialized, during the <code>moduleBoot</code> phase.</p>
+<p>Extends <a href="/kernel/api/module-interface/"><code>ModuleInterface</code></a>
+. Adds a <code>boot()</code> method that is called after the container is fully initialized, during the <code>moduleBoot</code> phase.</p>
 <h2 id="methods">Methods<a class="anchor" href="#methods">#</a></h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">boot</span>(ContainerInterface <span style="color:#8be9fd;font-style:italic">$container</span>)<span style="color:#ff79c6">:</span> void;</span></span></code></pre></div><p>Called during the <code>moduleBoot</code> boot phase, after <code>containerInit</code> completes. The container is fully initialized at this point and all services can be resolved.</p>
 <p>Use this when setup work requires resolving services — for example, registering listeners, warming caches, or starting background processes.</p>

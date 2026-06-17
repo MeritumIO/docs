@@ -22,7 +22,7 @@ https://github.com/alex-shpak/hugo-book
 
 	<meta itemprop="name" content="DefinitionInterface">
 	<meta itemprop="description" content="Fluent builder for a single service definition">
-	<meta itemprop="wordCount" content="128">
+	<meta itemprop="wordCount" content="129">
 
 <title>DefinitionInterface • Meritum</title>
 <link rel="icon" href="/favicon.png" >
@@ -454,6 +454,104 @@ https://github.com/alex-shpak/hugo-book
         </li>
       
     
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/command-interface/" class="">
+      CommandInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/command/" class="">
+      Command</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/argument/" class="">
+      Argument</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/option/" class="">
+      Option</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/sage-style-interface/" class="">
+      SageStyleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/exception-handler-interface/" class="">
+      ExceptionHandlerInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/exit-code/" class="">
+      ExitCode</a>
+  
+
+        </li>
+      
+    
   </ul>
 
         </li>
@@ -518,6 +616,90 @@ https://github.com/alex-shpak/hugo-book
 
           
   <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/validator/" class="">
+      Validator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/validation-result/" class="">
+      ValidationResult</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/rule-interface/" class="">
+      RuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/stoppable-rule-interface/" class="">
+      StoppableRuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/field-referencing-rule-interface/" class="">
+      FieldReferencingRuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/rules/" class="">
+      Built-in Rules</a>
+  
+
+        </li>
+      
     
   </ul>
 
@@ -867,7 +1049,8 @@ https://github.com/alex-shpak/hugo-book
 <h2 id="methods">Methods<a class="anchor" href="#methods">#</a></h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">share</span>()<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">static</span>;</span></span></code></pre></div><p>Makes the service a singleton. The factory is called once; subsequent resolutions return the cached instance.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">alias</span>(string <span style="color:#8be9fd;font-style:italic">$alias</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">static</span>;</span></span></code></pre></div><p>Registers an additional ID that resolves to the same service. Can be called multiple times.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">tag</span>(string <span style="color:#8be9fd;font-style:italic">$tag</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">static</span>;</span></span></code></pre></div><p>Adds a tag to this service. Can be called multiple times. Tagged services can be retrieved together via <a href="/kernel/api/tag-registry-interface/"><code>TagRegistryInterface::getTagged()</code></a>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">tag</span>(string <span style="color:#8be9fd;font-style:italic">$tag</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">static</span>;</span></span></code></pre></div><p>Adds a tag to this service. Can be called multiple times. Tagged services can be retrieved together via <a href="/kernel/api/tag-registry-interface/"><code>TagRegistryInterface::getTagged()</code></a>
+.</p>
 <h2 id="accessor-methods">Accessor methods<a class="anchor" href="#accessor-methods">#</a></h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">static</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">for</span>(string <span style="color:#8be9fd;font-style:italic">$id</span>, callable <span style="color:#8be9fd;font-style:italic">$factory</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">static</span>;</span></span></code></pre></div><p>Static factory. Normally not called directly — use <code>KernelInterface::define()</code> instead.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">getId</span>()<span style="color:#ff79c6">:</span> string;

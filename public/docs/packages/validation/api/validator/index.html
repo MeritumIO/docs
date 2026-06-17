@@ -22,7 +22,7 @@ https://github.com/alex-shpak/hugo-book
 
 	<meta itemprop="name" content="Validator">
 	<meta itemprop="description" content="Interface for validating input against a schema">
-	<meta itemprop="wordCount" content="130">
+	<meta itemprop="wordCount" content="131">
 
 <title>Validator • Meritum</title>
 <link rel="icon" href="/favicon.png" >
@@ -1051,7 +1051,9 @@ https://github.com/alex-shpak/hugo-book
 </span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c"> * @param array&lt;string, array&lt;int|string, mixed&gt;&gt; $schema
 </span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c"> * @param array&lt;string, mixed&gt;                    $input
 </span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c"> */</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">validate</span>(<span style="color:#ff79c6">array</span> <span style="color:#8be9fd;font-style:italic">$schema</span>, <span style="color:#ff79c6">array</span> <span style="color:#8be9fd;font-style:italic">$input</span>)<span style="color:#ff79c6">:</span> ValidationResult;</span></span></code></pre></div><p>Validates <code>$input</code> against <code>$schema</code> and returns an immutable <a href="/docs/packages/validation/api/validation-result/"><code>ValidationResult</code></a>. The schema maps field names to a list of rule names and parameters. See the <a href="/docs/packages/validation/">guide</a> for schema syntax, presence rules, dot notation, and wildcard expansion.</p>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">validate</span>(<span style="color:#ff79c6">array</span> <span style="color:#8be9fd;font-style:italic">$schema</span>, <span style="color:#ff79c6">array</span> <span style="color:#8be9fd;font-style:italic">$input</span>)<span style="color:#ff79c6">:</span> ValidationResult;</span></span></code></pre></div><p>Validates <code>$input</code> against <code>$schema</code> and returns an immutable <a href="/docs/packages/validation/api/validation-result/"><code>ValidationResult</code></a>
+. The schema maps field names to a list of rule names and parameters. See the <a href="/docs/packages/validation/">guide</a>
+ for schema syntax, presence rules, dot notation, and wildcard expansion.</p>
 <h2 id="example">Example<a class="anchor" href="#example">#</a></h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Validation\Validator;
 </span></span><span style="display:flex;"><span>

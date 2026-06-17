@@ -617,6 +617,90 @@ https://github.com/alex-shpak/hugo-book
           
   <ul>
     
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/validator/" class="">
+      Validator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/validation-result/" class="">
+      ValidationResult</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/rule-interface/" class="">
+      RuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/stoppable-rule-interface/" class="">
+      StoppableRuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/field-referencing-rule-interface/" class="">
+      FieldReferencingRuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/rules/" class="">
+      Built-in Rules</a>
+  
+
+        </li>
+      
+    
   </ul>
 
         </li>
@@ -962,11 +1046,13 @@ https://github.com/alex-shpak/hugo-book
   <article class="markdown book-article"><h1 id="httpkernelinterface">HttpKernelInterface<a class="anchor" href="#httpkernelinterface">#</a></h1>
 <p><code>Meritum\Http\HttpKernelInterface</code></p>
 <p>Extends <code>KernelInterface</code>, <code>RunnableKernelInterface</code>, and <code>Psr\Http\Server\RequestHandlerInterface</code>. <code>HttpKernel</code> is the concrete implementation.</p>
-<p>All methods inherited from <a href="/docs/kernels/kernel/api/kernel-interface/"><code>KernelInterface</code></a> are available.</p>
+<p>All methods inherited from <a href="/docs/kernels/kernel/api/kernel-interface/"><code>KernelInterface</code></a>
+ are available.</p>
 <h2 id="methods">Methods<a class="anchor" href="#methods">#</a></h2>
 <h3 id="routing">Routing<a class="anchor" href="#routing">#</a></h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">addRoute</span>(<span style="color:#ff79c6">array</span><span style="color:#ff79c6">|</span>string <span style="color:#8be9fd;font-style:italic">$methods</span>, string <span style="color:#8be9fd;font-style:italic">$uri</span>, RequestHandlerInterface<span style="color:#ff79c6">|</span>string <span style="color:#8be9fd;font-style:italic">$handler</span>)<span style="color:#ff79c6">:</span> RouteInterface;</span></span></code></pre></div><p>Registers a route. <code>$methods</code> is a single HTTP method string or an array of methods. <code>$handler</code> is either a <code>RequestHandlerInterface</code> instance or a class string to be resolved from the container at request time.</p>
-<p>Returns a <a href="/docs/kernels/http/api/route-interface/"><code>RouteInterface</code></a> for further configuration (per-route middleware, etc.).</p>
+<p>Returns a <a href="/docs/kernels/http/api/route-interface/"><code>RouteInterface</code></a>
+ for further configuration (per-route middleware, etc.).</p>
 <p>Throws <code>KernelException</code> if called after <code>boot()</code>.</p>
 <hr>
 <h3 id="middleware">Middleware<a class="anchor" href="#middleware">#</a></h3>

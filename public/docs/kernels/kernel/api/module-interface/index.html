@@ -617,6 +617,90 @@ https://github.com/alex-shpak/hugo-book
           
   <ul>
     
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/validator/" class="">
+      Validator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/validation-result/" class="">
+      ValidationResult</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/rule-interface/" class="">
+      RuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/stoppable-rule-interface/" class="">
+      StoppableRuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/field-referencing-rule-interface/" class="">
+      FieldReferencingRuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/rules/" class="">
+      Built-in Rules</a>
+  
+
+        </li>
+      
+    
   </ul>
 
         </li>
@@ -961,7 +1045,9 @@ https://github.com/alex-shpak/hugo-book
       
   <article class="markdown book-article"><h1 id="moduleinterface">ModuleInterface<a class="anchor" href="#moduleinterface">#</a></h1>
 <p><code>Georgeff\Kernel\Module\ModuleInterface</code></p>
-<p>The base contract for all modules. Every module must implement <code>register()</code>. See also <a href="/kernel/api/configurable-module-interface/"><code>ConfigurableModuleInterface</code></a> and <a href="/kernel/api/bootable-module-interface/"><code>BootableModuleInterface</code></a> for extended contracts.</p>
+<p>The base contract for all modules. Every module must implement <code>register()</code>. See also <a href="/kernel/api/configurable-module-interface/"><code>ConfigurableModuleInterface</code></a>
+ and <a href="/kernel/api/bootable-module-interface/"><code>BootableModuleInterface</code></a>
+ for extended contracts.</p>
 <h2 id="methods">Methods<a class="anchor" href="#methods">#</a></h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">register</span>(KernelInterface <span style="color:#8be9fd;font-style:italic">$kernel</span>)<span style="color:#ff79c6">:</span> void;</span></span></code></pre></div><p>Called during the <code>moduleRegistration</code> boot phase. Use this method to register services, tags, decorators, and any other kernel configuration.</p>
 <h2 id="example">Example<a class="anchor" href="#example">#</a></h2>

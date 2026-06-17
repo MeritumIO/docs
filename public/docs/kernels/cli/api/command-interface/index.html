@@ -22,7 +22,7 @@ https://github.com/alex-shpak/hugo-book
 
 	<meta itemprop="name" content="CommandInterface">
 	<meta itemprop="description" content="Contract for all CLI commands">
-	<meta itemprop="wordCount" content="153">
+	<meta itemprop="wordCount" content="154">
 
 <title>CommandInterface • Meritum</title>
 <link rel="icon" href="/favicon.png" >
@@ -687,6 +687,20 @@ https://github.com/alex-shpak/hugo-book
         </li>
       
     
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/rules/" class="">
+      Built-in Rules</a>
+  
+
+        </li>
+      
+    
   </ul>
 
         </li>
@@ -1031,9 +1045,12 @@ https://github.com/alex-shpak/hugo-book
       
   <article class="markdown book-article"><h1 id="commandinterface">CommandInterface<a class="anchor" href="#commandinterface">#</a></h1>
 <p><code>Meritum\Cli\Command\CommandInterface</code></p>
-<p>The contract every command must satisfy. In practice, extend the abstract <a href="/docs/kernels/cli/api/command/"><code>Command</code></a> base class rather than implementing this interface directly.</p>
+<p>The contract every command must satisfy. In practice, extend the abstract <a href="/docs/kernels/cli/api/command/"><code>Command</code></a>
+ base class rather than implementing this interface directly.</p>
 <h2 id="execution">Execution<a class="anchor" href="#execution">#</a></h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">__invoke</span>(SageStyleInterface <span style="color:#8be9fd;font-style:italic">$io</span>)<span style="color:#ff79c6">:</span> ExitCode;</span></span></code></pre></div><p>Entry point called when the command is dispatched. Receives a <a href="/docs/kernels/cli/api/sage-style-interface/"><code>SageStyleInterface</code></a> for reading input and writing output. Must return an <a href="/docs/kernels/cli/api/exit-code/"><code>ExitCode</code></a>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">__invoke</span>(SageStyleInterface <span style="color:#8be9fd;font-style:italic">$io</span>)<span style="color:#ff79c6">:</span> ExitCode;</span></span></code></pre></div><p>Entry point called when the command is dispatched. Receives a <a href="/docs/kernels/cli/api/sage-style-interface/"><code>SageStyleInterface</code></a>
+ for reading input and writing output. Must return an <a href="/docs/kernels/cli/api/exit-code/"><code>ExitCode</code></a>
+.</p>
 <h2 id="metadata-accessors">Metadata accessors<a class="anchor" href="#metadata-accessors">#</a></h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">getName</span>()<span style="color:#ff79c6">:</span> string;
 </span></span><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">getDescription</span>()<span style="color:#ff79c6">:</span> string;

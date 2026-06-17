@@ -3,6 +3,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://10.10.3.33:1313/docs/kernels/cli/api/cli-kernel-interface/</loc>
+  </url><url>
     <loc>http://10.10.3.33:1313/docs/kernels/kernel/</loc>
   </url><url>
     <loc>http://10.10.3.33:1313/docs/kernels/http/api/http-kernel-interface/</loc>
@@ -12,6 +14,10 @@
     <loc>http://10.10.3.33:1313/docs/kernels/</loc>
   </url><url>
     <loc>http://10.10.3.33:1313/docs/packages/validation/</loc>
+  </url><url>
+    <loc>http://10.10.3.33:1313/docs/packages/validation/api/validator/</loc>
+  </url><url>
+    <loc>http://10.10.3.33:1313/docs/kernels/cli/api/command-interface/</loc>
   </url><url>
     <loc>http://10.10.3.33:1313/docs/kernels/kernel/api/definition-interface/</loc>
   </url><url>
@@ -23,6 +29,10 @@
   </url><url>
     <loc>http://10.10.3.33:1313/docs/packages/</loc>
   </url><url>
+    <loc>http://10.10.3.33:1313/docs/packages/validation/api/validation-result/</loc>
+  </url><url>
+    <loc>http://10.10.3.33:1313/docs/kernels/cli/api/command/</loc>
+  </url><url>
     <loc>http://10.10.3.33:1313/docs/kernels/cli/</loc>
   </url><url>
     <loc>http://10.10.3.33:1313/docs/packages/migrations/</loc>
@@ -31,23 +41,39 @@
   </url><url>
     <loc>http://10.10.3.33:1313/docs/kernels/http/api/route-interface/</loc>
   </url><url>
+    <loc>http://10.10.3.33:1313/docs/packages/validation/api/rule-interface/</loc>
+  </url><url>
+    <loc>http://10.10.3.33:1313/docs/kernels/cli/api/argument/</loc>
+  </url><url>
     <loc>http://10.10.3.33:1313/docs/kernels/kernel/api/configurable-module-interface/</loc>
   </url><url>
     <loc>http://10.10.3.33:1313/docs/kernels/http/api/http-exception-interface/</loc>
   </url><url>
     <loc>http://10.10.3.33:1313/docs/packages/serialization/</loc>
   </url><url>
+    <loc>http://10.10.3.33:1313/docs/packages/validation/api/stoppable-rule-interface/</loc>
+  </url><url>
     <loc>http://10.10.3.33:1313/docs/kernels/kernel/api/bootable-module-interface/</loc>
+  </url><url>
+    <loc>http://10.10.3.33:1313/docs/packages/validation/api/field-referencing-rule-interface/</loc>
   </url><url>
     <loc>http://10.10.3.33:1313/docs/kernels/http/api/http-exception/</loc>
   </url><url>
     <loc>http://10.10.3.33:1313/docs/packages/logger/</loc>
+  </url><url>
+    <loc>http://10.10.3.33:1313/docs/kernels/cli/api/option/</loc>
+  </url><url>
+    <loc>http://10.10.3.33:1313/docs/packages/validation/api/rules/</loc>
   </url><url>
     <loc>http://10.10.3.33:1313/docs/packages/structured-logging/</loc>
   </url><url>
     <loc>http://10.10.3.33:1313/docs/kernels/kernel/api/module-repository-interface/</loc>
   </url><url>
     <loc>http://10.10.3.33:1313/docs/kernels/http/api/not-found-http-exception/</loc>
+  </url><url>
+    <loc>http://10.10.3.33:1313/docs/kernels/cli/api/sage-style-interface/</loc>
+  </url><url>
+    <loc>http://10.10.3.33:1313/docs/kernels/cli/api/exception-handler-interface/</loc>
   </url><url>
     <loc>http://10.10.3.33:1313/docs/packages/http-exception-handler/</loc>
   </url><url>
@@ -56,6 +82,8 @@
     <loc>http://10.10.3.33:1313/docs/kernels/kernel/api/tag-registry-interface/</loc>
   </url><url>
     <loc>http://10.10.3.33:1313/docs/kernels/kernel/api/environment/</loc>
+  </url><url>
+    <loc>http://10.10.3.33:1313/docs/kernels/cli/api/exit-code/</loc>
   </url><url>
     <loc>http://10.10.3.33:1313/docs/kernels/kernel/api/kernel-exception/</loc>
   </url><url>

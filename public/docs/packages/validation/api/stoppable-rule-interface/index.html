@@ -22,7 +22,7 @@ https://github.com/alex-shpak/hugo-book
 
 	<meta itemprop="name" content="StoppableRuleInterface">
 	<meta itemprop="description" content="Rule contract for halting propagation to subsequent rules">
-	<meta itemprop="wordCount" content="180">
+	<meta itemprop="wordCount" content="181">
 
 <title>StoppableRuleInterface • Meritum</title>
 <link rel="icon" href="/favicon.png" >
@@ -1045,7 +1045,8 @@ https://github.com/alex-shpak/hugo-book
       
   <article class="markdown book-article"><h1 id="stoppableruleinterface">StoppableRuleInterface<a class="anchor" href="#stoppableruleinterface">#</a></h1>
 <p><code>Meritum\Validation\StoppableRuleInterface</code></p>
-<p>Extends <a href="/docs/packages/validation/api/rule-interface/"><code>RuleInterface</code></a>. Rules that implement this interface can halt evaluation of subsequent rules for the same field.</p>
+<p>Extends <a href="/docs/packages/validation/api/rule-interface/"><code>RuleInterface</code></a>
+. Rules that implement this interface can halt evaluation of subsequent rules for the same field.</p>
 <p>The <code>required</code>, <code>optional</code>, and <code>nullable</code> built-in rules all implement this interface — <code>required</code> stops on failure, <code>optional</code> stops when the field is absent or null, <code>nullable</code> stops when the field is null.</p>
 <h2 id="methods">Methods<a class="anchor" href="#methods">#</a></h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">shouldPropagationStop</span>(mixed <span style="color:#8be9fd;font-style:italic">$value</span>, mixed <span style="color:#ff79c6">...</span><span style="color:#8be9fd;font-style:italic">$params</span>)<span style="color:#ff79c6">:</span> bool;</span></span></code></pre></div><p>Called by the engine after <code>validate()</code>, regardless of whether the rule passed or failed. Returns <code>true</code> to stop evaluation of subsequent rules for this field.</p>

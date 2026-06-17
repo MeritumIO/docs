@@ -21,7 +21,7 @@ https://github.com/alex-shpak/hugo-book
 
 	<meta itemprop="name" content="meritum/cli">
 	<meta itemprop="description" content="Module-first console kernel for the Meritum ecosystem">
-	<meta itemprop="wordCount" content="768">
+	<meta itemprop="wordCount" content="770">
 
 <title>meritum/cli • Meritum</title>
 <link rel="icon" href="/favicon.png" >
@@ -1044,7 +1044,8 @@ https://github.com/alex-shpak/hugo-book
       
       
   <article class="markdown book-article"><h1 id="meritumcli">meritum/cli<a class="anchor" href="#meritumcli">#</a></h1>
-<p><code>meritum/cli</code> extends <code>georgeff/kernel</code> with a command-based console runtime. Everything in the <a href="/docs/kernels/kernel/">kernel guide</a> applies here — modules, service definitions, tagging, decoration, and the boot lifecycle all work identically.</p>
+<p><code>meritum/cli</code> extends <code>georgeff/kernel</code> with a command-based console runtime. Everything in the <a href="/docs/kernels/kernel/">kernel guide</a>
+ applies here — modules, service definitions, tagging, decoration, and the boot lifecycle all work identically.</p>
 <p>The console runtime is named <strong>Sage</strong>, after Jefferson&rsquo;s sobriquet &ldquo;the Sage of Monticello.&rdquo;</p>
 <pre tabindex="0"><code>composer require meritum/cli</code></pre><h2 id="entry-point">Entry Point<a class="anchor" href="#entry-point">#</a></h2>
 <p><code>CliKernel</code> is the concrete implementation. Wire it up in your entry point script:</p>
@@ -1093,9 +1094,12 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> ExitCode<span style="color:#ff79c6">::</span><span style="color:#50fa7b">Success</span>;
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>The <code>__invoke()</code> method receives a <a href="/docs/kernels/cli/api/sage-style-interface/"><code>SageStyleInterface</code></a> instance and must return an <a href="/docs/kernels/cli/api/exit-code/"><code>ExitCode</code></a>.</p>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>The <code>__invoke()</code> method receives a <a href="/docs/kernels/cli/api/sage-style-interface/"><code>SageStyleInterface</code></a>
+ instance and must return an <a href="/docs/kernels/cli/api/exit-code/"><code>ExitCode</code></a>
+.</p>
 <h2 id="arguments">Arguments<a class="anchor" href="#arguments">#</a></h2>
-<p>Add arguments to a command with <code>addArgument()</code>. It returns an <a href="/docs/kernels/cli/api/argument/"><code>Argument</code></a> you can configure with a fluent API:</p>
+<p>Add arguments to a command with <code>addArgument()</code>. It returns an <a href="/docs/kernels/cli/api/argument/"><code>Argument</code></a>
+ you can configure with a fluent API:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#6272a4">// Required argument (default)
 </span></span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addArgument</span>(<span style="color:#f1fa8c">&#39;path&#39;</span>)
 </span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">description</span>(<span style="color:#f1fa8c">&#39;Path to the target file&#39;</span>);
@@ -1117,7 +1121,8 @@ https://github.com/alex-shpak/hugo-book
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$path</span>  <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">argument</span>(<span style="color:#f1fa8c">&#39;path&#39;</span>);
 </span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$files</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">argument</span>(<span style="color:#f1fa8c">&#39;files&#39;</span>); <span style="color:#6272a4">// array when -&gt;array() was called
 </span></span></span></code></pre></div><h2 id="options">Options<a class="anchor" href="#options">#</a></h2>
-<p>Add options with <code>addOption()</code>. It returns an <a href="/docs/kernels/cli/api/option/"><code>Option</code></a> you can configure:</p>
+<p>Add options with <code>addOption()</code>. It returns an <a href="/docs/kernels/cli/api/option/"><code>Option</code></a>
+ you can configure:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#6272a4">// Flag option (no value, defaults to false)
 </span></span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addOption</span>(<span style="color:#f1fa8c">&#39;verbose&#39;</span>)
 </span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">description</span>(<span style="color:#f1fa8c">&#39;Enable verbose output&#39;</span>)
@@ -1147,7 +1152,8 @@ https://github.com/alex-shpak/hugo-book
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$format</span>  <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">option</span>(<span style="color:#f1fa8c">&#39;format&#39;</span>);
 </span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$verbose</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">option</span>(<span style="color:#f1fa8c">&#39;verbose&#39;</span>); <span style="color:#6272a4">// bool for flags
 </span></span></span></code></pre></div><h2 id="output">Output<a class="anchor" href="#output">#</a></h2>
-<p>The <code>$io</code> parameter passed to <code>__invoke()</code> is a <a href="/docs/kernels/cli/api/sage-style-interface/"><code>SageStyleInterface</code></a>, which extends symfony&rsquo;s <code>StyleInterface</code> and <code>OutputInterface</code>. All symfony output methods are available:</p>
+<p>The <code>$io</code> parameter passed to <code>__invoke()</code> is a <a href="/docs/kernels/cli/api/sage-style-interface/"><code>SageStyleInterface</code></a>
+, which extends symfony&rsquo;s <code>StyleInterface</code> and <code>OutputInterface</code>. All symfony output methods are available:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">title</span>(<span style="color:#f1fa8c">&#39;My Application&#39;</span>);
 </span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">section</span>(<span style="color:#f1fa8c">&#39;Running tasks&#39;</span>);
 </span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">text</span>(<span style="color:#f1fa8c">&#39;Processing...&#39;</span>);
@@ -1161,9 +1167,11 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">table</span>(
 </span></span><span style="display:flex;"><span>    [<span style="color:#f1fa8c">&#39;Name&#39;</span>, <span style="color:#f1fa8c">&#39;Status&#39;</span>],
 </span></span><span style="display:flex;"><span>    [[<span style="color:#f1fa8c">&#39;deploy&#39;</span>, <span style="color:#f1fa8c">&#39;ok&#39;</span>], [<span style="color:#f1fa8c">&#39;migrate&#39;</span>, <span style="color:#f1fa8c">&#39;pending&#39;</span>]]
-</span></span><span style="display:flex;"><span>);</span></span></code></pre></div><p>Refer to the <a href="https://symfony.com/doc/current/console/style.html">symfony Console documentation</a> for the full list of available output methods.</p>
+</span></span><span style="display:flex;"><span>);</span></span></code></pre></div><p>Refer to the <a href="https://symfony.com/doc/current/console/style.html" target="_blank" rel="noopener noreferrer">symfony Console documentation</a>
+ for the full list of available output methods.</p>
 <h2 id="exit-codes">Exit Codes<a class="anchor" href="#exit-codes">#</a></h2>
-<p>Return <a href="/docs/kernels/cli/api/exit-code/"><code>ExitCode::Success</code></a> on success and <code>ExitCode::Error</code> on failure:</p>
+<p>Return <a href="/docs/kernels/cli/api/exit-code/"><code>ExitCode::Success</code></a>
+ on success and <code>ExitCode::Error</code> on failure:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">__invoke</span>(SageStyleInterface <span style="color:#8be9fd;font-style:italic">$io</span>)<span style="color:#ff79c6">:</span> ExitCode
 </span></span><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span><span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">canProceed</span>()) {

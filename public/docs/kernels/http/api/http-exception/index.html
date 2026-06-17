@@ -22,7 +22,7 @@ https://github.com/alex-shpak/hugo-book
 
 	<meta itemprop="name" content="HttpException">
 	<meta itemprop="description" content="Base class for HTTP exceptions">
-	<meta itemprop="wordCount" content="78">
+	<meta itemprop="wordCount" content="79">
 
 <title>HttpException • Meritum</title>
 <link rel="icon" href="/favicon.png" >
@@ -617,6 +617,90 @@ https://github.com/alex-shpak/hugo-book
           
   <ul>
     
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/validator/" class="">
+      Validator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/validation-result/" class="">
+      ValidationResult</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/rule-interface/" class="">
+      RuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/stoppable-rule-interface/" class="">
+      StoppableRuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/field-referencing-rule-interface/" class="">
+      FieldReferencingRuleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/validation/api/rules/" class="">
+      Built-in Rules</a>
+  
+
+        </li>
+      
+    
   </ul>
 
         </li>
@@ -961,7 +1045,8 @@ https://github.com/alex-shpak/hugo-book
       
   <article class="markdown book-article"><h1 id="httpexception">HttpException<a class="anchor" href="#httpexception">#</a></h1>
 <p><code>Meritum\Http\Exception\HttpException</code></p>
-<p>Base class for HTTP exceptions. Extends <code>RuntimeException</code> and implements <a href="/docs/kernels/http/api/http-exception-interface/"><code>HttpExceptionInterface</code></a>. Defaults to a <code>500 Internal Server Error</code>. Extend it to create custom HTTP exceptions with specific status codes and titles.</p>
+<p>Base class for HTTP exceptions. Extends <code>RuntimeException</code> and implements <a href="/docs/kernels/http/api/http-exception-interface/"><code>HttpExceptionInterface</code></a>
+. Defaults to a <code>500 Internal Server Error</code>. Extend it to create custom HTTP exceptions with specific status codes and titles.</p>
 <h2 id="constructor">Constructor<a class="anchor" href="#constructor">#</a></h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">__construct</span>(
 </span></span><span style="display:flex;"><span>    ServerRequestInterface <span style="color:#8be9fd;font-style:italic">$request</span>,
