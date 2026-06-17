@@ -21,7 +21,7 @@ https://github.com/alex-shpak/hugo-book
 
 	<meta itemprop="name" content="meritum/cli">
 	<meta itemprop="description" content="Module-first console kernel for the Meritum ecosystem">
-	<meta itemprop="wordCount" content="3">
+	<meta itemprop="wordCount" content="768">
 
 <title>meritum/cli • Meritum</title>
 <link rel="icon" href="/favicon.png" >
@@ -440,6 +440,118 @@ https://github.com/alex-shpak/hugo-book
           
   <ul>
     
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/cli-kernel-interface/" class="">
+      CliKernelInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/command-interface/" class="">
+      CommandInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/command/" class="">
+      Command</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/argument/" class="">
+      Argument</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/option/" class="">
+      Option</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/sage-style-interface/" class="">
+      SageStyleInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/exception-handler-interface/" class="">
+      ExceptionHandlerInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/cli/api/exit-code/" class="">
+      ExitCode</a>
+  
+
+        </li>
+      
+    
   </ul>
 
         </li>
@@ -847,7 +959,198 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><p>Documentation coming soon.</p>
+  <article class="markdown book-article"><h1 id="meritumcli">meritum/cli<a class="anchor" href="#meritumcli">#</a></h1>
+<p><code>meritum/cli</code> extends <code>georgeff/kernel</code> with a command-based console runtime. Everything in the <a href="/docs/kernels/kernel/">kernel guide</a> applies here — modules, service definitions, tagging, decoration, and the boot lifecycle all work identically.</p>
+<p>The console runtime is named <strong>Sage</strong>, after Jefferson&rsquo;s sobriquet &ldquo;the Sage of Monticello.&rdquo;</p>
+<pre tabindex="0"><code>composer require meritum/cli</code></pre><h2 id="entry-point">Entry Point<a class="anchor" href="#entry-point">#</a></h2>
+<p><code>CliKernel</code> is the concrete implementation. Wire it up in your entry point script:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> App\ModuleRepository;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Cli\CliKernel;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Georgeff\Kernel\Support\Env;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Georgeff\Kernel\Environment;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$environment</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">match</span> (Env<span style="color:#ff79c6">::</span><span style="color:#50fa7b">get</span>(<span style="color:#f1fa8c">&#39;APP_ENV&#39;</span>, <span style="color:#f1fa8c">&#39;production&#39;</span>)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#39;local&#39;</span>                         <span style="color:#ff79c6">=&gt;</span> Environment<span style="color:#ff79c6">::</span><span style="color:#50fa7b">Local</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#39;test&#39;</span>, <span style="color:#f1fa8c">&#39;testing&#39;</span>               <span style="color:#ff79c6">=&gt;</span> Environment<span style="color:#ff79c6">::</span><span style="color:#50fa7b">Testing</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#39;dev&#39;</span>, <span style="color:#f1fa8c">&#39;develop&#39;</span>, <span style="color:#f1fa8c">&#39;development&#39;</span> <span style="color:#ff79c6">=&gt;</span> Environment<span style="color:#ff79c6">::</span><span style="color:#50fa7b">Development</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#39;stage&#39;</span>, <span style="color:#f1fa8c">&#39;staging&#39;</span>              <span style="color:#ff79c6">=&gt;</span> Environment<span style="color:#ff79c6">::</span><span style="color:#50fa7b">Staging</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">default</span>                         <span style="color:#ff79c6">=&gt;</span> Environment<span style="color:#ff79c6">::</span><span style="color:#50fa7b">Production</span>,
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> CliKernel(<span style="color:#8be9fd;font-style:italic">$environment</span>, debug<span style="color:#ff79c6">:</span> Env<span style="color:#ff79c6">::</span><span style="color:#50fa7b">get</span>(<span style="color:#f1fa8c">&#39;APP_DEBUG&#39;</span>, <span style="color:#ff79c6">false</span>));
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addRepository</span>(<span style="color:#ff79c6">new</span> ModuleRepository());
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">boot</span>();
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">exit</span>(<span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">run</span>());</span></span></code></pre></div><p><code>run()</code> delegates to <code>handle()</code>, which reads <code>$argv</code>, dispatches to the matched command, and returns an integer exit code.</p>
+<h2 id="application-name-and-version">Application Name and Version<a class="anchor" href="#application-name-and-version">#</a></h2>
+<p>By default the application is named <code>Sage</code> and the version is auto-detected from Composer&rsquo;s installed package data. Override either before <code>boot()</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">setName</span>(<span style="color:#f1fa8c">&#39;Acme Console&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">setVersion</span>(<span style="color:#f1fa8c">&#39;1.0.0&#39;</span>);</span></span></code></pre></div><p>Both throw <code>KernelException</code> if called after <code>boot()</code>.</p>
+<h2 id="commands">Commands<a class="anchor" href="#commands">#</a></h2>
+<p>Commands extend the abstract <code>Command</code> class and implement <code>__invoke()</code>. Define the command&rsquo;s metadata in the constructor using the fluent builder methods; implement the execution logic in <code>__invoke()</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Cli\ExitCode;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Cli\Command\Command;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Cli\Output\SageStyleInterface;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">GreetCommand</span> <span style="color:#ff79c6">extends</span> Command
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">__construct</span>()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">setName</span>(<span style="color:#f1fa8c">&#39;app:greet&#39;</span>)
+</span></span><span style="display:flex;"><span>             <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">setDescription</span>(<span style="color:#f1fa8c">&#39;Greet a user by name&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addArgument</span>(<span style="color:#f1fa8c">&#39;name&#39;</span>)
+</span></span><span style="display:flex;"><span>             <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">description</span>(<span style="color:#f1fa8c">&#39;The name to greet&#39;</span>)
+</span></span><span style="display:flex;"><span>             <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">optional</span>(<span style="color:#f1fa8c">&#39;World&#39;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">__invoke</span>(SageStyleInterface <span style="color:#8be9fd;font-style:italic">$io</span>)<span style="color:#ff79c6">:</span> ExitCode
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">success</span>(<span style="color:#f1fa8c">&#39;Hello, &#39;</span> <span style="color:#ff79c6">.</span> <span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">argument</span>(<span style="color:#f1fa8c">&#39;name&#39;</span>) <span style="color:#ff79c6">.</span> <span style="color:#f1fa8c">&#39;!&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> ExitCode<span style="color:#ff79c6">::</span><span style="color:#50fa7b">Success</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>The <code>__invoke()</code> method receives a <a href="/docs/kernels/cli/api/sage-style-interface/"><code>SageStyleInterface</code></a> instance and must return an <a href="/docs/kernels/cli/api/exit-code/"><code>ExitCode</code></a>.</p>
+<h2 id="arguments">Arguments<a class="anchor" href="#arguments">#</a></h2>
+<p>Add arguments to a command with <code>addArgument()</code>. It returns an <a href="/docs/kernels/cli/api/argument/"><code>Argument</code></a> you can configure with a fluent API:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#6272a4">// Required argument (default)
+</span></span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addArgument</span>(<span style="color:#f1fa8c">&#39;path&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">description</span>(<span style="color:#f1fa8c">&#39;Path to the target file&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// Optional argument with a default value
+</span></span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addArgument</span>(<span style="color:#f1fa8c">&#39;env&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">description</span>(<span style="color:#f1fa8c">&#39;The environment to target&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">optional</span>(<span style="color:#f1fa8c">&#39;production&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// Array argument — accepts multiple values
+</span></span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addArgument</span>(<span style="color:#f1fa8c">&#39;files&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">description</span>(<span style="color:#f1fa8c">&#39;Files to process&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">array</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// With completion suggestions
+</span></span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addArgument</span>(<span style="color:#f1fa8c">&#39;driver&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">description</span>(<span style="color:#f1fa8c">&#39;Database driver&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">suggest</span>(<span style="color:#f1fa8c">&#39;mysql&#39;</span>, <span style="color:#f1fa8c">&#39;pgsql&#39;</span>, <span style="color:#f1fa8c">&#39;sqlite&#39;</span>);</span></span></code></pre></div><p>Read argument values inside <code>__invoke()</code> via <code>$io-&gt;argument()</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$path</span>  <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">argument</span>(<span style="color:#f1fa8c">&#39;path&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$files</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">argument</span>(<span style="color:#f1fa8c">&#39;files&#39;</span>); <span style="color:#6272a4">// array when -&gt;array() was called
+</span></span></span></code></pre></div><h2 id="options">Options<a class="anchor" href="#options">#</a></h2>
+<p>Add options with <code>addOption()</code>. It returns an <a href="/docs/kernels/cli/api/option/"><code>Option</code></a> you can configure:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#6272a4">// Flag option (no value, defaults to false)
+</span></span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addOption</span>(<span style="color:#f1fa8c">&#39;verbose&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">description</span>(<span style="color:#f1fa8c">&#39;Enable verbose output&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">shortcut</span>(<span style="color:#f1fa8c">&#39;v&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// Option that requires a value
+</span></span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addOption</span>(<span style="color:#f1fa8c">&#39;format&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">description</span>(<span style="color:#f1fa8c">&#39;Output format&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">required</span>()
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">suggest</span>(<span style="color:#f1fa8c">&#39;json&#39;</span>, <span style="color:#f1fa8c">&#39;table&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// Option with an optional value
+</span></span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addOption</span>(<span style="color:#f1fa8c">&#39;output&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">description</span>(<span style="color:#f1fa8c">&#39;Output file path&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">optional</span>(<span style="color:#f1fa8c">&#39;/dev/stdout&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// Array option — can be passed multiple times
+</span></span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addOption</span>(<span style="color:#f1fa8c">&#39;tag&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">description</span>(<span style="color:#f1fa8c">&#39;Tags to apply&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">required</span>()
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">array</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// Negatable flag (--feature / --no-feature)
+</span></span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addOption</span>(<span style="color:#f1fa8c">&#39;cache&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">description</span>(<span style="color:#f1fa8c">&#39;Use the cache&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">negatable</span>();</span></span></code></pre></div><p>Read option values inside <code>__invoke()</code> via <code>$io-&gt;option()</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$format</span>  <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">option</span>(<span style="color:#f1fa8c">&#39;format&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$verbose</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">option</span>(<span style="color:#f1fa8c">&#39;verbose&#39;</span>); <span style="color:#6272a4">// bool for flags
+</span></span></span></code></pre></div><h2 id="output">Output<a class="anchor" href="#output">#</a></h2>
+<p>The <code>$io</code> parameter passed to <code>__invoke()</code> is a <a href="/docs/kernels/cli/api/sage-style-interface/"><code>SageStyleInterface</code></a>, which extends symfony&rsquo;s <code>StyleInterface</code> and <code>OutputInterface</code>. All symfony output methods are available:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">title</span>(<span style="color:#f1fa8c">&#39;My Application&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">section</span>(<span style="color:#f1fa8c">&#39;Running tasks&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">text</span>(<span style="color:#f1fa8c">&#39;Processing...&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">success</span>(<span style="color:#f1fa8c">&#39;Done!&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">error</span>(<span style="color:#f1fa8c">&#39;Something went wrong&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">warning</span>(<span style="color:#f1fa8c">&#39;This may cause issues&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">info</span>(<span style="color:#f1fa8c">&#39;Just so you know&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">note</span>(<span style="color:#f1fa8c">&#39;Additional context&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">table</span>(
+</span></span><span style="display:flex;"><span>    [<span style="color:#f1fa8c">&#39;Name&#39;</span>, <span style="color:#f1fa8c">&#39;Status&#39;</span>],
+</span></span><span style="display:flex;"><span>    [[<span style="color:#f1fa8c">&#39;deploy&#39;</span>, <span style="color:#f1fa8c">&#39;ok&#39;</span>], [<span style="color:#f1fa8c">&#39;migrate&#39;</span>, <span style="color:#f1fa8c">&#39;pending&#39;</span>]]
+</span></span><span style="display:flex;"><span>);</span></span></code></pre></div><p>Refer to the <a href="https://symfony.com/doc/current/console/style.html">symfony Console documentation</a> for the full list of available output methods.</p>
+<h2 id="exit-codes">Exit Codes<a class="anchor" href="#exit-codes">#</a></h2>
+<p>Return <a href="/docs/kernels/cli/api/exit-code/"><code>ExitCode::Success</code></a> on success and <code>ExitCode::Error</code> on failure:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">__invoke</span>(SageStyleInterface <span style="color:#8be9fd;font-style:italic">$io</span>)<span style="color:#ff79c6">:</span> ExitCode
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span><span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">canProceed</span>()) {
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">error</span>(<span style="color:#f1fa8c">&#39;Cannot proceed.&#39;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> ExitCode<span style="color:#ff79c6">::</span><span style="color:#50fa7b">Error</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">doWork</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> ExitCode<span style="color:#ff79c6">::</span><span style="color:#50fa7b">Success</span>;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p><code>ExitCode::Success</code> maps to <code>0</code>; <code>ExitCode::Error</code> maps to <code>1</code>.</p>
+<h2 id="registering-commands">Registering Commands<a class="anchor" href="#registering-commands">#</a></h2>
+<p>Commands are registered using the standard kernel tagging API. Tag any defined service with <code>'cli.commands'</code> and the CLI kernel will pick it up automatically during boot:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Georgeff\Kernel\KernelInterface;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Georgeff\Kernel\Module\ModuleInterface;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">AppModule</span> <span style="color:#ff79c6">implements</span> ModuleInterface
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">register</span>(KernelInterface <span style="color:#8be9fd;font-style:italic">$kernel</span>)<span style="color:#ff79c6">:</span> void
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(GreetCommand<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn() <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> GreetCommand())
+</span></span><span style="display:flex;"><span>               <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">tag</span>(<span style="color:#f1fa8c">&#39;cli.commands&#39;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>Constructor injection works because commands are resolved from the container:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(SendReportCommand<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn(<span style="color:#8be9fd;font-style:italic">$c</span>) <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> SendReportCommand(
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">$c</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">get</span>(MailerInterface<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">$c</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">get</span>(ReportBuilder<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>)
+</span></span><span style="display:flex;"><span>))<span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">tag</span>(<span style="color:#f1fa8c">&#39;cli.commands&#39;</span>);</span></span></code></pre></div><h2 id="calling-other-commands">Calling Other Commands<a class="anchor" href="#calling-other-commands">#</a></h2>
+<p>From within a command, call another registered command using <code>$this-&gt;call()</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">__invoke</span>(SageStyleInterface <span style="color:#8be9fd;font-style:italic">$io</span>)<span style="color:#ff79c6">:</span> ExitCode
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">call</span>(<span style="color:#f1fa8c">&#39;db:migrate&#39;</span>, <span style="color:#8be9fd;font-style:italic">$io</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">call</span>(<span style="color:#f1fa8c">&#39;cache:clear&#39;</span>, <span style="color:#8be9fd;font-style:italic">$io</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> ExitCode<span style="color:#ff79c6">::</span><span style="color:#50fa7b">Success</span>;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>Pass input parameters as the third argument:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">call</span>(<span style="color:#f1fa8c">&#39;db:seed&#39;</span>, <span style="color:#8be9fd;font-style:italic">$io</span>, [<span style="color:#f1fa8c">&#39;--class&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;UserSeeder&#39;</span>]);</span></span></code></pre></div><p>If no output is provided the called command runs silently.</p>
+<h2 id="exception-handling">Exception Handling<a class="anchor" href="#exception-handling">#</a></h2>
+<p>By default, exceptions that escape a command bubble up and symfony renders its own error output. To handle them yourself, register an implementation of <code>ExceptionHandlerInterface</code> in the container:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Throwable;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Cli\Output\SageStyleInterface;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Cli\Exception\ExceptionHandlerInterface;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">ExceptionHandler</span> <span style="color:#ff79c6">implements</span> ExceptionHandlerInterface
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">handle</span>(Throwable <span style="color:#8be9fd;font-style:italic">$exception</span>, SageStyleInterface <span style="color:#8be9fd;font-style:italic">$io</span>)<span style="color:#ff79c6">:</span> void
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$io</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">error</span>(<span style="color:#8be9fd;font-style:italic">$exception</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getMessage</span>());
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>Register it in a module:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Cli\Exception\ExceptionHandlerInterface;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(ExceptionHandlerInterface<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn() <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> ExceptionHandler());</span></span></code></pre></div><p>The kernel checks for <code>ExceptionHandlerInterface::class</code> in the container on every <code>handle()</code> call. If present, caught exceptions are passed to it and <code>handle()</code> returns <code>ExitCode::Error</code> (1). If absent, exceptions bubble.</p>
+<blockquote class='book-hint '>
+<p><code>meritum/structured-logging</code> provides pipeline tooling that can be wired into the exception handler to capture and structure error context for observability.</p>
+</blockquote><h2 id="default-container-registrations">Default Container Registrations<a class="anchor" href="#default-container-registrations">#</a></h2>
+<p><code>CliKernel</code> registers one service automatically during the boot sequence:</p>
+<table>
+	<thead>
+			<tr>
+					<th>ID</th>
+					<th>Resolves to</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>'cli.app'</code></td>
+					<td>The symfony <code>Application</code> instance (internal)</td>
+			</tr>
+	</tbody>
+</table>
+<p>Do not overwrite <code>'cli.app'</code> unless you intend to replace the entire console runtime.</p>
 </article>
  
       

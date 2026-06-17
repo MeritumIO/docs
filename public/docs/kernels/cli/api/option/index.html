@@ -8,33 +8,32 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Public classes and interfaces for meritum/http.
-">
+<meta name="description" content="Fluent builder for a single command option">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://10.10.3.33:1313/docs/kernels/http/api/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://10.10.3.33:1313/docs/kernels/cli/api/option/">
 	<meta property="og:site_name" content="Meritum">
-	<meta property="og:title" content="API Reference">
-	<meta property="og:description" content="Public classes and interfaces for meritum/http.">
+	<meta property="og:title" content="Option">
+	<meta property="og:description" content="Fluent builder for a single command option">
 	<meta property="og:locale" content="en">
-	<meta property="og:type" content="website">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="docs">
 
 
-	<meta itemprop="name" content="API Reference">
-	<meta itemprop="description" content="Public classes and interfaces for meritum/http.">
-	<meta itemprop="wordCount" content="6">
+	<meta itemprop="name" content="Option">
+	<meta itemprop="description" content="Fluent builder for a single command option">
+	<meta itemprop="wordCount" content="185">
 
-<title>API Reference • Meritum</title>
+<title>Option • Meritum</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="http://10.10.3.33:1313/docs/kernels/http/api/">
+<link rel="canonical" href="http://10.10.3.33:1313/docs/kernels/cli/api/option/">
 <link rel="stylesheet" href="/book.min.98c83e4c8e1c8661368bcb29bbaf4dcc9d31b8164f76aae322d82d86a9750c65.css" integrity="sha256-mMg&#43;TI4chmE2i8spu69NzJ0xuBZPdqrjItgthql1DGU=" crossorigin="anonymous">
 
-<link rel="alternate" type="application/rss+xml" href="http://10.10.3.33:1313/docs/kernels/http/api/index.xml" title="API Reference" />
 
   
 </head>
-<body dir="ltr" class="book-kind-section book-type-docs">
+<body dir="ltr" class="book-kind-page book-type-docs">
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
@@ -268,7 +267,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-8ae534f34ec70b730454c217af6b96e0" class="toggle" checked />
+    <input type="checkbox" id="section-8ae534f34ec70b730454c217af6b96e0" class="toggle"  />
     <label for="section-8ae534f34ec70b730454c217af6b96e0" class="flex">
       <a href="/docs/kernels/http/" class="">
         meritum/http</a>
@@ -286,9 +285,9 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-b2bd39bbe190fa6dd0d8ec70ae1df97a" class="toggle" checked />
+    <input type="checkbox" id="section-b2bd39bbe190fa6dd0d8ec70ae1df97a" class="toggle"  />
     <label for="section-b2bd39bbe190fa6dd0d8ec70ae1df97a" class="flex">
-      <a href="/docs/kernels/http/api/" class="active">
+      <a href="/docs/kernels/http/api/" class="">
         API Reference</a>
       <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
     </label>
@@ -412,7 +411,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-86bac8aef8f4a3984e34164d9656fad2" class="toggle"  />
+    <input type="checkbox" id="section-86bac8aef8f4a3984e34164d9656fad2" class="toggle" checked />
     <label for="section-86bac8aef8f4a3984e34164d9656fad2" class="flex">
       <a href="/docs/kernels/cli/" class="">
         meritum/cli</a>
@@ -430,7 +429,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-281e71f5e7aef8509aa2e9023d6fe6c6" class="toggle"  />
+    <input type="checkbox" id="section-281e71f5e7aef8509aa2e9023d6fe6c6" class="toggle" checked />
     <label for="section-281e71f5e7aef8509aa2e9023d6fe6c6" class="flex">
       <a href="/docs/kernels/cli/api/" class="">
         API Reference</a>
@@ -504,7 +503,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/kernels/cli/api/option/" class="">
+    <a href="/docs/kernels/cli/api/option/" class="active">
       Option</a>
   
 
@@ -946,7 +945,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>API Reference</h3>
+  <h3>Option</h3>
 
   <label for="toc-control">
     
@@ -960,8 +959,46 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><p>Public classes and interfaces for <code>meritum/http</code>.</p>
-</article>
+  <article class="markdown book-article"><h1 id="option">Option<a class="anchor" href="#option">#</a></h1>
+<p><code>Meritum\Cli\Command\Option</code></p>
+<p>Returned by <code>Command::addOption()</code>. Configures a single option (<code>--name</code>) on a command. Options are boolean flags (no value) by default.</p>
+<h2 id="value-mode">Value mode<a class="anchor" href="#value-mode">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">required</span>()<span style="color:#ff79c6">:</span> self;</span></span></code></pre></div><p>The option requires a value: <code>--format=json</code> or <code>--format json</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">optional</span>(mixed <span style="color:#8be9fd;font-style:italic">$default</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>)<span style="color:#ff79c6">:</span> self;</span></span></code></pre></div><p>The option accepts a value but it is not mandatory. <code>$default</code> is used when <code>--option</code> is passed without a value.</p>
+<h2 id="modifiers">Modifiers<a class="anchor" href="#modifiers">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">array</span>()<span style="color:#ff79c6">:</span> self;</span></span></code></pre></div><p>The option can be passed multiple times: <code>--tag foo --tag bar</code>. <code>$io-&gt;option()</code> returns an array.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">negatable</span>()<span style="color:#ff79c6">:</span> self;</span></span></code></pre></div><p>Generates both <code>--option</code> and <code>--no-option</code> variants. <code>$io-&gt;option()</code> returns <code>true</code> or <code>false</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">shortcut</span>(string <span style="color:#ff79c6">...</span><span style="color:#8be9fd;font-style:italic">$shortcuts</span>)<span style="color:#ff79c6">:</span> self;</span></span></code></pre></div><p>Registers one or more single-character shortcuts (e.g. <code>-v</code> for <code>--verbose</code>).</p>
+<h2 id="metadata">Metadata<a class="anchor" href="#metadata">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">description</span>(string <span style="color:#8be9fd;font-style:italic">$description</span>)<span style="color:#ff79c6">:</span> self;</span></span></code></pre></div><p>Short description shown in help output.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">suggest</span>(string <span style="color:#ff79c6">...</span><span style="color:#8be9fd;font-style:italic">$suggestions</span>)<span style="color:#ff79c6">:</span> self;</span></span></code></pre></div><p>Provides shell completion suggestions for the option&rsquo;s value.</p>
+<h2 id="example">Example<a class="anchor" href="#example">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#6272a4">// Flag (no value)
+</span></span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addOption</span>(<span style="color:#f1fa8c">&#39;verbose&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">description</span>(<span style="color:#f1fa8c">&#39;Enable verbose output&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">shortcut</span>(<span style="color:#f1fa8c">&#39;v&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// Required value
+</span></span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addOption</span>(<span style="color:#f1fa8c">&#39;format&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">description</span>(<span style="color:#f1fa8c">&#39;Output format&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">required</span>()
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">suggest</span>(<span style="color:#f1fa8c">&#39;json&#39;</span>, <span style="color:#f1fa8c">&#39;table&#39;</span>, <span style="color:#f1fa8c">&#39;csv&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// Optional value with default
+</span></span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addOption</span>(<span style="color:#f1fa8c">&#39;output&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">description</span>(<span style="color:#f1fa8c">&#39;Write output to file&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">optional</span>(<span style="color:#f1fa8c">&#39;/dev/stdout&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// Array option
+</span></span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addOption</span>(<span style="color:#f1fa8c">&#39;tag&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">description</span>(<span style="color:#f1fa8c">&#39;Tags to apply (can be repeated)&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">required</span>()
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">array</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// Negatable flag
+</span></span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addOption</span>(<span style="color:#f1fa8c">&#39;cache&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">description</span>(<span style="color:#f1fa8c">&#39;Use the cache (--cache / --no-cache)&#39;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">negatable</span>();</span></span></code></pre></div></article>
  
       
 
@@ -982,16 +1019,16 @@ https://github.com/alex-shpak/hugo-book
 <div class="flex flex-wrap justify-between">
     <span>
     
-      <a href="/docs/kernels/http/" class="flex align-center">
+      <a href="/docs/kernels/cli/api/argument/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>meritum/http</span>
+        <span>Argument</span>
       </a>
     
     </span>
     <span>
     
-      <a href="/docs/kernels/http/api/http-kernel-interface/" class="flex align-center">
-        <span>HttpKernelInterface</span>
+      <a href="/docs/kernels/cli/api/sage-style-interface/" class="flex align-center">
+        <span>SageStyleInterface</span>
         <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
       </a>
     

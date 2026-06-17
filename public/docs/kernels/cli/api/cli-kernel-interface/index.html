@@ -8,33 +8,32 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Public classes and interfaces for meritum/http.
-">
+<meta name="description" content="The CLI kernel contract — extends KernelInterface with console-specific methods">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://10.10.3.33:1313/docs/kernels/http/api/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://10.10.3.33:1313/docs/kernels/cli/api/cli-kernel-interface/">
 	<meta property="og:site_name" content="Meritum">
-	<meta property="og:title" content="API Reference">
-	<meta property="og:description" content="Public classes and interfaces for meritum/http.">
+	<meta property="og:title" content="CliKernelInterface">
+	<meta property="og:description" content="The CLI kernel contract — extends KernelInterface with console-specific methods">
 	<meta property="og:locale" content="en">
-	<meta property="og:type" content="website">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="docs">
 
 
-	<meta itemprop="name" content="API Reference">
-	<meta itemprop="description" content="Public classes and interfaces for meritum/http.">
-	<meta itemprop="wordCount" content="6">
+	<meta itemprop="name" content="CliKernelInterface">
+	<meta itemprop="description" content="The CLI kernel contract — extends KernelInterface with console-specific methods">
+	<meta itemprop="wordCount" content="208">
 
-<title>API Reference • Meritum</title>
+<title>CliKernelInterface • Meritum</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="http://10.10.3.33:1313/docs/kernels/http/api/">
+<link rel="canonical" href="http://10.10.3.33:1313/docs/kernels/cli/api/cli-kernel-interface/">
 <link rel="stylesheet" href="/book.min.98c83e4c8e1c8661368bcb29bbaf4dcc9d31b8164f76aae322d82d86a9750c65.css" integrity="sha256-mMg&#43;TI4chmE2i8spu69NzJ0xuBZPdqrjItgthql1DGU=" crossorigin="anonymous">
 
-<link rel="alternate" type="application/rss+xml" href="http://10.10.3.33:1313/docs/kernels/http/api/index.xml" title="API Reference" />
 
   
 </head>
-<body dir="ltr" class="book-kind-section book-type-docs">
+<body dir="ltr" class="book-kind-page book-type-docs">
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
@@ -268,7 +267,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-8ae534f34ec70b730454c217af6b96e0" class="toggle" checked />
+    <input type="checkbox" id="section-8ae534f34ec70b730454c217af6b96e0" class="toggle"  />
     <label for="section-8ae534f34ec70b730454c217af6b96e0" class="flex">
       <a href="/docs/kernels/http/" class="">
         meritum/http</a>
@@ -286,9 +285,9 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-b2bd39bbe190fa6dd0d8ec70ae1df97a" class="toggle" checked />
+    <input type="checkbox" id="section-b2bd39bbe190fa6dd0d8ec70ae1df97a" class="toggle"  />
     <label for="section-b2bd39bbe190fa6dd0d8ec70ae1df97a" class="flex">
-      <a href="/docs/kernels/http/api/" class="active">
+      <a href="/docs/kernels/http/api/" class="">
         API Reference</a>
       <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
     </label>
@@ -412,7 +411,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-86bac8aef8f4a3984e34164d9656fad2" class="toggle"  />
+    <input type="checkbox" id="section-86bac8aef8f4a3984e34164d9656fad2" class="toggle" checked />
     <label for="section-86bac8aef8f4a3984e34164d9656fad2" class="flex">
       <a href="/docs/kernels/cli/" class="">
         meritum/cli</a>
@@ -430,7 +429,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-281e71f5e7aef8509aa2e9023d6fe6c6" class="toggle"  />
+    <input type="checkbox" id="section-281e71f5e7aef8509aa2e9023d6fe6c6" class="toggle" checked />
     <label for="section-281e71f5e7aef8509aa2e9023d6fe6c6" class="flex">
       <a href="/docs/kernels/cli/api/" class="">
         API Reference</a>
@@ -448,7 +447,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/kernels/cli/api/cli-kernel-interface/" class="">
+    <a href="/docs/kernels/cli/api/cli-kernel-interface/" class="active">
       CliKernelInterface</a>
   
 
@@ -946,7 +945,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>API Reference</h3>
+  <h3>CliKernelInterface</h3>
 
   <label for="toc-control">
     
@@ -960,7 +959,22 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><p>Public classes and interfaces for <code>meritum/http</code>.</p>
+  <article class="markdown book-article"><h1 id="clikernelinterface">CliKernelInterface<a class="anchor" href="#clikernelinterface">#</a></h1>
+<p><code>Meritum\Cli\CliKernelInterface</code></p>
+<p>Extends <code>KernelInterface</code> (via <code>RunnableKernelInterface</code>) with methods for naming the application and dispatching console commands. All kernel methods — <code>define()</code>, <code>decorate()</code>, <code>addModule()</code>, <code>addRepository()</code>, <code>boot()</code>, <code>getContainer()</code>, etc. — are available through the inherited interface.</p>
+<h2 id="application-metadata">Application metadata<a class="anchor" href="#application-metadata">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">setName</span>(string <span style="color:#8be9fd;font-style:italic">$name</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">static</span>;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">getName</span>()<span style="color:#ff79c6">:</span> string;</span></span></code></pre></div><p>Sets and retrieves the application name shown in the console header. Defaults to <code>'Sage'</code>. <code>setName()</code> throws <code>KernelException</code> if called after <code>boot()</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">setVersion</span>(string <span style="color:#8be9fd;font-style:italic">$version</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">static</span>;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">getVersion</span>()<span style="color:#ff79c6">:</span> string;</span></span></code></pre></div><p>Sets and retrieves the version string shown in the console header. Defaults to the installed Composer version of <code>meritum/cli</code>. <code>setVersion()</code> throws <code>KernelException</code> if called after <code>boot()</code>.</p>
+<h2 id="dispatch">Dispatch<a class="anchor" href="#dispatch">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">handle</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">?</span>InputInterface <span style="color:#8be9fd;font-style:italic">$input</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">?</span>OutputInterface <span style="color:#8be9fd;font-style:italic">$output</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>
+</span></span><span style="display:flex;"><span>)<span style="color:#ff79c6">:</span> int;</span></span></code></pre></div><p>Dispatches the input to the matched command. <code>$input</code> defaults to <code>ArgvInput</code> (reads <code>$argv</code>); <code>$output</code> defaults to <code>ConsoleOutput</code>. Returns an integer exit code (<code>0</code> for success, <code>1</code> for error).</p>
+<p>If an exception escapes the command and an <code>ExceptionHandlerInterface</code> is registered in the container, the handler is called and <code>1</code> is returned. If no handler is registered, the exception is re-thrown.</p>
+<p>Throws <code>KernelException</code> if the kernel has not been booted or has already been shut down.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">run</span>()<span style="color:#ff79c6">:</span> int;</span></span></code></pre></div><p>Delegates to <code>handle()</code> with default input and output. The standard entry point — call <code>exit($kernel-&gt;run())</code> in your entry script.</p>
 </article>
  
       
@@ -982,16 +996,16 @@ https://github.com/alex-shpak/hugo-book
 <div class="flex flex-wrap justify-between">
     <span>
     
-      <a href="/docs/kernels/http/" class="flex align-center">
+      <a href="/docs/kernels/cli/api/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>meritum/http</span>
+        <span>API Reference</span>
       </a>
     
     </span>
     <span>
     
-      <a href="/docs/kernels/http/api/http-kernel-interface/" class="flex align-center">
-        <span>HttpKernelInterface</span>
+      <a href="/docs/kernels/cli/api/command-interface/" class="flex align-center">
+        <span>CommandInterface</span>
         <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
       </a>
     
