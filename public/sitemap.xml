@@ -5,6 +5,8 @@
   <url>
     <loc>http://10.10.3.33:1313/docs/kernels/kernel/</loc>
   </url><url>
+    <loc>http://10.10.3.33:1313/docs/kernels/http/api/http-kernel-interface/</loc>
+  </url><url>
     <loc>http://10.10.3.33:1313/docs/kernels/kernel/api/kernel-interface/</loc>
   </url><url>
     <loc>http://10.10.3.33:1313/docs/kernels/</loc>
@@ -12,6 +14,8 @@
     <loc>http://10.10.3.33:1313/docs/packages/validation/</loc>
   </url><url>
     <loc>http://10.10.3.33:1313/docs/kernels/kernel/api/definition-interface/</loc>
+  </url><url>
+    <loc>http://10.10.3.33:1313/docs/kernels/http/api/exception-handler-interface/</loc>
   </url><url>
     <loc>http://10.10.3.33:1313/docs/packages/database/</loc>
   </url><url>
@@ -25,11 +29,17 @@
   </url><url>
     <loc>http://10.10.3.33:1313/docs/kernels/kernel/api/module-interface/</loc>
   </url><url>
+    <loc>http://10.10.3.33:1313/docs/kernels/http/api/route-interface/</loc>
+  </url><url>
     <loc>http://10.10.3.33:1313/docs/kernels/kernel/api/configurable-module-interface/</loc>
+  </url><url>
+    <loc>http://10.10.3.33:1313/docs/kernels/http/api/http-exception-interface/</loc>
   </url><url>
     <loc>http://10.10.3.33:1313/docs/packages/serialization/</loc>
   </url><url>
     <loc>http://10.10.3.33:1313/docs/kernels/kernel/api/bootable-module-interface/</loc>
+  </url><url>
+    <loc>http://10.10.3.33:1313/docs/kernels/http/api/http-exception/</loc>
   </url><url>
     <loc>http://10.10.3.33:1313/docs/packages/logger/</loc>
   </url><url>
@@ -37,7 +47,11 @@
   </url><url>
     <loc>http://10.10.3.33:1313/docs/kernels/kernel/api/module-repository-interface/</loc>
   </url><url>
+    <loc>http://10.10.3.33:1313/docs/kernels/http/api/not-found-http-exception/</loc>
+  </url><url>
     <loc>http://10.10.3.33:1313/docs/packages/http-exception-handler/</loc>
+  </url><url>
+    <loc>http://10.10.3.33:1313/docs/kernels/http/api/method-not-allowed-http-exception/</loc>
   </url><url>
     <loc>http://10.10.3.33:1313/docs/kernels/kernel/api/tag-registry-interface/</loc>
   </url><url>

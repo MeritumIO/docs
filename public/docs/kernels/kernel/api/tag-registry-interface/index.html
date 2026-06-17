@@ -296,6 +296,104 @@ https://github.com/alex-shpak/hugo-book
           
   <ul>
     
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/http/api/http-kernel-interface/" class="">
+      HttpKernelInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/http/api/exception-handler-interface/" class="">
+      ExceptionHandlerInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/http/api/route-interface/" class="">
+      RouteInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/http/api/http-exception-interface/" class="">
+      HttpExceptionInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/http/api/http-exception/" class="">
+      HttpException</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/http/api/not-found-http-exception/" class="">
+      NotFoundHttpException</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/http/api/method-not-allowed-http-exception/" class="">
+      MethodNotAllowedHttpException</a>
+  
+
+        </li>
+      
+    
   </ul>
 
         </li>
@@ -781,7 +879,7 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>Register it in a module:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(NotificationService<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn(<span style="color:#8be9fd;font-style:italic">$c</span>) <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> NotificationService(
 </span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">$c</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">get</span>(TagRegistryInterface<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>)
-</span></span><span style="display:flex;"><span>))<span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">share</span>();</span></span></code></pre></div></article>
+</span></span><span style="display:flex;"><span>));</span></span></code></pre></div></article>
  
       
 

@@ -21,7 +21,7 @@ https://github.com/alex-shpak/hugo-book
 
 	<meta itemprop="name" content="meritum/http">
 	<meta itemprop="description" content="Module-first PSR-15 HTTP kernel for the Meritum ecosystem">
-	<meta itemprop="wordCount" content="3">
+	<meta itemprop="wordCount" content="623">
 
 <title>meritum/http • Meritum</title>
 <link rel="icon" href="/favicon.png" >
@@ -295,6 +295,104 @@ https://github.com/alex-shpak/hugo-book
 
           
   <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/http/api/http-kernel-interface/" class="">
+      HttpKernelInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/http/api/exception-handler-interface/" class="">
+      ExceptionHandlerInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/http/api/route-interface/" class="">
+      RouteInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/http/api/http-exception-interface/" class="">
+      HttpExceptionInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/http/api/http-exception/" class="">
+      HttpException</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/http/api/not-found-http-exception/" class="">
+      NotFoundHttpException</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/kernels/http/api/method-not-allowed-http-exception/" class="">
+      MethodNotAllowedHttpException</a>
+  
+
+        </li>
+      
     
   </ul>
 
@@ -749,7 +847,148 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><p>Documentation coming soon.</p>
+  <article class="markdown book-article"><h1 id="meritumhttp">meritum/http<a class="anchor" href="#meritumhttp">#</a></h1>
+<p><code>meritum/http</code> extends <code>georgeff/kernel</code> with routing, middleware, and request handling. Everything in the <a href="/docs/kernels/kernel/">kernel guide</a> applies here — modules, service definitions, tagging, decoration, and the boot lifecycle all work identically.</p>
+<pre tabindex="0"><code>composer require meritum/http</code></pre><h2 id="entry-point">Entry Point<a class="anchor" href="#entry-point">#</a></h2>
+<p><code>HttpKernel</code> is the concrete implementation. Wire it up in your entry point script:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> App\ModuleRepository;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Http\HttpKernel;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Georgeff\Kernel\Support\Env;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Georgeff\Kernel\Environment;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$environment</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">match</span> (Env<span style="color:#ff79c6">::</span><span style="color:#50fa7b">get</span>(<span style="color:#f1fa8c">&#39;APP_ENV&#39;</span>, <span style="color:#f1fa8c">&#39;production&#39;</span>)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#39;local&#39;</span>                         <span style="color:#ff79c6">=&gt;</span> Environment<span style="color:#ff79c6">::</span><span style="color:#50fa7b">Local</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#39;test&#39;</span>, <span style="color:#f1fa8c">&#39;testing&#39;</span>               <span style="color:#ff79c6">=&gt;</span> Environment<span style="color:#ff79c6">::</span><span style="color:#50fa7b">Testing</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#39;dev&#39;</span>, <span style="color:#f1fa8c">&#39;develop&#39;</span>, <span style="color:#f1fa8c">&#39;development&#39;</span> <span style="color:#ff79c6">=&gt;</span> Environment<span style="color:#ff79c6">::</span><span style="color:#50fa7b">Development</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#39;stage&#39;</span>, <span style="color:#f1fa8c">&#39;staging&#39;</span>              <span style="color:#ff79c6">=&gt;</span> Environment<span style="color:#ff79c6">::</span><span style="color:#50fa7b">Staging</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">default</span>                         <span style="color:#ff79c6">=&gt;</span> Environment<span style="color:#ff79c6">::</span><span style="color:#50fa7b">Production</span>,
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> HttpKernel(<span style="color:#8be9fd;font-style:italic">$environment</span>, debug<span style="color:#ff79c6">:</span> Env<span style="color:#ff79c6">::</span><span style="color:#50fa7b">get</span>(<span style="color:#f1fa8c">&#39;APP_DEBUG&#39;</span>, <span style="color:#ff79c6">false</span>));
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addRepository</span>(<span style="color:#ff79c6">new</span> ModuleRepository());
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">boot</span>();
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">run</span>();</span></span></code></pre></div><p><code>run()</code> resolves the incoming request from globals, passes it through the middleware stack and router, emits the response, and then calls <code>terminate()</code> which runs any registered terminating callbacks (including <code>shutdown()</code>).</p>
+<h2 id="routing">Routing<a class="anchor" href="#routing">#</a></h2>
+<p>Register routes before <code>boot()</code>, either directly on the kernel or inside a module:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addRoute</span>(<span style="color:#f1fa8c">&#39;GET&#39;</span>, <span style="color:#f1fa8c">&#39;/&#39;</span>, Handler\HomeHandler<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>);
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addRoute</span>([<span style="color:#f1fa8c">&#39;GET&#39;</span>, <span style="color:#f1fa8c">&#39;HEAD&#39;</span>], <span style="color:#f1fa8c">&#39;/health&#39;</span>, Handler\HealthHandler<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>);
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addRoute</span>(<span style="color:#f1fa8c">&#39;POST&#39;</span>, <span style="color:#f1fa8c">&#39;/users&#39;</span>, Handler\CreateUserHandler<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>);</span></span></code></pre></div><p>The handler can be a class string (resolved from the container at request time) or a <code>RequestHandlerInterface</code> instance.</p>
+<p>Handlers are PSR-15 <code>RequestHandlerInterface</code> implementations:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Laminas\Diactoros\Response\JsonResponse;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Psr\Http\Message\ResponseInterface;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Psr\Http\Message\ServerRequestInterface;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Psr\Http\Server\RequestHandlerInterface;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">HomeHandler</span> <span style="color:#ff79c6">implements</span> RequestHandlerInterface
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">handle</span>(ServerRequestInterface <span style="color:#8be9fd;font-style:italic">$request</span>)<span style="color:#ff79c6">:</span> ResponseInterface
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> JsonResponse([<span style="color:#f1fa8c">&#39;status&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;ok&#39;</span>]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><h3 id="route-parameters">Route Parameters<a class="anchor" href="#route-parameters">#</a></h3>
+<p>Capture URI segments using <code>{name}</code> placeholders:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addRoute</span>(<span style="color:#f1fa8c">&#39;GET&#39;</span>, <span style="color:#f1fa8c">&#39;/users/{id}&#39;</span>, Handler\ShowUserHandler<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>);</span></span></code></pre></div><p>Parameters are available via the route attached to the request attributes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Http\Routing\RouteInterface;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">ShowUserHandler</span> <span style="color:#ff79c6">implements</span> RequestHandlerInterface
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">handle</span>(ServerRequestInterface <span style="color:#8be9fd;font-style:italic">$request</span>)<span style="color:#ff79c6">:</span> ResponseInterface
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#f1fa8c">/** @var RouteInterface $route */</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$route</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">$request</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getAttribute</span>(<span style="color:#f1fa8c">&#39;__route__&#39;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$id</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">$route</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getArgument</span>(<span style="color:#f1fa8c">&#39;id&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> JsonResponse([<span style="color:#f1fa8c">&#39;id&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#8be9fd;font-style:italic">$id</span>]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><h3 id="registering-routes-from-a-module">Registering Routes from a Module<a class="anchor" href="#registering-routes-from-a-module">#</a></h3>
+<p>Route registration inside a module requires narrowing <code>KernelInterface</code> to <code>HttpKernelInterface</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Georgeff\Kernel\KernelInterface;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Http\HttpKernelInterface;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Georgeff\Kernel\Module\ModuleInterface;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">AppModule</span> <span style="color:#ff79c6">implements</span> ModuleInterface
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">register</span>(KernelInterface <span style="color:#8be9fd;font-style:italic">$kernel</span>)<span style="color:#ff79c6">:</span> void
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        assert(<span style="color:#8be9fd;font-style:italic">$kernel</span> instanceof HttpKernelInterface);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(Handler\HomeHandler<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn() <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> Handler\HomeHandler());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addRoute</span>(<span style="color:#f1fa8c">&#39;GET&#39;</span>, <span style="color:#f1fa8c">&#39;/&#39;</span>, Handler\HomeHandler<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><h2 id="middleware">Middleware<a class="anchor" href="#middleware">#</a></h2>
+<h3 id="global-middleware">Global Middleware<a class="anchor" href="#global-middleware">#</a></h3>
+<p>Add PSR-15 middleware to the global stack with <code>addMiddleware()</code>. Middleware runs in registration order, wrapping every request:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addMiddleware</span>(Middleware\CorsMiddleware<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>);
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addMiddleware</span>(Middleware\AuthMiddleware<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>);</span></span></code></pre></div><p>As with handlers, a class string is resolved from the container at request time.</p>
+<h3 id="per-route-middleware">Per-Route Middleware<a class="anchor" href="#per-route-middleware">#</a></h3>
+<p>Attach middleware to a specific route via the <code>RouteInterface</code> returned by <code>addRoute()</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addRoute</span>(<span style="color:#f1fa8c">&#39;DELETE&#39;</span>, <span style="color:#f1fa8c">&#39;/users/{id}&#39;</span>, Handler\DeleteUserHandler<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addMiddleware</span>(Middleware\RequireAdminMiddleware<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>);</span></span></code></pre></div><p>Per-route middleware runs after global middleware, only for matching requests.</p>
+<h2 id="exception-handling">Exception Handling<a class="anchor" href="#exception-handling">#</a></h2>
+<p>By default, exceptions that escape the middleware stack are re-thrown. To handle them and convert them to responses, register an implementation of <code>ExceptionHandlerInterface</code> in the container:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Throwable;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Laminas\Diactoros\Response\JsonResponse;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Psr\Http\Message\ResponseInterface;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Psr\Http\Message\ServerRequestInterface;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Http\Exception\ExceptionHandlerInterface;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Http\Exception\HttpExceptionInterface;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">ExceptionHandler</span> <span style="color:#ff79c6">implements</span> ExceptionHandlerInterface
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">handle</span>(Throwable <span style="color:#8be9fd;font-style:italic">$e</span>, ServerRequestInterface <span style="color:#8be9fd;font-style:italic">$request</span>)<span style="color:#ff79c6">:</span> ResponseInterface
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">if</span> (<span style="color:#8be9fd;font-style:italic">$e</span> instanceof HttpExceptionInterface) {
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> JsonResponse(
+</span></span><span style="display:flex;"><span>                [<span style="color:#f1fa8c">&#39;error&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#8be9fd;font-style:italic">$e</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getTitle</span>()],
+</span></span><span style="display:flex;"><span>                <span style="color:#8be9fd;font-style:italic">$e</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getStatusCode</span>()
+</span></span><span style="display:flex;"><span>            );
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> JsonResponse([<span style="color:#f1fa8c">&#39;error&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;Internal Server Error&#39;</span>], <span style="color:#bd93f9">500</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>Register it in a module:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Http\Exception\ExceptionHandlerInterface;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(ExceptionHandlerInterface<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn() <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> ExceptionHandler());</span></span></code></pre></div><p>The kernel checks for <code>ExceptionHandlerInterface::class</code> in the container on every request. If present, caught exceptions are passed to it. If absent, exceptions bubble.</p>
+<blockquote class='book-hint '>
+<p><code>meritum/http-exception-handler</code> provides a production-ready implementation that integrates with the <code>meritum/structured-logging</code> pipeline. See the <a href="/docs/packages/http-exception-handler/">http-exception-handler guide</a> for details.</p>
+</blockquote><h2 id="http-exceptions">HTTP Exceptions<a class="anchor" href="#http-exceptions">#</a></h2>
+<p><code>meritum/http</code> ships three HTTP exception classes for common failure cases:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Http\Exception\NotFoundHttpException;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Http\Exception\MethodNotAllowedHttpException;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Http\Exception\HttpException;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">throw</span> <span style="color:#ff79c6">new</span> NotFoundHttpException(<span style="color:#8be9fd;font-style:italic">$request</span>);
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">throw</span> <span style="color:#ff79c6">new</span> MethodNotAllowedHttpException(<span style="color:#8be9fd;font-style:italic">$request</span>);
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">throw</span> <span style="color:#ff79c6">new</span> HttpException(<span style="color:#8be9fd;font-style:italic">$request</span>, <span style="color:#f1fa8c">&#39;Custom message&#39;</span>); <span style="color:#6272a4">// 500 by default
+</span></span></span></code></pre></div><p>All three implement <code>HttpExceptionInterface</code>, which your exception handler can check to extract the status code and title.</p>
+<h2 id="terminating-callbacks">Terminating Callbacks<a class="anchor" href="#terminating-callbacks">#</a></h2>
+<p>Register callbacks to run after the response has been emitted:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">onTerminating</span>(<span style="color:#ff79c6">function</span> (ServerRequestInterface <span style="color:#8be9fd;font-style:italic">$request</span>, ResponseInterface <span style="color:#8be9fd;font-style:italic">$response</span>, KernelInterface <span style="color:#8be9fd;font-style:italic">$kernel</span>)<span style="color:#ff79c6">:</span> void {
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// Runs after the response is sent to the client
+</span></span></span><span style="display:flex;"><span>});</span></span></code></pre></div><p>Multiple callbacks run in registration order. <code>shutdown()</code> is always the last to run, registered automatically by the kernel.</p>
+<h2 id="default-container-registrations">Default Container Registrations<a class="anchor" href="#default-container-registrations">#</a></h2>
+<p><code>HttpKernel</code> registers two services automatically during the <code>preBoot</code> phase:</p>
+<table>
+	<thead>
+			<tr>
+					<th>ID</th>
+					<th>Resolves to</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>RequestHandlerInterface::class</code></td>
+					<td>The router (wrapped middleware stack + route dispatch)</td>
+			</tr>
+			<tr>
+					<td><code>ServerRequestInterface::class</code></td>
+					<td><code>ServerRequestFactory::fromGlobals()</code></td>
+			</tr>
+	</tbody>
+</table>
+<p>Both are shared. Do not overwrite these unless you intend to replace the router or request resolution entirely.</p>
 </article>
  
       

@@ -57,5 +57,5 @@ Register it in a module:
 ```php
 $kernel->define(NotificationService::class, fn($c) => new NotificationService(
     $c->get(TagRegistryInterface::class)
-))->share();
+));
 ```

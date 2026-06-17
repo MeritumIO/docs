@@ -8,26 +8,26 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Opt-in contract for contributing debug information to the kernel">
+<meta name="description" content="Contract for HTTP exceptions that carry a status code and title">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://10.10.3.33:1313/docs/kernels/kernel/api/debuggable-interface/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://10.10.3.33:1313/docs/kernels/http/api/http-exception-interface/">
 	<meta property="og:site_name" content="Meritum">
-	<meta property="og:title" content="DebuggableInterface">
-	<meta property="og:description" content="Opt-in contract for contributing debug information to the kernel">
+	<meta property="og:title" content="HttpExceptionInterface">
+	<meta property="og:description" content="Contract for HTTP exceptions that carry a status code and title">
 	<meta property="og:locale" content="en">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="docs">
 
 
-	<meta itemprop="name" content="DebuggableInterface">
-	<meta itemprop="description" content="Opt-in contract for contributing debug information to the kernel">
-	<meta itemprop="wordCount" content="172">
+	<meta itemprop="name" content="HttpExceptionInterface">
+	<meta itemprop="description" content="Contract for HTTP exceptions that carry a status code and title">
+	<meta itemprop="wordCount" content="92">
 
-<title>DebuggableInterface • Meritum</title>
+<title>HttpExceptionInterface • Meritum</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="http://10.10.3.33:1313/docs/kernels/kernel/api/debuggable-interface/">
+<link rel="canonical" href="http://10.10.3.33:1313/docs/kernels/http/api/http-exception-interface/">
 <link rel="stylesheet" href="/book.min.98c83e4c8e1c8661368bcb29bbaf4dcc9d31b8164f76aae322d82d86a9750c65.css" integrity="sha256-mMg&#43;TI4chmE2i8spu69NzJ0xuBZPdqrjItgthql1DGU=" crossorigin="anonymous">
 
 
@@ -81,7 +81,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-b5c3fcc26f8f81ef58071b8a4aa8a80c" class="toggle" checked />
+    <input type="checkbox" id="section-b5c3fcc26f8f81ef58071b8a4aa8a80c" class="toggle"  />
     <label for="section-b5c3fcc26f8f81ef58071b8a4aa8a80c" class="flex">
       <a href="/docs/kernels/kernel/" class="">
         georgeff/kernel</a>
@@ -99,7 +99,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-04028bcd5e0496a76e89b673a7599ec4" class="toggle" checked />
+    <input type="checkbox" id="section-04028bcd5e0496a76e89b673a7599ec4" class="toggle"  />
     <label for="section-04028bcd5e0496a76e89b673a7599ec4" class="flex">
       <a href="/docs/kernels/kernel/api/" class="">
         API Reference</a>
@@ -243,7 +243,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/kernels/kernel/api/debuggable-interface/" class="active">
+    <a href="/docs/kernels/kernel/api/debuggable-interface/" class="">
       DebuggableInterface</a>
   
 
@@ -267,7 +267,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-8ae534f34ec70b730454c217af6b96e0" class="toggle"  />
+    <input type="checkbox" id="section-8ae534f34ec70b730454c217af6b96e0" class="toggle" checked />
     <label for="section-8ae534f34ec70b730454c217af6b96e0" class="flex">
       <a href="/docs/kernels/http/" class="">
         meritum/http</a>
@@ -285,7 +285,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-b2bd39bbe190fa6dd0d8ec70ae1df97a" class="toggle"  />
+    <input type="checkbox" id="section-b2bd39bbe190fa6dd0d8ec70ae1df97a" class="toggle" checked />
     <label for="section-b2bd39bbe190fa6dd0d8ec70ae1df97a" class="flex">
       <a href="/docs/kernels/http/api/" class="">
         API Reference</a>
@@ -345,7 +345,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/kernels/http/api/http-exception-interface/" class="">
+    <a href="/docs/kernels/http/api/http-exception-interface/" class="active">
       HttpExceptionInterface</a>
   
 
@@ -833,7 +833,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>DebuggableInterface</h3>
+  <h3>HttpExceptionInterface</h3>
 
   <label for="toc-control">
     
@@ -847,32 +847,22 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><h1 id="debuggableinterface">DebuggableInterface<a class="anchor" href="#debuggableinterface">#</a></h1>
-<p><code>Georgeff\Kernel\Debug\DebuggableInterface</code></p>
-<p>An opt-in contract for contributing debug information to the kernel&rsquo;s debug snapshot. Only relevant when <code>debug: true</code> is passed to the kernel constructor.</p>
+  <article class="markdown book-article"><h1 id="httpexceptioninterface">HttpExceptionInterface<a class="anchor" href="#httpexceptioninterface">#</a></h1>
+<p><code>Meritum\Http\Exception\HttpExceptionInterface</code></p>
+<p>Extends <code>Throwable</code>. Implemented by <code>HttpException</code>, <code>NotFoundHttpException</code>, and <code>MethodNotAllowedHttpException</code>. Check for this interface in an exception handler to extract the HTTP status code and title without matching specific exception classes.</p>
 <h2 id="methods">Methods<a class="anchor" href="#methods">#</a></h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">getDebugInfo</span>()<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">array</span>;</span></span></code></pre></div><p>Returns an <code>array&lt;string, mixed&gt;</code> of debug information. The structure is up to the implementing class.</p>
-<h2 id="auto-aggregation">Auto-aggregation<a class="anchor" href="#auto-aggregation">#</a></h2>
-<p><code>Kernel::getDebugInfo()</code> automatically includes the debug output of any resolved service that implements <code>DebuggableInterface</code>. When the debug container resolves a service, it checks whether the result implements this interface and stores it. Those results are merged into the kernel&rsquo;s debug snapshot.</p>
-<p>This means any service in your application can contribute to the debug output without the kernel needing to know about it:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">QueryLog</span> <span style="color:#ff79c6">implements</span> DebuggableInterface
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">private</span> <span style="color:#ff79c6">array</span> <span style="color:#8be9fd;font-style:italic">$queries</span> <span style="color:#ff79c6">=</span> [];
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">getRequest</span>()<span style="color:#ff79c6">:</span> ServerRequestInterface;</span></span></code></pre></div><p>Returns the request that was being handled when the exception was thrown.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">getTitle</span>()<span style="color:#ff79c6">:</span> string;</span></span></code></pre></div><p>Returns a human-readable title for the error (e.g. <code>'Not Found'</code>, <code>'Internal Server Error'</code>).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">getStatusCode</span>()<span style="color:#ff79c6">:</span> int;</span></span></code></pre></div><p>Returns the HTTP status code (e.g. <code>404</code>, <code>405</code>, <code>500</code>).</p>
+<h2 id="example">Example<a class="anchor" href="#example">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Http\Exception\HttpExceptionInterface;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">record</span>(string <span style="color:#8be9fd;font-style:italic">$sql</span>, float <span style="color:#8be9fd;font-style:italic">$duration</span>)<span style="color:#ff79c6">:</span> void
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">queries</span>[] <span style="color:#ff79c6">=</span> [<span style="color:#f1fa8c">&#39;sql&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#8be9fd;font-style:italic">$sql</span>, <span style="color:#f1fa8c">&#39;duration&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#8be9fd;font-style:italic">$duration</span>];
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">getDebugInfo</span>()<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">array</span>
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> [
-</span></span><span style="display:flex;"><span>            <span style="color:#f1fa8c">&#39;query_count&#39;</span> <span style="color:#ff79c6">=&gt;</span> count(<span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">queries</span>),
-</span></span><span style="display:flex;"><span>            <span style="color:#f1fa8c">&#39;queries&#39;</span>     <span style="color:#ff79c6">=&gt;</span> <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">queries</span>,
-</span></span><span style="display:flex;"><span>        ];
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>Register it as a shared service and it will appear in <code>$kernel-&gt;getDebugInfo()</code> after it has been resolved from the container at least once.</p>
-</article>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">if</span> (<span style="color:#8be9fd;font-style:italic">$e</span> instanceof HttpExceptionInterface) {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> JsonResponse(
+</span></span><span style="display:flex;"><span>        [<span style="color:#f1fa8c">&#39;error&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#8be9fd;font-style:italic">$e</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getTitle</span>()],
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$e</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getStatusCode</span>()
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></article>
  
       
 
@@ -893,16 +883,16 @@ https://github.com/alex-shpak/hugo-book
 <div class="flex flex-wrap justify-between">
     <span>
     
-      <a href="/docs/kernels/kernel/api/kernel-exception/" class="flex align-center">
+      <a href="/docs/kernels/http/api/route-interface/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>KernelException</span>
+        <span>RouteInterface</span>
       </a>
     
     </span>
     <span>
     
-      <a href="/docs/kernels/http/" class="flex align-center">
-        <span>meritum/http</span>
+      <a href="/docs/kernels/http/api/http-exception/" class="flex align-center">
+        <span>HttpException</span>
         <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
       </a>
     
