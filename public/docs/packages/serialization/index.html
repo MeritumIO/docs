@@ -21,7 +21,7 @@ https://github.com/alex-shpak/hugo-book
 
 	<meta itemprop="name" content="meritum/serialization">
 	<meta itemprop="description" content="Pluggable object serialization with item, collection, and pagination support">
-	<meta itemprop="wordCount" content="3">
+	<meta itemprop="wordCount" content="621">
 
 <title>meritum/serialization • Meritum</title>
 <link rel="icon" href="/favicon.png" >
@@ -839,6 +839,118 @@ https://github.com/alex-shpak/hugo-book
           
   <ul>
     
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/serialization/api/serializer-interface/" class="">
+      SerializerInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/serialization/api/formatter-interface/" class="">
+      FormatterInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/serialization/api/item/" class="">
+      Item</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/serialization/api/collection/" class="">
+      Collection</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/serialization/api/envelope-interface/" class="">
+      EnvelopeInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/serialization/api/cursor-interface/" class="">
+      CursorInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/serialization/api/paginator-interface/" class="">
+      PaginatorInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/serialization/api/strategy-interface/" class="">
+      StrategyInterface</a>
+  
+
+        </li>
+      
+    
   </ul>
 
         </li>
@@ -1043,7 +1155,172 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><p>Documentation coming soon.</p>
+  <article class="markdown book-article"><h1 id="meritumserialization">meritum/serialization<a class="anchor" href="#meritumserialization">#</a></h1>
+<p><code>meritum/serialization</code> transforms domain objects into structured array output ready for JSON responses. The pipeline is: write a serializer for each model type, wrap data in an <code>Item</code> or <code>Collection</code> resource, then pass it to the <code>FormatterInterface</code> to get an <code>EnvelopeInterface</code> back.</p>
+<pre tabindex="0"><code>composer require meritum/serialization</code></pre><h2 id="module-registration">Module Registration<a class="anchor" href="#module-registration">#</a></h2>
+<p>Add <code>SerializationModule</code> to your module repository:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Serialization\SerializationModule;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">ModuleRepository</span> <span style="color:#ff79c6">implements</span> ModuleRepositoryInterface
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">modules</span>(Environment <span style="color:#8be9fd;font-style:italic">$env</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">array</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> [
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">new</span> SerializationModule(),
+</span></span><span style="display:flex;"><span>            <span style="color:#6272a4">// ...
+</span></span></span><span style="display:flex;"><span>        ];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>The module registers <code>FormatterInterface::class</code> in the container using <code>DataArrayStrategy</code> by default. Inject <code>FormatterInterface</code> into your handlers and actions.</p>
+<h2 id="writing-a-serializer">Writing a Serializer<a class="anchor" href="#writing-a-serializer">#</a></h2>
+<p>Implement <code>SerializerInterface</code> for each model type you need to serialize:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Serialization\SerializerInterface;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">UserSerializer</span> <span style="color:#ff79c6">implements</span> SerializerInterface
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">serialize</span>(mixed <span style="color:#8be9fd;font-style:italic">$data</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">array</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> [
+</span></span><span style="display:flex;"><span>            <span style="color:#f1fa8c">&#39;id&#39;</span>    <span style="color:#ff79c6">=&gt;</span> <span style="color:#8be9fd;font-style:italic">$data</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">id</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f1fa8c">&#39;name&#39;</span>  <span style="color:#ff79c6">=&gt;</span> <span style="color:#8be9fd;font-style:italic">$data</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">name</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f1fa8c">&#39;email&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#8be9fd;font-style:italic">$data</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">email</span>,
+</span></span><span style="display:flex;"><span>        ];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>The serializer receives whatever was passed as the data — typically a model or value object. It returns a flat or nested <code>array&lt;string, mixed&gt;</code>.</p>
+<h2 id="single-item">Single Item<a class="anchor" href="#single-item">#</a></h2>
+<p>Wrap a single object in <code>Item</code> and pass it to the formatter:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Serialization\Resource\Item;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Serialization\FormatterInterface;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">ShowUserHandler</span> <span style="color:#ff79c6">implements</span> RequestHandlerInterface
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">__construct</span>(
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">private</span> readonly UserRepository <span style="color:#8be9fd;font-style:italic">$users</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">private</span> readonly UserSerializer <span style="color:#8be9fd;font-style:italic">$serializer</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">private</span> readonly FormatterInterface <span style="color:#8be9fd;font-style:italic">$formatter</span>
+</span></span><span style="display:flex;"><span>    ) {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">handle</span>(ServerRequestInterface <span style="color:#8be9fd;font-style:italic">$request</span>)<span style="color:#ff79c6">:</span> ResponseInterface
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$user</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">users</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">find</span>(<span style="color:#8be9fd;font-style:italic">$request</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getAttribute</span>(<span style="color:#f1fa8c">&#39;id&#39;</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$resource</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Item(<span style="color:#8be9fd;font-style:italic">$user</span>, <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">serializer</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$envelope</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">formatter</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">format</span>(<span style="color:#8be9fd;font-style:italic">$resource</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> JsonResponse(<span style="color:#8be9fd;font-style:italic">$envelope</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>With the default <code>DataArrayStrategy</code>, the response body is:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;data&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">&#34;id&#34;</span>: <span style="color:#bd93f9">1</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">&#34;name&#34;</span>: <span style="color:#f1fa8c">&#34;Jane Smith&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">&#34;email&#34;</span>: <span style="color:#f1fa8c">&#34;jane@example.com&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><h2 id="collection">Collection<a class="anchor" href="#collection">#</a></h2>
+<p>Wrap an iterable in <code>Collection</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Serialization\Resource\Collection;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$resource</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Collection(<span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">users</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">all</span>(), <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">serializer</span>);
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$envelope</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">formatter</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">format</span>(<span style="color:#8be9fd;font-style:italic">$resource</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> JsonResponse(<span style="color:#8be9fd;font-style:italic">$envelope</span>);</span></span></code></pre></div><p>Both strategies produce the same collection shape:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;data&#34;</span>: [
+</span></span><span style="display:flex;"><span>    { <span style="color:#ff79c6">&#34;id&#34;</span>: <span style="color:#bd93f9">1</span>, <span style="color:#ff79c6">&#34;name&#34;</span>: <span style="color:#f1fa8c">&#34;Jane Smith&#34;</span>, <span style="color:#ff79c6">&#34;email&#34;</span>: <span style="color:#f1fa8c">&#34;jane@example.com&#34;</span> },
+</span></span><span style="display:flex;"><span>    { <span style="color:#ff79c6">&#34;id&#34;</span>: <span style="color:#bd93f9">2</span>, <span style="color:#ff79c6">&#34;name&#34;</span>: <span style="color:#f1fa8c">&#34;John Doe&#34;</span>,   <span style="color:#ff79c6">&#34;email&#34;</span>: <span style="color:#f1fa8c">&#34;john@example.com&#34;</span> }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><h2 id="pagination">Pagination<a class="anchor" href="#pagination">#</a></h2>
+<p>Attach pagination data to a <code>Collection</code> before formatting. The two strategies are cursor-based and offset-based — they are mutually exclusive on a collection.</p>
+<h3 id="cursor-pagination">Cursor pagination<a class="anchor" href="#cursor-pagination">#</a></h3>
+<p>Implement <code>CursorInterface</code> and call <code>setCursor()</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$resource</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Collection(<span style="color:#8be9fd;font-style:italic">$users</span>, <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">serializer</span>);
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$resource</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">setCursor</span>(<span style="color:#8be9fd;font-style:italic">$cursor</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$envelope</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">formatter</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">format</span>(<span style="color:#8be9fd;font-style:italic">$resource</span>);</span></span></code></pre></div><p>Output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;limit&#34;</span>: <span style="color:#bd93f9">25</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;previous&#34;</span>: <span style="color:#f1fa8c">&#34;eyJpZCI6MTB9&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;next&#34;</span>: <span style="color:#f1fa8c">&#34;eyJpZCI6MzV9&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;data&#34;</span>: [...]
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p><code>previous</code> and <code>next</code> are <code>null</code> when there is no adjacent page.</p>
+<h3 id="offset-pagination">Offset pagination<a class="anchor" href="#offset-pagination">#</a></h3>
+<p>Implement <code>PaginatorInterface</code> and call <code>setPaginator()</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$resource</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Collection(<span style="color:#8be9fd;font-style:italic">$users</span>, <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">serializer</span>);
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$resource</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">setPaginator</span>(<span style="color:#8be9fd;font-style:italic">$paginator</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$envelope</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">formatter</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">format</span>(<span style="color:#8be9fd;font-style:italic">$resource</span>);</span></span></code></pre></div><p>Output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;total&#34;</span>: <span style="color:#bd93f9">143</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;count&#34;</span>: <span style="color:#bd93f9">25</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;limit&#34;</span>: <span style="color:#bd93f9">25</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;current&#34;</span>: <span style="color:#bd93f9">2</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;last&#34;</span>: <span style="color:#bd93f9">6</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;data&#34;</span>: [...]
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p><code>setCursor()</code> and <code>setPaginator()</code> are mutually exclusive — calling one clears the other.</p>
+<h2 id="meta">Meta<a class="anchor" href="#meta">#</a></h2>
+<p>Both <code>Item</code> and <code>Collection</code> accept arbitrary metadata via <code>addMeta()</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$resource</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Item(<span style="color:#8be9fd;font-style:italic">$user</span>, <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">serializer</span>);
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$resource</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addMeta</span>(<span style="color:#f1fa8c">&#39;generated_at&#39;</span>, date(<span style="color:#f1fa8c">&#39;c&#39;</span>));
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$resource</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addMeta</span>(<span style="color:#f1fa8c">&#39;version&#39;</span>, <span style="color:#f1fa8c">&#39;2&#39;</span>);</span></span></code></pre></div><p>Meta appears as a <code>meta</code> key in the envelope alongside <code>data</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;data&#34;</span>: { ... },
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;meta&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">&#34;generated_at&#34;</span>: <span style="color:#f1fa8c">&#34;2026-06-17T10:00:00+00:00&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">&#34;version&#34;</span>: <span style="color:#f1fa8c">&#34;2&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p><code>addMeta()</code> is fluent and can be chained.</p>
+<h2 id="output-strategies">Output Strategies<a class="anchor" href="#output-strategies">#</a></h2>
+<p>The strategy controls the envelope shape for items. Both strategies produce identical output for collections.</p>
+<h3 id="dataarraystrategy-default">DataArrayStrategy (default)<a class="anchor" href="#dataarraystrategy-default">#</a></h3>
+<p>Item output wraps serialized fields in a <code>data</code> key:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;data&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">&#34;id&#34;</span>: <span style="color:#bd93f9">1</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">&#34;name&#34;</span>: <span style="color:#f1fa8c">&#34;Jane Smith&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><h3 id="arraystrategy">ArrayStrategy<a class="anchor" href="#arraystrategy">#</a></h3>
+<p>Item output places serialized fields at the root:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;id&#34;</span>: <span style="color:#bd93f9">1</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;name&#34;</span>: <span style="color:#f1fa8c">&#34;Jane Smith&#34;</span>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>To use <code>ArrayStrategy</code>, register it as <code>StrategyInterface::class</code> in a module before the formatter is resolved:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Serialization\Strategy\ArrayStrategy;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Serialization\Strategy\StrategyInterface;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(StrategyInterface<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn() <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> ArrayStrategy());</span></span></code></pre></div><p><code>SerializationModule</code> checks the container for <code>StrategyInterface::class</code> at resolution time and uses it if present; otherwise it falls back to <code>DataArrayStrategy</code>.</p>
+<h3 id="custom-strategy">Custom strategy<a class="anchor" href="#custom-strategy">#</a></h3>
+<p>Implement <code>StrategyInterface</code> to produce any envelope shape you need:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Serialization\Envelope;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Serialization\EnvelopeInterface;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Serialization\Resource\ItemInterface;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Serialization\Resource\CollectionInterface;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Serialization\Strategy\StrategyInterface;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">JsonApiStrategy</span> <span style="color:#ff79c6">implements</span> StrategyInterface
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">item</span>(ItemInterface <span style="color:#8be9fd;font-style:italic">$item</span>)<span style="color:#ff79c6">:</span> EnvelopeInterface
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> Envelope([
+</span></span><span style="display:flex;"><span>            <span style="color:#f1fa8c">&#39;data&#39;</span> <span style="color:#ff79c6">=&gt;</span> [
+</span></span><span style="display:flex;"><span>                <span style="color:#f1fa8c">&#39;type&#39;</span>       <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;user&#39;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#f1fa8c">&#39;attributes&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#8be9fd;font-style:italic">$item</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getSerializer</span>()<span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">serialize</span>(<span style="color:#8be9fd;font-style:italic">$item</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getData</span>()),
+</span></span><span style="display:flex;"><span>            ],
+</span></span><span style="display:flex;"><span>        ]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">collection</span>(CollectionInterface <span style="color:#8be9fd;font-style:italic">$collection</span>)<span style="color:#ff79c6">:</span> EnvelopeInterface
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$items</span> <span style="color:#ff79c6">=</span> [];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">foreach</span> (<span style="color:#8be9fd;font-style:italic">$collection</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getData</span>() <span style="color:#ff79c6">as</span> <span style="color:#8be9fd;font-style:italic">$record</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">$items</span>[] <span style="color:#ff79c6">=</span> [
+</span></span><span style="display:flex;"><span>                <span style="color:#f1fa8c">&#39;type&#39;</span>       <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;user&#39;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#f1fa8c">&#39;attributes&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#8be9fd;font-style:italic">$collection</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getSerializer</span>()<span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">serialize</span>(<span style="color:#8be9fd;font-style:italic">$record</span>),
+</span></span><span style="display:flex;"><span>            ];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> Envelope([<span style="color:#f1fa8c">&#39;data&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#8be9fd;font-style:italic">$items</span>]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>Register it as <code>StrategyInterface::class</code> and it will be picked up by the formatter automatically.</p>
 </article>
  
       
