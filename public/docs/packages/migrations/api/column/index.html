@@ -8,32 +8,32 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Translates exceptions into structured JSON error responses using the meritum/structured-logging pipeline">
+<meta name="description" content="Fluent column modifier returned by Blueprint column methods">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://10.10.3.33:1313/docs/packages/http-exception-handler/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://10.10.3.33:1313/docs/packages/migrations/api/column/">
 	<meta property="og:site_name" content="Meritum">
-	<meta property="og:title" content="meritum/http-exception-handler">
-	<meta property="og:description" content="Translates exceptions into structured JSON error responses using the meritum/structured-logging pipeline">
+	<meta property="og:title" content="Column">
+	<meta property="og:description" content="Fluent column modifier returned by Blueprint column methods">
 	<meta property="og:locale" content="en">
-	<meta property="og:type" content="website">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="docs">
 
 
-	<meta itemprop="name" content="meritum/http-exception-handler">
-	<meta itemprop="description" content="Translates exceptions into structured JSON error responses using the meritum/structured-logging pipeline">
-	<meta itemprop="wordCount" content="374">
+	<meta itemprop="name" content="Column">
+	<meta itemprop="description" content="Fluent column modifier returned by Blueprint column methods">
+	<meta itemprop="wordCount" content="139">
 
-<title>meritum/http-exception-handler • Meritum</title>
+<title>Column • Meritum</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="http://10.10.3.33:1313/docs/packages/http-exception-handler/">
+<link rel="canonical" href="http://10.10.3.33:1313/docs/packages/migrations/api/column/">
 <link rel="stylesheet" href="/book.min.98c83e4c8e1c8661368bcb29bbaf4dcc9d31b8164f76aae322d82d86a9750c65.css" integrity="sha256-mMg&#43;TI4chmE2i8spu69NzJ0xuBZPdqrjItgthql1DGU=" crossorigin="anonymous">
 
-<link rel="alternate" type="application/rss+xml" href="http://10.10.3.33:1313/docs/packages/http-exception-handler/index.xml" title="meritum/http-exception-handler" />
 
   
 </head>
-<body dir="ltr" class="book-kind-section book-type-docs">
+<body dir="ltr" class="book-kind-page book-type-docs">
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
@@ -862,7 +862,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-569ddd91f5f2f259cd8c99a1d5c7237a" class="toggle"  />
+    <input type="checkbox" id="section-569ddd91f5f2f259cd8c99a1d5c7237a" class="toggle" checked />
     <label for="section-569ddd91f5f2f259cd8c99a1d5c7237a" class="flex">
       <a href="/docs/packages/migrations/" class="">
         meritum/migrations</a>
@@ -880,7 +880,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-f4c17a12b7f75be5d6a2a022f819aa00" class="toggle"  />
+    <input type="checkbox" id="section-f4c17a12b7f75be5d6a2a022f819aa00" class="toggle" checked />
     <label for="section-f4c17a12b7f75be5d6a2a022f819aa00" class="flex">
       <a href="/docs/packages/migrations/api/" class="">
         API Reference</a>
@@ -940,8 +940,22 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/packages/migrations/api/column/" class="">
+    <a href="/docs/packages/migrations/api/column/" class="active">
       Column</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/migrations/api/foreign-key/" class="">
+      ForeignKey</a>
   
 
         </li>
@@ -1312,9 +1326,9 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-aa5e09ae943b0ea946822aa79928e7b7" class="toggle" checked />
+    <input type="checkbox" id="section-aa5e09ae943b0ea946822aa79928e7b7" class="toggle"  />
     <label for="section-aa5e09ae943b0ea946822aa79928e7b7" class="flex">
-      <a href="/docs/packages/http-exception-handler/" class="active">
+      <a href="/docs/packages/http-exception-handler/" class="">
         meritum/http-exception-handler</a>
       <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
     </label>
@@ -1393,7 +1407,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>meritum/http-exception-handler</h3>
+  <h3>Column</h3>
 
   <label for="toc-control">
     
@@ -1407,105 +1421,33 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><h1 id="meritumhttp-exception-handler">meritum/http-exception-handler<a class="anchor" href="#meritumhttp-exception-handler">#</a></h1>
-<p><code>meritum/http-exception-handler</code> wires <code>meritum/structured-logging</code> into the HTTP kernel&rsquo;s exception handling contract. It reports every unhandled exception through the structured logging pipeline and returns a consistent JSON error response.</p>
-<pre tabindex="0"><code>composer require meritum/http-exception-handler</code></pre><h2 id="dependencies">Dependencies<a class="anchor" href="#dependencies">#</a></h2>
-<p>This package requires both <code>meritum/http</code> and <code>meritum/structured-logging</code> to be present and their modules registered before <code>ExceptionHandlerModule</code>.</p>
-<h2 id="module-registration">Module Registration<a class="anchor" href="#module-registration">#</a></h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Logger\LoggerModule;
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\StructuredLogging\StructuredLoggingModule;
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\HttpExceptionHandler\ExceptionHandlerModule;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">ModuleRepository</span> <span style="color:#ff79c6">implements</span> ModuleRepositoryInterface
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">modules</span>(Environment <span style="color:#8be9fd;font-style:italic">$env</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">array</span>
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> [
-</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">new</span> LoggerModule(),
-</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">new</span> StructuredLoggingModule(),
-</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">new</span> ExceptionHandlerModule(),
-</span></span><span style="display:flex;"><span>            <span style="color:#6272a4">// ...
-</span></span></span><span style="display:flex;"><span>        ];
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p><code>ExceptionHandlerModule</code> registers two things:</p>
-<ul>
-<li><code>HttpExceptionTranslationHandler</code> — tagged <code>'exception.translator.handlers'</code>; translates <code>HttpExceptionInterface</code> exceptions into <code>HttpDomainException</code></li>
-<li><code>ExceptionHandlerInterface::class</code> — the HTTP kernel picks this up automatically and routes unhandled exceptions through it</li>
-</ul>
-<p>No additional wiring is required. The <code>ExceptionHandler</code> receives <code>ExceptionReporter</code> from the container, which was set up by <code>StructuredLoggingModule</code>.</p>
-<h2 id="error-response-shape">Error Response Shape<a class="anchor" href="#error-response-shape">#</a></h2>
-<p>Every unhandled exception produces a JSON response:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;code&#34;</span>: <span style="color:#f1fa8c">&#34;HTTP_404&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;status&#34;</span>: <span style="color:#bd93f9">404</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;title&#34;</span>: <span style="color:#f1fa8c">&#34;Not Found&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;detail&#34;</span>: <span style="color:#f1fa8c">&#34;The requested resource was not found&#34;</span>
-</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>For <code>HttpExceptionInterface</code> exceptions, the status code and title come from the exception itself. For all other exceptions — those translated by a <code>TranslationHandler</code> or wrapped as <code>UnknownException</code> — the status is always <code>500</code> and the title is <code>'Unexpected Error'</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;code&#34;</span>: <span style="color:#f1fa8c">&#34;PAY_0001&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;status&#34;</span>: <span style="color:#bd93f9">500</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;title&#34;</span>: <span style="color:#f1fa8c">&#34;Unexpected Error&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;detail&#34;</span>: <span style="color:#f1fa8c">&#34;Payment failed: insufficient funds&#34;</span>
-</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>The <code>code</code> field is the <code>DomainException::getErrorCode()</code> value from the translated exception.</p>
-<h2 id="severity-mapping">Severity Mapping<a class="anchor" href="#severity-mapping">#</a></h2>
-<p>HTTP exceptions are logged at a severity that reflects whether the condition is a system problem or expected client behaviour:</p>
-<table>
-	<thead>
-			<tr>
-					<th>Status range</th>
-					<th>Severity</th>
-					<th>Rationale</th>
-			</tr>
-	</thead>
-	<tbody>
-			<tr>
-					<td>4xx</td>
-					<td><code>debug</code></td>
-					<td>Client errors — expected, not a system alert</td>
-			</tr>
-			<tr>
-					<td>503</td>
-					<td><code>debug</code></td>
-					<td>Service unavailable is typically a known state</td>
-			</tr>
-			<tr>
-					<td>5xx (other)</td>
-					<td><code>error</code></td>
-					<td>Unexpected server-side failure</td>
-			</tr>
-	</tbody>
-</table>
-<p>Non-HTTP exceptions wrapped as <code>UnknownException</code> are logged at <code>error</code> severity.</p>
-<h2 id="custom-exception-types">Custom Exception Types<a class="anchor" href="#custom-exception-types">#</a></h2>
-<p>Domain exceptions thrown inside request handlers are translated using the same <code>TranslationHandler</code> pipeline from <code>meritum/structured-logging</code>. Register a handler for each exception type you want to control:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Throwable;
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\StructuredLogging\Severity;
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\StructuredLogging\TranslationHandler;
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\StructuredLogging\Exception\DomainException;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">PaymentExceptionHandler</span> <span style="color:#ff79c6">implements</span> TranslationHandler
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">matches</span>(Throwable <span style="color:#8be9fd;font-style:italic">$exception</span>)<span style="color:#ff79c6">:</span> bool
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">$exception</span> instanceof PaymentException;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">handle</span>(Throwable <span style="color:#8be9fd;font-style:italic">$exception</span>)<span style="color:#ff79c6">:</span> DomainException
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> PaymentFailedException(
-</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">$exception</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getReason</span>(),
-</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">$exception</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getTransactionId</span>(),
-</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">$exception</span>
-</span></span><span style="display:flex;"><span>        );
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">priority</span>()<span style="color:#ff79c6">:</span> int
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">50</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(PaymentExceptionHandler<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn() <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> PaymentExceptionHandler())
-</span></span><span style="display:flex;"><span>       <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">tag</span>(<span style="color:#f1fa8c">&#39;exception.translator.handlers&#39;</span>);</span></span></code></pre></div><p>Unrecognised exceptions that have no matching handler fall through to <code>UnknownException</code> with error code <code>UNKNOWN_0000</code> and a 500 response.</p>
-</article>
+  <article class="markdown book-article"><h1 id="column">Column<a class="anchor" href="#column">#</a></h1>
+<p><code>Georgeff\Schema\Column</code></p>
+<p>Returned by every column method on <a href="/docs/packages/migrations/api/blueprint/"><code>Blueprint</code></a>
+. All modifier methods return <code>self</code> for chaining.</p>
+<h2 id="modifiers">Modifiers<a class="anchor" href="#modifiers">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">nullable</span>(bool <span style="color:#8be9fd;font-style:italic">$value</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>)<span style="color:#ff79c6">:</span> self;</span></span></code></pre></div><p>Marks the column as <code>NULL</code>. Call <code>nullable(false)</code> to explicitly set <code>NOT NULL</code>.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">default</span>(mixed <span style="color:#8be9fd;font-style:italic">$value</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>)<span style="color:#ff79c6">:</span> self;</span></span></code></pre></div><p>Sets a default value. Pass <code>null</code> to default to SQL <code>NULL</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$blueprint</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">boolean</span>(<span style="color:#f1fa8c">&#39;is_active&#39;</span>)<span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">default</span>(<span style="color:#ff79c6">true</span>);
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$blueprint</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">string</span>(<span style="color:#f1fa8c">&#39;status&#39;</span>)<span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">default</span>(<span style="color:#f1fa8c">&#39;pending&#39;</span>);</span></span></code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">unsigned</span>()<span style="color:#ff79c6">:</span> self;</span></span></code></pre></div><p>Marks an integer column as <code>UNSIGNED</code>.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">primary</span>(<span style="color:#ff79c6">?</span>string <span style="color:#8be9fd;font-style:italic">$name</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>)<span style="color:#ff79c6">:</span> self;</span></span></code></pre></div><p>Adds a primary key index on this column. <code>$name</code> sets an explicit index name.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">unique</span>(<span style="color:#ff79c6">?</span>string <span style="color:#8be9fd;font-style:italic">$name</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>)<span style="color:#ff79c6">:</span> self;</span></span></code></pre></div><p>Adds a unique index on this column. <code>$name</code> sets an explicit index name.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">index</span>(<span style="color:#ff79c6">?</span>string <span style="color:#8be9fd;font-style:italic">$name</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>)<span style="color:#ff79c6">:</span> self;</span></span></code></pre></div><p>Adds a plain index on this column. <code>$name</code> sets an explicit index name.</p>
+<h2 id="example">Example<a class="anchor" href="#example">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$schema</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">create</span>(<span style="color:#f1fa8c">&#39;products&#39;</span>, <span style="color:#ff79c6">function</span> (Blueprint <span style="color:#8be9fd;font-style:italic">$blueprint</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">$blueprint</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">uuid</span>(<span style="color:#f1fa8c">&#39;id&#39;</span>)<span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">unique</span>()<span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">primary</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">$blueprint</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">string</span>(<span style="color:#f1fa8c">&#39;sku&#39;</span>, <span style="color:#bd93f9">64</span>)<span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">unique</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">$blueprint</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">string</span>(<span style="color:#f1fa8c">&#39;name&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">$blueprint</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">decimal</span>(<span style="color:#f1fa8c">&#39;price&#39;</span>, <span style="color:#bd93f9">10</span>, <span style="color:#bd93f9">2</span>)<span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">unsigned</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">$blueprint</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">integer</span>(<span style="color:#f1fa8c">&#39;stock&#39;</span>)<span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">default</span>(<span style="color:#bd93f9">0</span>)<span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">unsigned</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">$blueprint</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">boolean</span>(<span style="color:#f1fa8c">&#39;is_available&#39;</span>)<span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">default</span>(<span style="color:#ff79c6">false</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">$blueprint</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">timestamps</span>();
+</span></span><span style="display:flex;"><span>});</span></span></code></pre></div></article>
  
       
 
@@ -1526,16 +1468,16 @@ https://github.com/alex-shpak/hugo-book
 <div class="flex flex-wrap justify-between">
     <span>
     
-      <a href="/docs/packages/structured-logging/api/severity/" class="flex align-center">
+      <a href="/docs/packages/migrations/api/blueprint/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>Severity</span>
+        <span>Blueprint</span>
       </a>
     
     </span>
     <span>
     
-      <a href="/docs/packages/http-exception-handler/api/" class="flex align-center">
-        <span>API Reference</span>
+      <a href="/docs/packages/migrations/api/foreign-key/" class="flex align-center">
+        <span>ForeignKey</span>
         <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
       </a>
     

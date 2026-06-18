@@ -8,32 +8,32 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Translates exceptions into structured JSON error responses using the meritum/structured-logging pipeline">
+<meta name="description" content="Builds a standalone migrations CLI kernel, optionally sharing an existing ServiceRegistrar">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://10.10.3.33:1313/docs/packages/http-exception-handler/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://10.10.3.33:1313/docs/packages/migrations/api/kernel-builder/">
 	<meta property="og:site_name" content="Meritum">
-	<meta property="og:title" content="meritum/http-exception-handler">
-	<meta property="og:description" content="Translates exceptions into structured JSON error responses using the meritum/structured-logging pipeline">
+	<meta property="og:title" content="KernelBuilder">
+	<meta property="og:description" content="Builds a standalone migrations CLI kernel, optionally sharing an existing ServiceRegistrar">
 	<meta property="og:locale" content="en">
-	<meta property="og:type" content="website">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="docs">
 
 
-	<meta itemprop="name" content="meritum/http-exception-handler">
-	<meta itemprop="description" content="Translates exceptions into structured JSON error responses using the meritum/structured-logging pipeline">
-	<meta itemprop="wordCount" content="374">
+	<meta itemprop="name" content="KernelBuilder">
+	<meta itemprop="description" content="Builds a standalone migrations CLI kernel, optionally sharing an existing ServiceRegistrar">
+	<meta itemprop="wordCount" content="155">
 
-<title>meritum/http-exception-handler • Meritum</title>
+<title>KernelBuilder • Meritum</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="http://10.10.3.33:1313/docs/packages/http-exception-handler/">
+<link rel="canonical" href="http://10.10.3.33:1313/docs/packages/migrations/api/kernel-builder/">
 <link rel="stylesheet" href="/book.min.98c83e4c8e1c8661368bcb29bbaf4dcc9d31b8164f76aae322d82d86a9750c65.css" integrity="sha256-mMg&#43;TI4chmE2i8spu69NzJ0xuBZPdqrjItgthql1DGU=" crossorigin="anonymous">
 
-<link rel="alternate" type="application/rss+xml" href="http://10.10.3.33:1313/docs/packages/http-exception-handler/index.xml" title="meritum/http-exception-handler" />
 
   
 </head>
-<body dir="ltr" class="book-kind-section book-type-docs">
+<body dir="ltr" class="book-kind-page book-type-docs">
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
@@ -862,7 +862,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-569ddd91f5f2f259cd8c99a1d5c7237a" class="toggle"  />
+    <input type="checkbox" id="section-569ddd91f5f2f259cd8c99a1d5c7237a" class="toggle" checked />
     <label for="section-569ddd91f5f2f259cd8c99a1d5c7237a" class="flex">
       <a href="/docs/packages/migrations/" class="">
         meritum/migrations</a>
@@ -880,7 +880,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-f4c17a12b7f75be5d6a2a022f819aa00" class="toggle"  />
+    <input type="checkbox" id="section-f4c17a12b7f75be5d6a2a022f819aa00" class="toggle" checked />
     <label for="section-f4c17a12b7f75be5d6a2a022f819aa00" class="flex">
       <a href="/docs/packages/migrations/api/" class="">
         API Reference</a>
@@ -926,22 +926,8 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/packages/migrations/api/blueprint/" class="">
-      Blueprint</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/docs/packages/migrations/api/column/" class="">
-      Column</a>
+    <a href="/docs/packages/migrations/api/kernel-builder/" class="active">
+      KernelBuilder</a>
   
 
         </li>
@@ -1312,9 +1298,9 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-aa5e09ae943b0ea946822aa79928e7b7" class="toggle" checked />
+    <input type="checkbox" id="section-aa5e09ae943b0ea946822aa79928e7b7" class="toggle"  />
     <label for="section-aa5e09ae943b0ea946822aa79928e7b7" class="flex">
-      <a href="/docs/packages/http-exception-handler/" class="active">
+      <a href="/docs/packages/http-exception-handler/" class="">
         meritum/http-exception-handler</a>
       <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
     </label>
@@ -1393,7 +1379,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>meritum/http-exception-handler</h3>
+  <h3>KernelBuilder</h3>
 
   <label for="toc-control">
     
@@ -1407,104 +1393,52 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><h1 id="meritumhttp-exception-handler">meritum/http-exception-handler<a class="anchor" href="#meritumhttp-exception-handler">#</a></h1>
-<p><code>meritum/http-exception-handler</code> wires <code>meritum/structured-logging</code> into the HTTP kernel&rsquo;s exception handling contract. It reports every unhandled exception through the structured logging pipeline and returns a consistent JSON error response.</p>
-<pre tabindex="0"><code>composer require meritum/http-exception-handler</code></pre><h2 id="dependencies">Dependencies<a class="anchor" href="#dependencies">#</a></h2>
-<p>This package requires both <code>meritum/http</code> and <code>meritum/structured-logging</code> to be present and their modules registered before <code>ExceptionHandlerModule</code>.</p>
-<h2 id="module-registration">Module Registration<a class="anchor" href="#module-registration">#</a></h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Logger\LoggerModule;
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\StructuredLogging\StructuredLoggingModule;
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\HttpExceptionHandler\ExceptionHandlerModule;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">ModuleRepository</span> <span style="color:#ff79c6">implements</span> ModuleRepositoryInterface
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">modules</span>(Environment <span style="color:#8be9fd;font-style:italic">$env</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">array</span>
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> [
-</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">new</span> LoggerModule(),
-</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">new</span> StructuredLoggingModule(),
-</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">new</span> ExceptionHandlerModule(),
-</span></span><span style="display:flex;"><span>            <span style="color:#6272a4">// ...
-</span></span></span><span style="display:flex;"><span>        ];
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p><code>ExceptionHandlerModule</code> registers two things:</p>
-<ul>
-<li><code>HttpExceptionTranslationHandler</code> — tagged <code>'exception.translator.handlers'</code>; translates <code>HttpExceptionInterface</code> exceptions into <code>HttpDomainException</code></li>
-<li><code>ExceptionHandlerInterface::class</code> — the HTTP kernel picks this up automatically and routes unhandled exceptions through it</li>
-</ul>
-<p>No additional wiring is required. The <code>ExceptionHandler</code> receives <code>ExceptionReporter</code> from the container, which was set up by <code>StructuredLoggingModule</code>.</p>
-<h2 id="error-response-shape">Error Response Shape<a class="anchor" href="#error-response-shape">#</a></h2>
-<p>Every unhandled exception produces a JSON response:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;code&#34;</span>: <span style="color:#f1fa8c">&#34;HTTP_404&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;status&#34;</span>: <span style="color:#bd93f9">404</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;title&#34;</span>: <span style="color:#f1fa8c">&#34;Not Found&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;detail&#34;</span>: <span style="color:#f1fa8c">&#34;The requested resource was not found&#34;</span>
-</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>For <code>HttpExceptionInterface</code> exceptions, the status code and title come from the exception itself. For all other exceptions — those translated by a <code>TranslationHandler</code> or wrapped as <code>UnknownException</code> — the status is always <code>500</code> and the title is <code>'Unexpected Error'</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;code&#34;</span>: <span style="color:#f1fa8c">&#34;PAY_0001&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;status&#34;</span>: <span style="color:#bd93f9">500</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;title&#34;</span>: <span style="color:#f1fa8c">&#34;Unexpected Error&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;detail&#34;</span>: <span style="color:#f1fa8c">&#34;Payment failed: insufficient funds&#34;</span>
-</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>The <code>code</code> field is the <code>DomainException::getErrorCode()</code> value from the translated exception.</p>
-<h2 id="severity-mapping">Severity Mapping<a class="anchor" href="#severity-mapping">#</a></h2>
-<p>HTTP exceptions are logged at a severity that reflects whether the condition is a system problem or expected client behaviour:</p>
+  <article class="markdown book-article"><h1 id="kernelbuilder">KernelBuilder<a class="anchor" href="#kernelbuilder">#</a></h1>
+<p><code>Meritum\Migrations\Factory\KernelBuilder</code></p>
+<p>Constructs a complete <code>CliKernelInterface</code> pre-loaded with <code>DatabaseModule</code> and <code>MigrationsModule</code>. Used when running migrations as a standalone binary or when you want to share service definitions from an existing kernel.</p>
+<h2 id="static-method">Static Method<a class="anchor" href="#static-method">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">static</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">build</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">?</span>string <span style="color:#8be9fd;font-style:italic">$environment</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">?</span>ServiceRegistrar <span style="color:#8be9fd;font-style:italic">$registrar</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">?</span>bool <span style="color:#8be9fd;font-style:italic">$debug</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>
+</span></span><span style="display:flex;"><span>)<span style="color:#ff79c6">:</span> CliKernelInterface;</span></span></code></pre></div><p>Builds and returns the migrations kernel. All parameters are optional:</p>
 <table>
 	<thead>
 			<tr>
-					<th>Status range</th>
-					<th>Severity</th>
-					<th>Rationale</th>
+					<th>Parameter</th>
+					<th>Default</th>
+					<th>Description</th>
 			</tr>
 	</thead>
 	<tbody>
 			<tr>
-					<td>4xx</td>
-					<td><code>debug</code></td>
-					<td>Client errors — expected, not a system alert</td>
+					<td><code>$environment</code></td>
+					<td><code>APP_ENV</code> env var</td>
+					<td>Overrides the environment string (<code>production</code>, <code>staging</code>, <code>development</code>, <code>testing</code>). Defaults to <code>production</code> when <code>APP_ENV</code> is unset or unrecognised.</td>
 			</tr>
 			<tr>
-					<td>503</td>
-					<td><code>debug</code></td>
-					<td>Service unavailable is typically a known state</td>
+					<td><code>$registrar</code></td>
+					<td><code>null</code></td>
+					<td>An existing <code>ServiceRegistrar</code> whose definitions are shared into the migrations kernel.</td>
 			</tr>
 			<tr>
-					<td>5xx (other)</td>
-					<td><code>error</code></td>
-					<td>Unexpected server-side failure</td>
+					<td><code>$debug</code></td>
+					<td><code>APP_DEBUG</code> env var</td>
+					<td>Overrides debug mode. <code>APP_DEBUG=true</code> / <code>1</code> enables it.</td>
 			</tr>
 	</tbody>
 </table>
-<p>Non-HTTP exceptions wrapped as <code>UnknownException</code> are logged at <code>error</code> severity.</p>
-<h2 id="custom-exception-types">Custom Exception Types<a class="anchor" href="#custom-exception-types">#</a></h2>
-<p>Domain exceptions thrown inside request handlers are translated using the same <code>TranslationHandler</code> pipeline from <code>meritum/structured-logging</code>. Register a handler for each exception type you want to control:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Throwable;
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\StructuredLogging\Severity;
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\StructuredLogging\TranslationHandler;
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\StructuredLogging\Exception\DomainException;
+<h2 id="usage">Usage<a class="anchor" href="#usage">#</a></h2>
+<h3 id="standalone">Standalone<a class="anchor" href="#standalone">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Migrations\Factory\KernelBuilder;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">PaymentExceptionHandler</span> <span style="color:#ff79c6">implements</span> TranslationHandler
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">matches</span>(Throwable <span style="color:#8be9fd;font-style:italic">$exception</span>)<span style="color:#ff79c6">:</span> bool
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">$exception</span> instanceof PaymentException;
-</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span> <span style="color:#ff79c6">=</span> KernelBuilder<span style="color:#ff79c6">::</span><span style="color:#50fa7b">build</span>();
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">run</span>();</span></span></code></pre></div><h3 id="sharing-an-existing-registrar">Sharing an existing registrar<a class="anchor" href="#sharing-an-existing-registrar">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Migrations\Factory\KernelBuilder;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">handle</span>(Throwable <span style="color:#8be9fd;font-style:italic">$exception</span>)<span style="color:#ff79c6">:</span> DomainException
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> PaymentFailedException(
-</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">$exception</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getReason</span>(),
-</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">$exception</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getTransactionId</span>(),
-</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">$exception</span>
-</span></span><span style="display:flex;"><span>        );
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">priority</span>()<span style="color:#ff79c6">:</span> int
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">50</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(PaymentExceptionHandler<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn() <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> PaymentExceptionHandler())
-</span></span><span style="display:flex;"><span>       <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">tag</span>(<span style="color:#f1fa8c">&#39;exception.translator.handlers&#39;</span>);</span></span></code></pre></div><p>Unrecognised exceptions that have no matching handler fall through to <code>UnknownException</code> with error code <code>UNKNOWN_0000</code> and a 500 response.</p>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// $appKernel is your application&#39;s kernel, already booted
+</span></span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span> <span style="color:#ff79c6">=</span> KernelBuilder<span style="color:#ff79c6">::</span><span style="color:#50fa7b">build</span>(registrar<span style="color:#ff79c6">:</span> <span style="color:#8be9fd;font-style:italic">$appKernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getRegistrar</span>());
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">run</span>();</span></span></code></pre></div><p>Definitions in the shared registrar — including any already-configured database connection — are available inside the migrations kernel without re-declaring them.</p>
 </article>
  
       
@@ -1526,16 +1460,16 @@ https://github.com/alex-shpak/hugo-book
 <div class="flex flex-wrap justify-between">
     <span>
     
-      <a href="/docs/packages/structured-logging/api/severity/" class="flex align-center">
+      <a href="/docs/packages/migrations/api/schema-interface/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>Severity</span>
+        <span>SchemaInterface</span>
       </a>
     
     </span>
     <span>
     
-      <a href="/docs/packages/http-exception-handler/api/" class="flex align-center">
-        <span>API Reference</span>
+      <a href="/docs/packages/serialization/" class="flex align-center">
+        <span>meritum/serialization</span>
         <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
       </a>
     

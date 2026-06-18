@@ -21,7 +21,7 @@ https://github.com/alex-shpak/hugo-book
 
 	<meta itemprop="name" content="meritum/migrations">
 	<meta itemprop="description" content="Schema migration runner with a CLI interface for the Meritum ecosystem">
-	<meta itemprop="wordCount" content="3">
+	<meta itemprop="wordCount" content="544">
 
 <title>meritum/migrations • Meritum</title>
 <link rel="icon" href="/favicon.png" >
@@ -891,6 +891,76 @@ https://github.com/alex-shpak/hugo-book
           
   <ul>
     
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/migrations/api/migration-interface/" class="">
+      MigrationInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/migrations/api/schema-interface/" class="">
+      SchemaInterface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/migrations/api/blueprint/" class="">
+      Blueprint</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/migrations/api/column/" class="">
+      Column</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/migrations/api/foreign-key/" class="">
+      ForeignKey</a>
+  
+
+        </li>
+      
+    
   </ul>
 
         </li>
@@ -1351,8 +1421,219 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><p>Documentation coming soon.</p>
-</article>
+  <article class="markdown book-article"><h1 id="meritummigrations">meritum/migrations<a class="anchor" href="#meritummigrations">#</a></h1>
+<p><code>meritum/migrations</code> is a schema migration runner with a dedicated CLI. It ships as a standalone binary (<code>bin/strata</code>) that you can run directly, and as a pair of modules you can add to any existing <code>meritum/cli</code> kernel.</p>
+<pre tabindex="0"><code>composer require meritum/migrations</code></pre><h2 id="standalone-usage">Standalone Usage<a class="anchor" href="#standalone-usage">#</a></h2>
+<p>After installation, run migrations directly through the installed binary:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vendor/bin/strata migration:install
+</span></span><span style="display:flex;"><span>vendor/bin/strata migration:run</span></span></code></pre></div><p>Configure the database and migration path entirely through environment variables — no code required.</p>
+<h3 id="configuration">Configuration<a class="anchor" href="#configuration">#</a></h3>
+<table>
+	<thead>
+			<tr>
+					<th>Variable</th>
+					<th>Default</th>
+					<th>Description</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>DB_DRIVER</code></td>
+					<td><code>pgsql</code></td>
+					<td>Database driver: <code>pgsql</code>, <code>mysql</code>, or <code>sqlite</code></td>
+			</tr>
+			<tr>
+					<td><code>DB_HOST</code></td>
+					<td><code>localhost</code></td>
+					<td>Database host</td>
+			</tr>
+			<tr>
+					<td><code>DB_PORT</code></td>
+					<td><code>5432</code></td>
+					<td>Database port</td>
+			</tr>
+			<tr>
+					<td><code>DB_DATABASE</code></td>
+					<td>—</td>
+					<td>Database name</td>
+			</tr>
+			<tr>
+					<td><code>DB_USERNAME</code></td>
+					<td>—</td>
+					<td>Database username</td>
+			</tr>
+			<tr>
+					<td><code>DB_PASSWORD</code></td>
+					<td>—</td>
+					<td>Database password</td>
+			</tr>
+			<tr>
+					<td><code>DB_PGSQL_SCHEMA</code></td>
+					<td><code>public</code></td>
+					<td>PostgreSQL schema</td>
+			</tr>
+			<tr>
+					<td><code>DB_PGSQL_SSL_MODE</code></td>
+					<td><code>prefer</code></td>
+					<td>PostgreSQL SSL mode</td>
+			</tr>
+			<tr>
+					<td><code>DB_MYSQL_CHARSET</code></td>
+					<td><code>utf8mb4</code></td>
+					<td>MySQL character set</td>
+			</tr>
+			<tr>
+					<td><code>DB_MIGRATIONS_TABLE</code></td>
+					<td><code>migrations</code></td>
+					<td>Table used to track ran migrations</td>
+			</tr>
+			<tr>
+					<td><code>DB_MIGRATIONS_PATH</code></td>
+					<td><code>{cwd}/migrations</code></td>
+					<td>Directory containing migration files</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="integration-with-an-existing-kernel">Integration with an Existing Kernel<a class="anchor" href="#integration-with-an-existing-kernel">#</a></h2>
+<p>If you already have a <code>meritum/cli</code> kernel, add the migrations modules to your module repository instead of using the standalone binary.</p>
+<p>If your kernel already registers <code>meritum/database</code>&rsquo;s <code>DatabaseModule</code>, only add <code>MigrationsModule</code> — it registers on top of the existing database services:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Migrations\Module\MigrationsModule;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">ModuleRepository</span> <span style="color:#ff79c6">implements</span> ModuleRepositoryInterface
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">modules</span>(Environment <span style="color:#8be9fd;font-style:italic">$env</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">array</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> [
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">new</span> DatabaseModule(),
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">new</span> MigrationsModule(),
+</span></span><span style="display:flex;"><span>            <span style="color:#6272a4">// your other modules...
+</span></span></span><span style="display:flex;"><span>        ];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>If your kernel does not already have database services registered, add both migration modules (they bundle their own):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Migrations\Module\DatabaseModule <span style="color:#ff79c6">as</span> MigrationsDbModule;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Migrations\Module\MigrationsModule;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">return</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">new</span> MigrationsDbModule(),
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">new</span> MigrationsModule(),
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// ...
+</span></span></span><span style="display:flex;"><span>];</span></span></code></pre></div><p><code>MigrationsModule</code> tags all five migration commands with <code>'cli.commands'</code> — the CLI kernel picks them up automatically.</p>
+<h2 id="writing-migrations">Writing Migrations<a class="anchor" href="#writing-migrations">#</a></h2>
+<p>Generate a migration file with <code>migration:make</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#6272a4"># Blank migration</span>
+</span></span><span style="display:flex;"><span>vendor/bin/strata migration:make create_users
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Create-table stub (pre-filled with uuid + timestamps)</span>
+</span></span><span style="display:flex;"><span>vendor/bin/strata migration:make create_users --create-table<span style="color:#ff79c6">=</span>users
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Alter-table stub</span>
+</span></span><span style="display:flex;"><span>vendor/bin/strata migration:make add_role_to_users --alter-table<span style="color:#ff79c6">=</span>users</span></span></code></pre></div><p><code>--create-table</code> and <code>--alter-table</code> are mutually exclusive — passing both in the same call is an error.</p>
+<p>Files are written to <code>DB_MIGRATIONS_PATH</code> (default <code>migrations/</code>) with a timestamp prefix:</p>
+<pre tabindex="0"><code>migrations/
+  2026_06_17_153045_create_users.php</code></pre><p>Each migration is an anonymous class returned from the file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">&lt;?</span>php
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Georgeff\Schema\Blueprint;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Migrations\SchemaInterface;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Migrations\MigrationInterface;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> <span style="color:#ff79c6">class</span> <span style="color:#ff79c6">implements</span> MigrationInterface {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">up</span>(SchemaInterface <span style="color:#8be9fd;font-style:italic">$schema</span>)<span style="color:#ff79c6">:</span> void
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$schema</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">create</span>(<span style="color:#f1fa8c">&#39;users&#39;</span>, <span style="color:#ff79c6">function</span> (Blueprint <span style="color:#8be9fd;font-style:italic">$blueprint</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">$blueprint</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">uuid</span>(<span style="color:#f1fa8c">&#39;id&#39;</span>)<span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">unique</span>()<span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">primary</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">$blueprint</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">string</span>(<span style="color:#f1fa8c">&#39;name&#39;</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">$blueprint</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">string</span>(<span style="color:#f1fa8c">&#39;email&#39;</span>)<span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">unique</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">$blueprint</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">boolean</span>(<span style="color:#f1fa8c">&#39;is_active&#39;</span>)<span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">default</span>(<span style="color:#ff79c6">true</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">$blueprint</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">timestamps</span>();
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">down</span>(SchemaInterface <span style="color:#8be9fd;font-style:italic">$schema</span>)<span style="color:#ff79c6">:</span> void
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$schema</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">dropIfExists</span>(<span style="color:#f1fa8c">&#39;users&#39;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};</span></span></code></pre></div><h2 id="schema-api">Schema API<a class="anchor" href="#schema-api">#</a></h2>
+<p><code>SchemaInterface</code> is injected into every <code>up()</code> and <code>down()</code> method:</p>
+<table>
+	<thead>
+			<tr>
+					<th>Method</th>
+					<th>Description</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>create(string $table, callable $callback)</code></td>
+					<td>Create a new table. The callback receives a <code>Blueprint</code>.</td>
+			</tr>
+			<tr>
+					<td><code>alter(string $table, callable $callback)</code></td>
+					<td>Modify an existing table. The callback receives a <code>Blueprint</code>.</td>
+			</tr>
+			<tr>
+					<td><code>drop(string $table)</code></td>
+					<td>Drop a table.</td>
+			</tr>
+			<tr>
+					<td><code>dropIfExists(string $table)</code></td>
+					<td>Drop a table if it exists.</td>
+			</tr>
+			<tr>
+					<td><code>tableExists(string $table)</code></td>
+					<td>Returns <code>true</code> if the table exists.</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="commands">Commands<a class="anchor" href="#commands">#</a></h2>
+<table>
+	<thead>
+			<tr>
+					<th>Command</th>
+					<th>Description</th>
+					<th>Flags</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>migration:install</code></td>
+					<td>Create the migrations tracking table</td>
+					<td><code>--force / -f</code></td>
+			</tr>
+			<tr>
+					<td><code>migration:run</code></td>
+					<td>Run all pending migrations</td>
+					<td><code>--force / -f</code></td>
+			</tr>
+			<tr>
+					<td><code>migration:rollback</code></td>
+					<td>Roll back the last batch of migrations</td>
+					<td><code>--force / -f</code></td>
+			</tr>
+			<tr>
+					<td><code>migration:status</code></td>
+					<td>Display migration status table</td>
+					<td>—</td>
+			</tr>
+			<tr>
+					<td><code>migration:make &lt;filename&gt;</code></td>
+					<td>Generate a migration file</td>
+					<td><code>--create-table=</code>, <code>--alter-table=</code></td>
+			</tr>
+	</tbody>
+</table>
+<p><code>--force / -f</code> is required when <code>APP_ENV=production</code> for install, run, and rollback.</p>
+<h2 id="batches-and-rollback">Batches and Rollback<a class="anchor" href="#batches-and-rollback">#</a></h2>
+<p>Each <code>migration:run</code> call increments the batch number and tags every migration run in that call with the same batch. <code>migration:rollback</code> reverses only the migrations in the most recent batch, in reverse order. Running <code>migration:rollback</code> again rolls back the next most recent batch.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#6272a4"># Run pending migrations (batch 1)</span>
+</span></span><span style="display:flex;"><span>vendor/bin/strata migration:run
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Roll back batch 1</span>
+</span></span><span style="display:flex;"><span>vendor/bin/strata migration:rollback
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Check what has and hasn&#39;t been run</span>
+</span></span><span style="display:flex;"><span>vendor/bin/strata migration:status</span></span></code></pre></div></article>
  
       
 
