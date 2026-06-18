@@ -72,7 +72,7 @@ DB_DATABASE=/path/to/database.sqlite
 
 ### Read replicas
 
-`DB_READ_HOSTS` accepts a JSON array of read replica hostnames (e.g. `["replica1.db", "replica2.db"]`). When set, select queries are routed to a read replica. `DB_STICKY_WRITE=true` (default) routes reads to the write connection for the remainder of the request after any write, avoiding read-after-write lag from replication delay.
+`DB_READ_HOSTS` accepts a comma-separated list of read replica hostnames. When set, select queries are routed to a read replica. `DB_STICKY_WRITE=true` (default) routes reads to the write connection for the remainder of the request after any write, avoiding read-after-write lag from replication delay.
 
 ## Defining a Model
 
@@ -191,46 +191,28 @@ Accessors run after casting on read. Mutators run before casting on write.
 
 ## Defining a Repository
 
-Define an interface for your repository that extends `RepositoryInterface`, then implement it by extending `Repository`:
-
-```php
-use Meritum\Database\RepositoryInterface;
-
-interface UserRepositoryInterface extends RepositoryInterface
-{
-    public function findByEmail(string $email): ?User;
-}
-```
+Extend `Repository` and implement `getModelClass()`:
 
 ```php
 use Meritum\Database\Repository;
 use Georgeff\Database\Contract\DatabaseManagerInterface;
 
-final class UserRepository extends Repository implements UserRepositoryInterface
+final class UserRepository extends Repository
 {
     protected function getModelClass(): string
     {
         return User::class;
     }
-
-    public function findByEmail(string $email): ?User
-    {
-        $this->query()->where('email', $email);
-
-        return $this->first();
-    }
 }
 ```
 
-Register it in a module bound to your own interface:
+Register it in a module:
 
 ```php
-$kernel->define(UserRepositoryInterface::class, fn($c) => new UserRepository(
+$kernel->define(UserRepository::class, fn($c) => new UserRepository(
     $c->get(DatabaseManagerInterface::class)
-));
+))->share();
 ```
-
-Consuming classes type-hint `UserRepositoryInterface`, not the concrete class.
 
 ## Built-in Finders
 

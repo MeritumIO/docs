@@ -8,33 +8,32 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Public classes and interfaces for meritum/database.
-">
+<meta name="description" content="Abstract base class for database-backed entities">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://10.10.3.33:1313/docs/packages/database/api/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://10.10.3.33:1313/docs/packages/database/api/model/">
 	<meta property="og:site_name" content="Meritum">
-	<meta property="og:title" content="API Reference">
-	<meta property="og:description" content="Public classes and interfaces for meritum/database.">
+	<meta property="og:title" content="Model">
+	<meta property="og:description" content="Abstract base class for database-backed entities">
 	<meta property="og:locale" content="en">
-	<meta property="og:type" content="website">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="docs">
 
 
-	<meta itemprop="name" content="API Reference">
-	<meta itemprop="description" content="Public classes and interfaces for meritum/database.">
-	<meta itemprop="wordCount" content="6">
+	<meta itemprop="name" content="Model">
+	<meta itemprop="description" content="Abstract base class for database-backed entities">
+	<meta itemprop="wordCount" content="298">
 
-<title>API Reference • Meritum</title>
+<title>Model • Meritum</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="http://10.10.3.33:1313/docs/packages/database/api/">
+<link rel="canonical" href="http://10.10.3.33:1313/docs/packages/database/api/model/">
 <link rel="stylesheet" href="/book.min.98c83e4c8e1c8661368bcb29bbaf4dcc9d31b8164f76aae322d82d86a9750c65.css" integrity="sha256-mMg&#43;TI4chmE2i8spu69NzJ0xuBZPdqrjItgthql1DGU=" crossorigin="anonymous">
 
-<link rel="alternate" type="application/rss+xml" href="http://10.10.3.33:1313/docs/packages/database/api/index.xml" title="API Reference" />
 
   
 </head>
-<body dir="ltr" class="book-kind-section book-type-docs">
+<body dir="ltr" class="book-kind-page book-type-docs">
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
@@ -739,7 +738,7 @@ https://github.com/alex-shpak/hugo-book
   
     <input type="checkbox" id="section-595fdccef239d6edd0900a81879e7e88" class="toggle" checked />
     <label for="section-595fdccef239d6edd0900a81879e7e88" class="flex">
-      <a href="/docs/packages/database/api/" class="active">
+      <a href="/docs/packages/database/api/" class="">
         API Reference</a>
       <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
     </label>
@@ -755,7 +754,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/packages/database/api/model/" class="">
+    <a href="/docs/packages/database/api/model/" class="active">
       Model</a>
   
 
@@ -1338,7 +1337,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>API Reference</h3>
+  <h3>Model</h3>
 
   <label for="toc-control">
     
@@ -1352,7 +1351,50 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><p>Public classes and interfaces for <code>meritum/database</code>.</p>
+  <article class="markdown book-article"><h1 id="model">Model<a class="anchor" href="#model">#</a></h1>
+<p><code>Meritum\Database\Model</code></p>
+<p>Abstract base class for all database-backed entities. Provides attribute storage, cast conversion, dirty tracking, and PHP 8.4 property hook integration.</p>
+<h2 id="configuration-properties">Configuration Properties<a class="anchor" href="#configuration-properties">#</a></h2>
+<p>Declare these as <code>protected</code> properties in your subclass:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">protected</span> string <span style="color:#8be9fd;font-style:italic">$table</span>;             <span style="color:#6272a4">// required — the database table name
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">protected</span> string <span style="color:#8be9fd;font-style:italic">$primaryKey</span>     <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;id&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">protected</span> string <span style="color:#8be9fd;font-style:italic">$primaryKeyType</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;string&#39;</span>; <span style="color:#6272a4">// &#39;string&#39; or &#39;int&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">protected</span> bool   <span style="color:#8be9fd;font-style:italic">$incrementing</span>   <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">protected</span> bool   <span style="color:#8be9fd;font-style:italic">$timestamps</span>     <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">protected</span> string <span style="color:#8be9fd;font-style:italic">$createdAtColumn</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;created_at&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">protected</span> string <span style="color:#8be9fd;font-style:italic">$updatedAtColumn</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;updated_at&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">protected</span> <span style="color:#ff79c6">array</span>  <span style="color:#8be9fd;font-style:italic">$casts</span>          <span style="color:#ff79c6">=</span> [];</span></span></code></pre></div><h2 id="property-hooks">Property Hooks<a class="anchor" href="#property-hooks">#</a></h2>
+<p>Access attributes through PHP 8.4 property hooks backed by <code>getAttribute()</code> and <code>setAttribute()</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> string <span style="color:#8be9fd;font-style:italic">$name</span> {
+</span></span><span style="display:flex;"><span>    get <span style="color:#ff79c6">=&gt;</span> <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getAttribute</span>(<span style="color:#f1fa8c">&#39;name&#39;</span>);
+</span></span><span style="display:flex;"><span>    set <span style="color:#ff79c6">=&gt;</span> <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">setAttribute</span>(<span style="color:#f1fa8c">&#39;name&#39;</span>, <span style="color:#8be9fd;font-style:italic">$value</span>);
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>Read-only attributes omit the <code>set</code> hook. Cast values are applied automatically when the column name has an entry in <code>$casts</code>.</p>
+<h2 id="protected-methods">Protected Methods<a class="anchor" href="#protected-methods">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">protected</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">getAttribute</span>(string <span style="color:#8be9fd;font-style:italic">$key</span>)<span style="color:#ff79c6">:</span> mixed;</span></span></code></pre></div><p>Returns the attribute value for <code>$key</code>, applying any registered accessor and cast.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">protected</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">setAttribute</span>(string <span style="color:#8be9fd;font-style:italic">$key</span>, mixed <span style="color:#8be9fd;font-style:italic">$value</span>)<span style="color:#ff79c6">:</span> void;</span></span></code></pre></div><p>Stores <code>$value</code> for <code>$key</code>, applying any registered mutator before storage.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">protected</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">accessors</span>()<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">array</span>;</span></span></code></pre></div><p>Override to register per-column read transformations. Return an array keyed by column name:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">protected</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">accessors</span>()<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">array</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> [
+</span></span><span style="display:flex;"><span>        <span style="color:#f1fa8c">&#39;name&#39;</span> <span style="color:#ff79c6">=&gt;</span> fn(string <span style="color:#8be9fd;font-style:italic">$v</span>) <span style="color:#ff79c6">=&gt;</span> ucwords(<span style="color:#8be9fd;font-style:italic">$v</span>),
+</span></span><span style="display:flex;"><span>    ];
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">protected</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">mutators</span>()<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">array</span>;</span></span></code></pre></div><p>Override to register per-column write transformations. Return an array keyed by column name:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">protected</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">mutators</span>()<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">array</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> [
+</span></span><span style="display:flex;"><span>        <span style="color:#f1fa8c">&#39;email&#39;</span> <span style="color:#ff79c6">=&gt;</span> fn(string <span style="color:#8be9fd;font-style:italic">$v</span>) <span style="color:#ff79c6">=&gt;</span> strtolower(<span style="color:#8be9fd;font-style:italic">$v</span>),
+</span></span><span style="display:flex;"><span>    ];
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><h2 id="public-methods">Public Methods<a class="anchor" href="#public-methods">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">isNew</span>()<span style="color:#ff79c6">:</span> bool;</span></span></code></pre></div><p>Returns <code>true</code> if the model has not been persisted (has no original attributes).</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">isDirty</span>()<span style="color:#ff79c6">:</span> bool;</span></span></code></pre></div><p>Returns <code>true</code> if any attribute has changed since the model was last synced.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">hydrate</span>(<span style="color:#ff79c6">array</span> <span style="color:#8be9fd;font-style:italic">$attributes</span>)<span style="color:#ff79c6">:</span> void;</span></span></code></pre></div><p>Populates the model from a raw database row. Throws <code>LogicException</code> if the model already has attributes (call <code>hydrate()</code> only on fresh instances).</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">toArray</span>()<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">array</span>;</span></span></code></pre></div><p>Returns all attributes as a plain array. <code>DateTimeImmutable</code> values are formatted as ISO 8601 strings.</p>
 </article>
  
       
@@ -1374,16 +1416,16 @@ https://github.com/alex-shpak/hugo-book
 <div class="flex flex-wrap justify-between">
     <span>
     
-      <a href="/docs/packages/database/" class="flex align-center">
+      <a href="/docs/packages/database/api/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>meritum/database</span>
+        <span>API Reference</span>
       </a>
     
     </span>
     <span>
     
-      <a href="/docs/packages/database/api/model/" class="flex align-center">
-        <span>Model</span>
+      <a href="/docs/packages/database/api/repository-interface/" class="flex align-center">
+        <span>RepositoryInterface</span>
         <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
       </a>
     
