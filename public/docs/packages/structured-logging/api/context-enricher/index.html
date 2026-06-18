@@ -8,26 +8,26 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Resource wrapping an iterable of domain objects">
+<meta name="description" content="Appends fields to the log context on every log call">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://10.10.3.33:1313/docs/packages/serialization/api/collection/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://10.10.3.33:1313/docs/packages/structured-logging/api/context-enricher/">
 	<meta property="og:site_name" content="Meritum">
-	<meta property="og:title" content="Collection">
-	<meta property="og:description" content="Resource wrapping an iterable of domain objects">
+	<meta property="og:title" content="ContextEnricher">
+	<meta property="og:description" content="Appends fields to the log context on every log call">
 	<meta property="og:locale" content="en">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="docs">
 
 
-	<meta itemprop="name" content="Collection">
-	<meta itemprop="description" content="Resource wrapping an iterable of domain objects">
-	<meta itemprop="wordCount" content="139">
+	<meta itemprop="name" content="ContextEnricher">
+	<meta itemprop="description" content="Appends fields to the log context on every log call">
+	<meta itemprop="wordCount" content="119">
 
-<title>Collection • Meritum</title>
+<title>ContextEnricher • Meritum</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="http://10.10.3.33:1313/docs/packages/serialization/api/collection/">
+<link rel="canonical" href="http://10.10.3.33:1313/docs/packages/structured-logging/api/context-enricher/">
 <link rel="stylesheet" href="/book.min.98c83e4c8e1c8661368bcb29bbaf4dcc9d31b8164f76aae322d82d86a9750c65.css" integrity="sha256-mMg&#43;TI4chmE2i8spu69NzJ0xuBZPdqrjItgthql1DGU=" crossorigin="anonymous">
 
 
@@ -810,7 +810,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-2f049f8686765bbf26557dd84ee460a2" class="toggle" checked />
+    <input type="checkbox" id="section-2f049f8686765bbf26557dd84ee460a2" class="toggle"  />
     <label for="section-2f049f8686765bbf26557dd84ee460a2" class="flex">
       <a href="/docs/packages/serialization/" class="">
         meritum/serialization</a>
@@ -828,7 +828,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-271d37e38f0a26257f129efbebf91bb8" class="toggle" checked />
+    <input type="checkbox" id="section-271d37e38f0a26257f129efbebf91bb8" class="toggle"  />
     <label for="section-271d37e38f0a26257f129efbebf91bb8" class="flex">
       <a href="/docs/packages/serialization/api/" class="">
         API Reference</a>
@@ -888,7 +888,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/packages/serialization/api/collection/" class="active">
+    <a href="/docs/packages/serialization/api/collection/" class="">
       Collection</a>
   
 
@@ -1014,7 +1014,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-85520fc7f2a530fdc2601e8f8026189f" class="toggle"  />
+    <input type="checkbox" id="section-85520fc7f2a530fdc2601e8f8026189f" class="toggle" checked />
     <label for="section-85520fc7f2a530fdc2601e8f8026189f" class="flex">
       <a href="/docs/packages/structured-logging/" class="">
         meritum/structured-logging</a>
@@ -1032,7 +1032,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-1e7d3b649ecaf9ff9ed1c7e2e354e013" class="toggle"  />
+    <input type="checkbox" id="section-1e7d3b649ecaf9ff9ed1c7e2e354e013" class="toggle" checked />
     <label for="section-1e7d3b649ecaf9ff9ed1c7e2e354e013" class="flex">
       <a href="/docs/packages/structured-logging/api/" class="">
         API Reference</a>
@@ -1050,7 +1050,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/packages/structured-logging/api/context-enricher/" class="">
+    <a href="/docs/packages/structured-logging/api/context-enricher/" class="active">
       ContextEnricher</a>
   
 
@@ -1239,7 +1239,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>Collection</h3>
+  <h3>ContextEnricher</h3>
 
   <label for="toc-control">
     
@@ -1253,32 +1253,25 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><h1 id="collection">Collection<a class="anchor" href="#collection">#</a></h1>
-<p><code>Meritum\Serialization\Resource\Collection</code></p>
-<p>Wraps an iterable of domain objects alongside a <a href="/docs/packages/serialization/api/serializer-interface/"><code>SerializerInterface</code></a>
-. Implements <code>CollectionInterface</code>. Supports cursor-based and offset-based pagination.</p>
-<h2 id="constructor">Constructor<a class="anchor" href="#constructor">#</a></h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f1fa8c">/** @param iterable&lt;mixed&gt; $data */</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">__construct</span>(iterable <span style="color:#8be9fd;font-style:italic">$data</span>, SerializerInterface <span style="color:#8be9fd;font-style:italic">$serializer</span>)</span></span></code></pre></div><p>The serializer is called once per element in <code>$data</code> when the formatter builds the collection.</p>
-<h2 id="pagination">Pagination<a class="anchor" href="#pagination">#</a></h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">setCursor</span>(CursorInterface <span style="color:#8be9fd;font-style:italic">$cursor</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">static</span>;</span></span></code></pre></div><p>Attaches cursor pagination. Clears any previously set paginator. Produces <code>limit</code>, <code>previous</code>, and <code>next</code> keys in the envelope.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">setPaginator</span>(PaginatorInterface <span style="color:#8be9fd;font-style:italic">$paginator</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">static</span>;</span></span></code></pre></div><p>Attaches offset pagination. Clears any previously set cursor. Produces <code>total</code>, <code>count</code>, <code>limit</code>, <code>current</code>, and <code>last</code> keys in the envelope.</p>
-<p>See <a href="/docs/packages/serialization/api/cursor-interface/"><code>CursorInterface</code></a>
- and <a href="/docs/packages/serialization/api/paginator-interface/"><code>PaginatorInterface</code></a>
-.</p>
-<h2 id="meta">Meta<a class="anchor" href="#meta">#</a></h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">addMeta</span>(string <span style="color:#8be9fd;font-style:italic">$key</span>, mixed <span style="color:#8be9fd;font-style:italic">$value</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">static</span>;
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">getMeta</span>()<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">array</span>;</span></span></code></pre></div><p>Attaches arbitrary metadata. Non-empty meta appears as a <code>meta</code> key in the envelope alongside <code>data</code>.</p>
+  <article class="markdown book-article"><h1 id="contextenricher">ContextEnricher<a class="anchor" href="#contextenricher">#</a></h1>
+<p><code>Meritum\StructuredLogging\ContextEnricher</code></p>
+<p>Appends fields to the log context before it is passed to the underlying PSR-3 logger. Register implementations tagged with <code>'log.context.enrichers'</code> to include them in the pipeline.</p>
+<h2 id="methods">Methods<a class="anchor" href="#methods">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f1fa8c">/** @param mixed[] $context @return mixed[] */</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">enrich</span>(<span style="color:#ff79c6">array</span> <span style="color:#8be9fd;font-style:italic">$context</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">array</span>;</span></span></code></pre></div><p>Receives the context array from the log call and returns an augmented copy. Use the <code>+</code> union operator to avoid overwriting keys the caller set explicitly:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">$context</span> <span style="color:#ff79c6">+</span> [<span style="color:#f1fa8c">&#39;tenant_id&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">resolver</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">current</span>()<span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">id</span>];</span></span></code></pre></div><h2 id="built-in-enricher">Built-in enricher<a class="anchor" href="#built-in-enricher">#</a></h2>
+<p><code>CorrelationIdEnricher</code> is registered automatically by <code>StructuredLoggingModule</code>. It adds <code>'correlation_id'</code> to every log entry using the shared <code>CorrelationId</code> service.</p>
 <h2 id="example">Example<a class="anchor" href="#example">#</a></h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Serialization\Resource\Collection;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\StructuredLogging\ContextEnricher;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$resource</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Collection(<span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">users</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">paginate</span>(<span style="color:#8be9fd;font-style:italic">$page</span>, <span style="color:#8be9fd;font-style:italic">$perPage</span>), <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">serializer</span>);
-</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$resource</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">setPaginator</span>(<span style="color:#8be9fd;font-style:italic">$paginator</span>);
-</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$resource</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">addMeta</span>(<span style="color:#f1fa8c">&#39;cached&#39;</span>, <span style="color:#ff79c6">false</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$envelope</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">formatter</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">format</span>(<span style="color:#8be9fd;font-style:italic">$resource</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> JsonResponse(<span style="color:#8be9fd;font-style:italic">$envelope</span>);</span></span></code></pre></div></article>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">AppVersionEnricher</span> <span style="color:#ff79c6">implements</span> ContextEnricher
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">enrich</span>(<span style="color:#ff79c6">array</span> <span style="color:#8be9fd;font-style:italic">$context</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">array</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">$context</span> <span style="color:#ff79c6">+</span> [<span style="color:#f1fa8c">&#39;app_version&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;1.4.2&#39;</span>];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(AppVersionEnricher<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn() <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> AppVersionEnricher())
+</span></span><span style="display:flex;"><span>       <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">tag</span>(<span style="color:#f1fa8c">&#39;log.context.enrichers&#39;</span>);</span></span></code></pre></div></article>
  
       
 
@@ -1299,16 +1292,16 @@ https://github.com/alex-shpak/hugo-book
 <div class="flex flex-wrap justify-between">
     <span>
     
-      <a href="/docs/packages/serialization/api/item/" class="flex align-center">
+      <a href="/docs/packages/structured-logging/api/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>Item</span>
+        <span>API Reference</span>
       </a>
     
     </span>
     <span>
     
-      <a href="/docs/packages/serialization/api/envelope-interface/" class="flex align-center">
-        <span>EnvelopeInterface</span>
+      <a href="/docs/packages/structured-logging/api/domain-exception/" class="flex align-center">
+        <span>DomainException</span>
         <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
       </a>
     

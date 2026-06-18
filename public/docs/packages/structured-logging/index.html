@@ -8,20 +8,20 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Structured exception logging — domain model, translation pipeline, PSR-3 reporting, and correlation ID">
+<meta name="description" content="Context enrichment, exception translation pipeline, and structured error reporting over PSR-3">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="http://10.10.3.33:1313/docs/packages/structured-logging/">
 	<meta property="og:site_name" content="Meritum">
 	<meta property="og:title" content="meritum/structured-logging">
-	<meta property="og:description" content="Structured exception logging — domain model, translation pipeline, PSR-3 reporting, and correlation ID">
+	<meta property="og:description" content="Context enrichment, exception translation pipeline, and structured error reporting over PSR-3">
 	<meta property="og:locale" content="en">
 	<meta property="og:type" content="website">
 
 
 	<meta itemprop="name" content="meritum/structured-logging">
-	<meta itemprop="description" content="Structured exception logging — domain model, translation pipeline, PSR-3 reporting, and correlation ID">
-	<meta itemprop="wordCount" content="3">
+	<meta itemprop="description" content="Context enrichment, exception translation pipeline, and structured error reporting over PSR-3">
+	<meta itemprop="wordCount" content="657">
 
 <title>meritum/structured-logging • Meritum</title>
 <link rel="icon" href="/favicon.png" >
@@ -1043,6 +1043,104 @@ https://github.com/alex-shpak/hugo-book
           
   <ul>
     
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/structured-logging/api/context-enricher/" class="">
+      ContextEnricher</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/structured-logging/api/domain-exception/" class="">
+      DomainException</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/structured-logging/api/translation-handler/" class="">
+      TranslationHandler</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/structured-logging/api/exception-translator/" class="">
+      ExceptionTranslator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/structured-logging/api/exception-reporter/" class="">
+      ExceptionReporter</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/structured-logging/api/correlation-id/" class="">
+      CorrelationId</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/structured-logging/api/severity/" class="">
+      Severity</a>
+  
+
+        </li>
+      
+    
   </ul>
 
         </li>
@@ -1155,8 +1253,154 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><p>Documentation coming soon.</p>
-</article>
+  <article class="markdown book-article"><h1 id="meritumstructured-logging">meritum/structured-logging<a class="anchor" href="#meritumstructured-logging">#</a></h1>
+<p><code>meritum/structured-logging</code> adds three capabilities on top of a PSR-3 logger: automatic context enrichment on every log call, a typed exception model with structured data, and an exception translation and reporting pipeline. It is designed to be used alongside <code>meritum/logger</code> but works with any PSR-3 implementation.</p>
+<pre tabindex="0"><code>composer require meritum/structured-logging</code></pre><h2 id="module-registration">Module Registration<a class="anchor" href="#module-registration">#</a></h2>
+<p><code>StructuredLoggingModule</code> must be registered after whichever module provides <code>LoggerInterface::class</code>, because it decorates the logger:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Logger\LoggerModule;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\StructuredLogging\StructuredLoggingModule;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">ModuleRepository</span> <span style="color:#ff79c6">implements</span> ModuleRepositoryInterface
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">modules</span>(Environment <span style="color:#8be9fd;font-style:italic">$env</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">array</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> [
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">new</span> LoggerModule(),
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">new</span> StructuredLoggingModule(),
+</span></span><span style="display:flex;"><span>            <span style="color:#6272a4">// ...
+</span></span></span><span style="display:flex;"><span>        ];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>The module:</p>
+<ul>
+<li>Registers <code>CorrelationId</code> as a shared service</li>
+<li>Registers <code>CorrelationIdEnricher</code> (tagged <code>'log.context.enrichers'</code>)</li>
+<li>Registers <code>ExceptionTranslator</code> (collects <code>'exception.translator.handlers'</code> tagged services)</li>
+<li>Registers <code>ExceptionReporter</code></li>
+<li><strong>Decorates</strong> <code>LoggerInterface::class</code> — wraps the existing logger with <code>ContextEnrichingLogger</code></li>
+</ul>
+<p>After registration, every log call made through <code>LoggerInterface</code> automatically passes through the enrichment pipeline.</p>
+<h2 id="correlation-id">Correlation ID<a class="anchor" href="#correlation-id">#</a></h2>
+<p>A <code>CorrelationId</code> is generated automatically on every kernel boot — a UUID v4 that is attached to every log entry under the <code>correlation_id</code> key.</p>
+<p>To propagate an incoming correlation ID from a request header, inject <code>CorrelationId</code> and call <code>set()</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\StructuredLogging\CorrelationId;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">CorrelationIdMiddleware</span> <span style="color:#ff79c6">implements</span> MiddlewareInterface
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">__construct</span>(<span style="color:#ff79c6">private</span> readonly CorrelationId <span style="color:#8be9fd;font-style:italic">$correlationId</span>) {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">process</span>(
+</span></span><span style="display:flex;"><span>        ServerRequestInterface <span style="color:#8be9fd;font-style:italic">$request</span>,
+</span></span><span style="display:flex;"><span>        RequestHandlerInterface <span style="color:#8be9fd;font-style:italic">$handler</span>
+</span></span><span style="display:flex;"><span>    )<span style="color:#ff79c6">:</span> ResponseInterface {
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$incoming</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">$request</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getHeaderLine</span>(<span style="color:#f1fa8c">&#39;X-Correlation-ID&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">if</span> (<span style="color:#f1fa8c">&#39;&#39;</span> <span style="color:#ff79c6">!==</span> <span style="color:#8be9fd;font-style:italic">$incoming</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">correlationId</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">set</span>(<span style="color:#8be9fd;font-style:italic">$incoming</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">$handler</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">handle</span>(<span style="color:#8be9fd;font-style:italic">$request</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p><code>set()</code> silently ignores the value if it is not a valid UUID v4. The correlation ID is also <code>Stringable</code>, so you can include it in response headers:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">$response</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">withHeader</span>(<span style="color:#f1fa8c">&#39;X-Correlation-ID&#39;</span>, (string) <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">correlationId</span>);</span></span></code></pre></div><h2 id="custom-context-enrichers">Custom Context Enrichers<a class="anchor" href="#custom-context-enrichers">#</a></h2>
+<p>Implement <code>ContextEnricher</code> to append additional fields to every log entry:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\StructuredLogging\ContextEnricher;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">TenantEnricher</span> <span style="color:#ff79c6">implements</span> ContextEnricher
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">__construct</span>(<span style="color:#ff79c6">private</span> readonly TenantResolver <span style="color:#8be9fd;font-style:italic">$tenants</span>) {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">enrich</span>(<span style="color:#ff79c6">array</span> <span style="color:#8be9fd;font-style:italic">$context</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">array</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">$context</span> <span style="color:#ff79c6">+</span> [<span style="color:#f1fa8c">&#39;tenant_id&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">tenants</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">current</span>()<span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">id</span>];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>Register and tag it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(TenantEnricher<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn(<span style="color:#8be9fd;font-style:italic">$c</span>) <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> TenantEnricher(
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">$c</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">get</span>(TenantResolver<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>)
+</span></span><span style="display:flex;"><span>))<span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">tag</span>(<span style="color:#f1fa8c">&#39;log.context.enrichers&#39;</span>);</span></span></code></pre></div><p>All services tagged <code>'log.context.enrichers'</code> are collected at boot and run in sequence on every log call. The <code>+</code> union operator means a call-site key takes precedence over an enricher key of the same name.</p>
+<h2 id="domain-exceptions">Domain Exceptions<a class="anchor" href="#domain-exceptions">#</a></h2>
+<p>Extend <code>DomainException</code> to model typed exceptions with structured data for the reporting pipeline:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\StructuredLogging\Severity;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\StructuredLogging\Exception\DomainException;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">PaymentFailedException</span> <span style="color:#ff79c6">extends</span> DomainException
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">__construct</span>(string <span style="color:#8be9fd;font-style:italic">$reason</span>, string <span style="color:#8be9fd;font-style:italic">$transactionId</span>, <span style="color:#ff79c6">?</span>Throwable <span style="color:#8be9fd;font-style:italic">$previous</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">parent</span><span style="color:#ff79c6">::</span><span style="color:#50fa7b">__construct</span>(
+</span></span><span style="display:flex;"><span>            message<span style="color:#ff79c6">:</span>   <span style="color:#f1fa8c">&#34;Payment failed: </span><span style="color:#f1fa8c">{</span><span style="color:#8be9fd;font-style:italic">$reason</span><span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&#34;</span>,
+</span></span><span style="display:flex;"><span>            severity<span style="color:#ff79c6">:</span>  Severity<span style="color:#ff79c6">::</span><span style="color:#50fa7b">Error</span>,
+</span></span><span style="display:flex;"><span>            context<span style="color:#ff79c6">:</span>   [<span style="color:#f1fa8c">&#39;transaction_id&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#8be9fd;font-style:italic">$transactionId</span>, <span style="color:#f1fa8c">&#39;reason&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#8be9fd;font-style:italic">$reason</span>],
+</span></span><span style="display:flex;"><span>            retryable<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">true</span>,
+</span></span><span style="display:flex;"><span>            previous<span style="color:#ff79c6">:</span>  <span style="color:#8be9fd;font-style:italic">$previous</span>
+</span></span><span style="display:flex;"><span>        );
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">getErrorCode</span>()<span style="color:#ff79c6">:</span> string
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#39;PAY_0001&#39;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p><code>DomainException</code> exposes a <code>$structuredData</code> virtual property used by the reporter:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#39;error_code&#39;</span>  <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;PAY_0001&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#39;message&#39;</span>     <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;Payment failed: insufficient funds&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#39;severity&#39;</span>    <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;error&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#39;retryable&#39;</span>   <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#39;occurred_at&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;2026-06-17T10:00:00+00:00&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#39;detail&#39;</span>      <span style="color:#ff79c6">=&gt;</span> [<span style="color:#f1fa8c">&#39;transaction_id&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;txn_abc&#39;</span>, <span style="color:#f1fa8c">&#39;reason&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;insufficient funds&#39;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#39;metadata&#39;</span>    <span style="color:#ff79c6">=&gt;</span> [<span style="color:#f1fa8c">&#39;file&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;...&#39;</span>, <span style="color:#f1fa8c">&#39;line&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#bd93f9">42</span>, <span style="color:#f1fa8c">&#39;class&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;PaymentFailedException&#39;</span>],
+</span></span><span style="display:flex;"><span>]</span></span></code></pre></div><p><code>DomainException</code> instances passed directly to <code>ExceptionReporter::report()</code> are logged as-is — translation is skipped.</p>
+<h2 id="exception-translation">Exception Translation<a class="anchor" href="#exception-translation">#</a></h2>
+<p>The translation pipeline converts arbitrary <code>Throwable</code> instances into <code>DomainException</code>. Implement <code>TranslationHandler</code> and tag it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Throwable;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\StructuredLogging\Severity;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\StructuredLogging\TranslationHandler;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\StructuredLogging\Exception\DomainException;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">PdoExceptionHandler</span> <span style="color:#ff79c6">implements</span> TranslationHandler
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">matches</span>(Throwable <span style="color:#8be9fd;font-style:italic">$exception</span>)<span style="color:#ff79c6">:</span> bool
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">$exception</span> instanceof \PDOException;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">handle</span>(Throwable <span style="color:#8be9fd;font-style:italic">$exception</span>)<span style="color:#ff79c6">:</span> DomainException
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> DatabaseException(
+</span></span><span style="display:flex;"><span>            message<span style="color:#ff79c6">:</span>  <span style="color:#8be9fd;font-style:italic">$exception</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getMessage</span>(),
+</span></span><span style="display:flex;"><span>            severity<span style="color:#ff79c6">:</span> Severity<span style="color:#ff79c6">::</span><span style="color:#50fa7b">Critical</span>,
+</span></span><span style="display:flex;"><span>            previous<span style="color:#ff79c6">:</span> <span style="color:#8be9fd;font-style:italic">$exception</span>
+</span></span><span style="display:flex;"><span>        );
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">priority</span>()<span style="color:#ff79c6">:</span> int
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">100</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>Register and tag it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(PdoExceptionHandler<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn() <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> PdoExceptionHandler())
+</span></span><span style="display:flex;"><span>       <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">tag</span>(<span style="color:#f1fa8c">&#39;exception.translator.handlers&#39;</span>);</span></span></code></pre></div><p>Handlers are sorted by <code>priority()</code> descending — the highest-priority matching handler wins. If no handler matches, the exception is wrapped in <code>UnknownException</code> with error code <code>UNKNOWN_0000</code>.</p>
+<h2 id="exception-reporting">Exception Reporting<a class="anchor" href="#exception-reporting">#</a></h2>
+<p>Inject <code>ExceptionReporter</code> and call <code>report()</code> wherever you need to log an exception:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\StructuredLogging\ExceptionReporter;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">ExceptionHandler</span> <span style="color:#ff79c6">implements</span> ExceptionHandlerInterface
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">__construct</span>(<span style="color:#ff79c6">private</span> readonly ExceptionReporter <span style="color:#8be9fd;font-style:italic">$reporter</span>) {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">handle</span>(Throwable <span style="color:#8be9fd;font-style:italic">$e</span>, ServerRequestInterface <span style="color:#8be9fd;font-style:italic">$request</span>)<span style="color:#ff79c6">:</span> ResponseInterface
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">$domain</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">$this</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">reporter</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">report</span>(<span style="color:#8be9fd;font-style:italic">$e</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> JsonResponse(
+</span></span><span style="display:flex;"><span>            [<span style="color:#f1fa8c">&#39;error&#39;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#8be9fd;font-style:italic">$domain</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getErrorCode</span>()],
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">$domain</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">severity</span> <span style="color:#ff79c6">===</span> Severity<span style="color:#ff79c6">::</span><span style="color:#50fa7b">Error</span> <span style="color:#ff79c6">?</span> <span style="color:#bd93f9">500</span> <span style="color:#ff79c6">:</span> <span style="color:#bd93f9">400</span>
+</span></span><span style="display:flex;"><span>        );
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p><code>report()</code> translates the exception, logs it at the appropriate severity using the logger&rsquo;s structured data, and returns the <code>DomainException</code> so the caller can use it to build a response.</p>
+<blockquote class='book-hint '>
+<p><code>meritum/http-exception-handler</code> provides a ready-made <code>ExceptionHandlerInterface</code> implementation that wires <code>ExceptionReporter</code> into the HTTP kernel. See the <a href="/docs/packages/http-exception-handler/">http-exception-handler guide</a>
+ for details.</p>
+</blockquote></article>
  
       
 
