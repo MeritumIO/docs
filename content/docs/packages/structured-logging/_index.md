@@ -15,7 +15,7 @@ composer require meritum/structured-logging
 
 ## Module Registration
 
-`StructuredLoggingModule` must be registered after whichever module provides `LoggerInterface::class`, because it decorates the logger:
+`StructuredLoggingModule` requires a `LoggerInterface::class` definition to be present — it decorates the logger. Registration order does not matter; decoration is applied after all modules have registered:
 
 ```php
 use Meritum\Logger\LoggerModule;
