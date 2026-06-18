@@ -21,7 +21,7 @@ https://github.com/alex-shpak/hugo-book
 
 	<meta itemprop="name" content="meritum/http-exception-handler">
 	<meta itemprop="description" content="Translates exceptions into structured JSON error responses using the meritum/structured-logging pipeline">
-	<meta itemprop="wordCount" content="3">
+	<meta itemprop="wordCount" content="374">
 
 <title>meritum/http-exception-handler • Meritum</title>
 <link rel="icon" href="/favicon.png" >
@@ -1113,6 +1113,34 @@ https://github.com/alex-shpak/hugo-book
         </li>
       
     
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/structured-logging/api/correlation-id/" class="">
+      CorrelationId</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/packages/structured-logging/api/severity/" class="">
+      Severity</a>
+  
+
+        </li>
+      
+    
   </ul>
 
         </li>
@@ -1225,7 +1253,104 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><p>Documentation coming soon.</p>
+  <article class="markdown book-article"><h1 id="meritumhttp-exception-handler">meritum/http-exception-handler<a class="anchor" href="#meritumhttp-exception-handler">#</a></h1>
+<p><code>meritum/http-exception-handler</code> wires <code>meritum/structured-logging</code> into the HTTP kernel&rsquo;s exception handling contract. It reports every unhandled exception through the structured logging pipeline and returns a consistent JSON error response.</p>
+<pre tabindex="0"><code>composer require meritum/http-exception-handler</code></pre><h2 id="dependencies">Dependencies<a class="anchor" href="#dependencies">#</a></h2>
+<p>This package requires both <code>meritum/http</code> and <code>meritum/structured-logging</code> to be present and their modules registered before <code>ExceptionHandlerModule</code>.</p>
+<h2 id="module-registration">Module Registration<a class="anchor" href="#module-registration">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\Logger\LoggerModule;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\StructuredLogging\StructuredLoggingModule;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\HttpExceptionHandler\ExceptionHandlerModule;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">ModuleRepository</span> <span style="color:#ff79c6">implements</span> ModuleRepositoryInterface
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">modules</span>(Environment <span style="color:#8be9fd;font-style:italic">$env</span>)<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">array</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> [
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">new</span> LoggerModule(),
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">new</span> StructuredLoggingModule(),
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">new</span> ExceptionHandlerModule(),
+</span></span><span style="display:flex;"><span>            <span style="color:#6272a4">// ...
+</span></span></span><span style="display:flex;"><span>        ];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p><code>ExceptionHandlerModule</code> registers two things:</p>
+<ul>
+<li><code>HttpExceptionTranslationHandler</code> — tagged <code>'exception.translator.handlers'</code>; translates <code>HttpExceptionInterface</code> exceptions into <code>HttpDomainException</code></li>
+<li><code>ExceptionHandlerInterface::class</code> — the HTTP kernel picks this up automatically and routes unhandled exceptions through it</li>
+</ul>
+<p>No additional wiring is required. The <code>ExceptionHandler</code> receives <code>ExceptionReporter</code> from the container, which was set up by <code>StructuredLoggingModule</code>.</p>
+<h2 id="error-response-shape">Error Response Shape<a class="anchor" href="#error-response-shape">#</a></h2>
+<p>Every unhandled exception produces a JSON response:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;code&#34;</span>: <span style="color:#f1fa8c">&#34;HTTP_404&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;status&#34;</span>: <span style="color:#bd93f9">404</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;title&#34;</span>: <span style="color:#f1fa8c">&#34;Not Found&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;detail&#34;</span>: <span style="color:#f1fa8c">&#34;The requested resource was not found&#34;</span>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>For <code>HttpExceptionInterface</code> exceptions, the status code and title come from the exception itself. For all other exceptions — those translated by a <code>TranslationHandler</code> or wrapped as <code>UnknownException</code> — the status is always <code>500</code> and the title is <code>'Unexpected Error'</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;code&#34;</span>: <span style="color:#f1fa8c">&#34;PAY_0001&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;status&#34;</span>: <span style="color:#bd93f9">500</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;title&#34;</span>: <span style="color:#f1fa8c">&#34;Unexpected Error&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;detail&#34;</span>: <span style="color:#f1fa8c">&#34;Payment failed: insufficient funds&#34;</span>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>The <code>code</code> field is the <code>DomainException::getErrorCode()</code> value from the translated exception.</p>
+<h2 id="severity-mapping">Severity Mapping<a class="anchor" href="#severity-mapping">#</a></h2>
+<p>HTTP exceptions are logged at a severity that reflects whether the condition is a system problem or expected client behaviour:</p>
+<table>
+	<thead>
+			<tr>
+					<th>Status range</th>
+					<th>Severity</th>
+					<th>Rationale</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>4xx</td>
+					<td><code>debug</code></td>
+					<td>Client errors — expected, not a system alert</td>
+			</tr>
+			<tr>
+					<td>503</td>
+					<td><code>debug</code></td>
+					<td>Service unavailable is typically a known state</td>
+			</tr>
+			<tr>
+					<td>5xx (other)</td>
+					<td><code>error</code></td>
+					<td>Unexpected server-side failure</td>
+			</tr>
+	</tbody>
+</table>
+<p>Non-HTTP exceptions wrapped as <code>UnknownException</code> are logged at <code>error</code> severity.</p>
+<h2 id="custom-exception-types">Custom Exception Types<a class="anchor" href="#custom-exception-types">#</a></h2>
+<p>Domain exceptions thrown inside request handlers are translated using the same <code>TranslationHandler</code> pipeline from <code>meritum/structured-logging</code>. Register a handler for each exception type you want to control:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Throwable;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\StructuredLogging\Severity;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\StructuredLogging\TranslationHandler;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">use</span> Meritum\StructuredLogging\Exception\DomainException;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">final</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">PaymentExceptionHandler</span> <span style="color:#ff79c6">implements</span> TranslationHandler
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">matches</span>(Throwable <span style="color:#8be9fd;font-style:italic">$exception</span>)<span style="color:#ff79c6">:</span> bool
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">$exception</span> instanceof PaymentException;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">handle</span>(Throwable <span style="color:#8be9fd;font-style:italic">$exception</span>)<span style="color:#ff79c6">:</span> DomainException
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> PaymentFailedException(
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">$exception</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getReason</span>(),
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">$exception</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">getTransactionId</span>(),
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">$exception</span>
+</span></span><span style="display:flex;"><span>        );
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">public</span> <span style="color:#ff79c6">function</span> <span style="color:#50fa7b">priority</span>()<span style="color:#ff79c6">:</span> int
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">50</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$kernel</span><span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">define</span>(PaymentExceptionHandler<span style="color:#ff79c6">::</span><span style="color:#50fa7b">class</span>, fn() <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">new</span> PaymentExceptionHandler())
+</span></span><span style="display:flex;"><span>       <span style="color:#ff79c6">-&gt;</span><span style="color:#50fa7b">tag</span>(<span style="color:#f1fa8c">&#39;exception.translator.handlers&#39;</span>);</span></span></code></pre></div><p>Unrecognised exceptions that have no matching handler fall through to <code>UnknownException</code> with error code <code>UNKNOWN_0000</code> and a 500 response.</p>
 </article>
  
       
@@ -1247,9 +1372,9 @@ https://github.com/alex-shpak/hugo-book
 <div class="flex flex-wrap justify-between">
     <span>
     
-      <a href="/docs/packages/structured-logging/api/exception-reporter/" class="flex align-center">
+      <a href="/docs/packages/structured-logging/api/severity/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>ExceptionReporter</span>
+        <span>Severity</span>
       </a>
     
     </span>
