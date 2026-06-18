@@ -1,0 +1,10 @@
+{
+  "name": "meritum-docs",
+  "compatibility_date": "2026-06-17",
+  "assets": {
+    "directory": "./public"
+  },
+  "build": {
+    "command": "hugo"
+  }
+}
