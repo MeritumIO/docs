@@ -86,13 +86,15 @@ final class ShowUserHandler implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         /** @var RouteInterface $route */
-        $route = $request->getAttribute('__route__');
+        $route = $request->getAttribute(RouteInterface::class);
         $id = $route->getArgument('id');
 
         return new JsonResponse(['id' => $id]);
     }
 }
 ```
+
+The route is also available under the `'__route__'` string key as a convenience alias for code that does not import `RouteInterface`.
 
 ### Registering Routes from a Module
 
