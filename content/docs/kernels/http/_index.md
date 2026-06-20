@@ -37,7 +37,7 @@ $kernel->boot();
 $kernel->run();
 ```
 
-`run()` resolves the incoming request from globals, passes it through the middleware stack and router, emits the response, and then calls `terminate()` which runs any registered terminating callbacks (including `shutdown()`).
+`run()` resolves the incoming request from globals, passes it through the middleware stack and router, emits the response, runs terminating callbacks via `terminate()`, then shuts the kernel down.
 
 ## Routing
 
@@ -206,7 +206,16 @@ $kernel->onTerminating(function (ServerRequestInterface $request, ResponseInterf
 });
 ```
 
-Multiple callbacks run in registration order. `shutdown()` is always the last to run, registered automatically by the kernel.
+Multiple callbacks run in registration order. `terminate()` does not shut the kernel down — `shutdown()` is called by `run()` after all terminating callbacks have completed.
+
+When calling `handle()` and `terminate()` directly (e.g. in tests), shutdown is your responsibility:
+
+```php
+$kernel->boot();
+$response = $kernel->handle($request);
+$kernel->terminate($request, $response);
+$kernel->shutdown();
+```
 
 ## Default Container Registrations
 

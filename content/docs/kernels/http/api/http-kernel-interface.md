@@ -68,4 +68,4 @@ Passes the request through the middleware stack and router. If an exception esca
 public function run(): int;
 ```
 
-The main entry point. Resolves the request from globals, calls `handle()`, emits the response via SAPI, and calls `terminate()`. Returns `0`.
+The main entry point. Resolves the request from globals, calls `handle()`, emits the response via SAPI, calls `terminate()`, then calls `shutdown()`. Returns `0`.
