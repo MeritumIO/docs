@@ -264,7 +264,7 @@ Enable debug mode by passing `debug: true` to the kernel constructor:
 $kernel = new Kernel(Environment::Local, debug: true);
 ```
 
-In debug mode, the kernel records boot phase durations and tracks every container resolution — when a service was resolved, how many times, and how long each resolution took. Services that implement [`DebuggableInterface`](/kernel/api/debuggable-interface/) automatically contribute their own debug output to the aggregated report.
+In debug mode, the kernel records boot phase durations. If the service registrar implements `ResolvingAwareServiceRegistrar`, it also tracks service resolutions — which services have been resolved, how many times, and the debug output of any resolved service that implements [`DebuggableInterface`](/kernel/api/debuggable-interface/).
 
 Dump the full debug snapshot at any point after boot:
 
@@ -275,9 +275,7 @@ $info = $kernel->getDebugInfo();
 The returned array includes:
 
 - `bootProfile` — per-phase timing from the boot sequence
-- `container` — resolution counts, cumulative times, and unresolved services
-- Debug output from any sub-system that implements `DebuggableInterface`
-
-The `DebuggableInterface` auto-aggregation means that as the ecosystem grows, new debuggable sub-systems appear in the report without any changes to the kernel itself. Implement `getDebugInfo()` on any service registered in the container and it will be included automatically.
+- `modules` — module loader state: which classes were loaded and whether each phase has run
+- `services` — resolution counts and the list of unresolved services; present only when the registrar implements `ResolvingAwareServiceRegistrar`; resolved services implementing `DebuggableInterface` have their debug output included under `services.resolved[id].debugInfo`
 
 > `getStartTime()` returns the kernel's construction timestamp only in debug mode. Outside debug mode it returns `-INF`.

@@ -20,7 +20,7 @@ Returns an `array<string, mixed>` of debug information. The structure is up to t
 
 ## Auto-aggregation
 
-`Kernel::getDebugInfo()` automatically includes the debug output of any resolved service that implements `DebuggableInterface`. When the debug container resolves a service, it checks whether the result implements this interface and stores it. Those results are merged into the kernel's debug snapshot.
+`Kernel::getDebugInfo()` automatically includes the debug output of resolved services that implement `DebuggableInterface`, provided the service registrar implements `ResolvingAwareServiceRegistrar`. After each factory resolution, the kernel checks whether the resolved instance implements this interface and stores it. Those results appear in `getDebugInfo()` under `services.resolved[id].debugInfo`.
 
 This means any service in your application can contribute to the debug output without the kernel needing to know about it:
 
