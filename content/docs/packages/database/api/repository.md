@@ -129,6 +129,10 @@ protected function cursor(int $perPage, ?string $cursor): CursorPaginator<T>;
 
 Executes the current query using keyset pagination on the primary key. Pass `null` for the first page; pass the `nextCursor` or `previousCursor` from a previous result for subsequent pages.
 
+This method appends its own `ORDER BY` on the primary key and does not clear any ordering already present on the query. Any prior `orderBy()` call — including those applied by scopes — will stack and produce incorrect results. Call `resetOrderBy()` before invoking `cursor()` if the query or a scope has set an ordering.
+
+UUIDv4 primary keys are randomly generated and have no natural ordering, making them unsuitable as a cursor column. Override `generateUuid()` to return `Uuid::v7()` on any model used with cursor pagination.
+
 ## Scope Methods
 
 ```php
@@ -163,4 +167,13 @@ Returns `$this` with all scopes suspended for the next query execution.
 protected function generateUuid(): string;
 ```
 
-Override to generate a custom UUID format for new string-keyed models. Defaults to UUID v4.
+Override to change the UUID generator used for new string-keyed models. Defaults to `Uuid::v4()`. Override to `Uuid::v7()` for models used with cursor pagination, as UUIDv4 is randomly ordered and unsuitable as a cursor column:
+
+```php
+use Meritum\Database\Support\Uuid;
+
+protected function generateUuid(): string
+{
+    return Uuid::v7();
+}
+```

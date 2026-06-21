@@ -136,7 +136,27 @@ protected string $primaryKeyType = 'int';
 protected bool   $incrementing   = true;
 ```
 
-To use a custom UUID version, override `generateUuid()` in your repository.
+### UUID Versions
+
+`Meritum\Database\Support\Uuid` provides two generators:
+
+| Method | Version | Ordering |
+|---|---|---|
+| `Uuid::v4()` | UUIDv4 | Random — no natural ordering |
+| `Uuid::v7()` | UUIDv7 | Time-ordered — millisecond timestamp in the first 48 bits |
+
+Override `generateUuid()` in your repository to change the generator:
+
+```php
+use Meritum\Database\Support\Uuid;
+
+protected function generateUuid(): string
+{
+    return Uuid::v7();
+}
+```
+
+UUIDv7 is required for models used with cursor pagination — see [Cursor Pagination](#cursor-pagination) below.
 
 ## Attribute Casts
 
@@ -377,7 +397,7 @@ public function listByDate(int $page, int $perPage): Paginator
 
 `Paginator` carries the collection plus `total`, `perPage`, `currentPage`, `lastPage`, `from`, and `to`.
 
-### Cursor pagination
+### Cursor pagination {#cursor-pagination}
 
 ```php
 public function cursorPaginate(int $perPage, ?string $cursor = null): CursorPaginator
@@ -389,6 +409,14 @@ public function cursorPaginate(int $perPage, ?string $cursor = null): CursorPagi
 ```
 
 Cursor pagination uses the primary key for ordering and keyset-based pagination. `CursorPaginator` carries the collection plus opaque `nextCursor` and `previousCursor` tokens. Pass the next/previous token back in the following request.
+
+{{< hint warning >}}
+**Limitations**
+
+`cursor()` appends its own `ORDER BY` on the primary key and does not clear any ordering already set on the query. Any prior `orderBy()` call — including those applied by scopes — will stack and produce incorrect results. If a scope applies an ordering, call `resetOrderBy()` on the query before invoking `cursor()`.
+
+UUIDv4 primary keys are randomly generated and have no natural ordering, making them unsuitable as a cursor column. Override `generateUuid()` to return `Uuid::v7()` on any model used with cursor pagination.
+{{< /hint >}}
 
 ## Collection
 
