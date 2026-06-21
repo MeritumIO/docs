@@ -118,4 +118,28 @@ Populates the model from a raw database row. Throws `LogicException` if the mode
 public function toArray(): array;
 ```
 
-Returns all attributes as a plain array. `DateTimeImmutable` values are formatted as ISO 8601 strings.
+Returns all attributes as a plain array. `DateTimeImmutable` values are formatted as ISO 8601 strings. Any loaded relations are merged in after attributes; `JsonSerializable` relation objects have `jsonSerialize()` called, scalars and arrays are included as-is.
+
+---
+
+```php
+protected function setRelation(string $name, mixed $relation): void;
+```
+
+Stores a loaded relation in the relation bag under `$name`. Throws `LogicException` if `$relation` is `null` or an object that does not implement `JsonSerializable`.
+
+---
+
+```php
+protected function getRelation(string $name): mixed;
+```
+
+Returns the stored relation for `$name`, or `null` if it has not been set.
+
+---
+
+```php
+protected function hasRelation(string $name): bool;
+```
+
+Returns `true` if a relation has been stored under `$name`.

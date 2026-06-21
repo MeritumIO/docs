@@ -189,6 +189,56 @@ protected function mutators(): array
 
 Accessors run after casting on read. Mutators run before casting on write.
 
+## Relations
+
+Models carry a protected relation bag for attaching related data that has been loaded separately. There is no lazy loading — the caller fetches related records independently and attaches them to the model.
+
+Expose relations through typed public wrapper methods on the concrete model:
+
+```php
+final class EventLog extends Model
+{
+    protected string $table = 'event_logs';
+
+    public function setEvent(Event $event): void
+    {
+        $this->setRelation('event', $event);
+    }
+
+    public function getEvent(): Event
+    {
+        /** @var Event */
+        return $this->getRelation('event');
+    }
+
+    public function hasEvent(): bool
+    {
+        return $this->hasRelation('event');
+    }
+}
+```
+
+Attach the relation in a handler after running both queries independently:
+
+```php
+$log   = $logRepository->findOrFail($id);
+$event = $eventRepository->findOrFail($log->eventId);
+
+$log->setEvent($event);
+```
+
+Relations are merged into `toArray()` automatically. The key passed to `setRelation()` becomes the key in the serialized output:
+
+```json
+{
+    "id": "...",
+    "event_id": "...",
+    "event": { "id": "...", "name": "PHP Conference" }
+}
+```
+
+The relation bag accepts any JSON-safe value — a model, a collection, a paginator, a scalar, or an array. Object values must implement `JsonSerializable`; passing anything else throws a `LogicException`. The typed wrapper method on the concrete model is the actual type contract — the base bag is intentionally untyped so it does not restrict what sources or shapes of data can be attached.
+
 ## Defining a Repository
 
 Define an interface for your repository that extends `RepositoryInterface`, then implement it by extending `Repository`:
