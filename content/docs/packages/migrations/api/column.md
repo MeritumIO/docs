@@ -34,6 +34,19 @@ $blueprint->string('status')->default('pending');
 ---
 
 ```php
+public function defaultRaw(string $sql): self;
+```
+
+Sets a default value using a raw SQL expression. The string is emitted verbatim — no quoting is applied. Use this for database functions and other expressions that cannot be represented as a PHP literal.
+
+```php
+$blueprint->timestamp('created_at')->defaultRaw('CURRENT_TIMESTAMP');
+$blueprint->timestamp('updated_at')->defaultRaw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP');
+```
+
+---
+
+```php
 public function unsigned(): self;
 ```
 
@@ -73,6 +86,6 @@ $schema->create('products', function (Blueprint $blueprint) {
     $blueprint->decimal('price', 10, 2)->unsigned();
     $blueprint->integer('stock')->default(0)->unsigned();
     $blueprint->boolean('is_available')->default(false);
-    $blueprint->timestamps();
+    $blueprint->timestamp('created_at')->defaultRaw('CURRENT_TIMESTAMP');
 });
 ```
