@@ -143,3 +143,16 @@ protected function hasRelation(string $name): bool;
 ```
 
 Returns `true` if a relation has been stored under `$name`.
+
+## Serialization
+
+`Model` implements PHP native serialization via `__serialize()`/`__unserialize()`. Attributes and relations are persisted; the model has no dirty state on unserialize. This makes models compatible with any cache backend that relies on `serialize()` (PSR-6, PSR-16, Redis, APCu).
+
+```php
+$user = $repository->findOrFail($id);
+$cache->set("user:{$id}", serialize($user));
+
+$user = unserialize($cache->get("user:{$id}"));
+```
+
+Callers are responsible for ensuring any relations stored on the model are themselves serializable.

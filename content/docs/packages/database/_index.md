@@ -328,7 +328,7 @@ $user = $repository->findBy('email', 'jane@example.com'); // returns ?User
 
 ## Custom Queries
 
-Use the protected `query()` method to build a query, then execute it with `first()`, `get()`, or `count()`. `query()` returns a `SelectInterface` from `georgeff/database`; the execute methods are on the repository itself:
+Use the protected `query()` method to build a query, then execute it with `first()`, `firstOrFail()`, `get()`, or `count()`. `query()` returns a `SelectInterface` from `georgeff/database`; the execute methods are on the repository itself:
 
 ```php
 public function findByEmail(string $email): ?User
@@ -336,6 +336,13 @@ public function findByEmail(string $email): ?User
     $this->query()->where('email', $email);
 
     return $this->first();
+}
+
+public function findBySlug(string $slug): Post
+{
+    $this->query()->where('slug', $slug);
+
+    return $this->firstOrFail();
 }
 
 public function findActive(): Collection
@@ -352,6 +359,8 @@ public function countActive(): int
     return $this->count();
 }
 ```
+
+`firstOrFail()` throws `ModelNotFoundException` when the query returns no result.
 
 `query()` resets the internal query state each time it is called — always call it at the start of a new query chain.
 
@@ -430,4 +439,15 @@ foreach ($users as $user) {
 }
 
 $admins = $users->filter(fn(User $u) => $u->role === 'admin');
+```
+
+## Caching
+
+`Model` and `Collection` both support PHP native serialization, making them compatible with any cache backend that uses `serialize()` (PSR-6, PSR-16, Redis, APCu). The unserialized model has no dirty state and is safe to read from immediately.
+
+```php
+$user = $repository->findOrFail($id);
+$cache->set("user:{$id}", serialize($user));
+
+$user = unserialize($cache->get("user:{$id}"));
 ```

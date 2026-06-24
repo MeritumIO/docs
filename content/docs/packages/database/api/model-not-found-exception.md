@@ -1,6 +1,6 @@
 +++
 title = "ModelNotFoundException"
-description = "Thrown by findOrFail when no model matches the given primary key"
+description = "Thrown by findOrFail and firstOrFail when no model is found"
 weight = 6
 +++
 
@@ -8,7 +8,7 @@ weight = 6
 
 `Meritum\Database\Exception\ModelNotFoundException`
 
-Extends `RuntimeException`. Thrown by `Repository::findOrFail()` when no model with the requested primary key exists.
+Extends `RuntimeException`. Thrown by `Repository::findOrFail()` and `Repository::firstOrFail()` when no matching model exists. The message is formatted as `"{ModelName} was not found"`.
 
 ## Usage
 

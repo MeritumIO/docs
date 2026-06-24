@@ -100,6 +100,23 @@ Executes the current query and returns the first result as a hydrated model, or 
 ---
 
 ```php
+protected function firstOrFail(): T;
+```
+
+Executes the current query and returns the first result as a hydrated model. Throws `ModelNotFoundException` when no result is found. Use in place of `first()` when the absence of a result is an error condition:
+
+```php
+public function findBySlug(string $slug): Post
+{
+    $this->query()->where('slug', $slug);
+
+    return $this->firstOrFail();
+}
+```
+
+---
+
+```php
 protected function get(): Collection<T>;
 ```
 

@@ -124,3 +124,14 @@ public function jsonSerialize(): array;
 ```
 
 Same as `toArray()`. Allows `json_encode($collection)` to work directly.
+
+## Serialization
+
+`Collection` supports PHP native serialization via `__serialize()`/`__unserialize()`. Model keys are preserved and each model's own serialization is used, making collections compatible with any cache backend that relies on `serialize()`.
+
+```php
+$users = $repository->findActive();
+$cache->set('active_users', serialize($users));
+
+$users = unserialize($cache->get('active_users'));
+```
