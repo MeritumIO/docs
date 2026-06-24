@@ -13,7 +13,6 @@ All rules shipped with `meritum/validation`. Rules listed as stoppable halt prop
 | Rule | Params | Stop condition | Description |
 |---|---|---|---|
 | `required` | — | on failure | Fails if absent, `null`, or empty string |
-| `optional` | — | if absent or `null` | Always passes; skips subsequent rules if absent or `null` |
 | `nullable` | — | if `null` | Always passes; skips subsequent rules if `null` |
 
 ## Type
@@ -76,9 +75,9 @@ All rules shipped with `meritum/validation`. Rules listed as stoppable halt prop
 
 ```php
 // Presence
-'name'  => ['required', 'string'],
-'bio'   => ['nullable', 'string'],
-'alias' => ['optional', 'string'],
+'name'  => ['required', 'string'],   // required — must be present
+'bio'   => ['string'],               // optional — validates only if present
+'alias' => ['nullable', 'string'],   // optional and nullable
 
 // Type + length
 'username' => ['required', 'string', 'lengthBetween' => [3, 32]],
@@ -90,9 +89,9 @@ All rules shipped with `meritum/validation`. Rules listed as stoppable halt prop
 
 // Format
 'email'    => ['required', 'email'],
-'website'  => ['optional', 'url'],
+'website'  => ['url'],
 'slug'     => ['required', 'regex' => '/^[a-z0-9-]+$/'],
-'birthday' => ['optional', 'dateFormat' => 'Y-m-d'],
+'birthday' => ['dateFormat' => 'Y-m-d'],
 
 // Cross-field
 'password_confirmation' => ['required', 'sameAs' => 'password'],

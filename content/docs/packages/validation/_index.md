@@ -86,19 +86,18 @@ Rules are evaluated in order. Errors are keyed by field name; a field can accumu
 
 ## Presence and Nullability
 
-Three stoppable rules control how absent and null values are handled. **Rule order matters — these must come first.**
+Fields without `required` are implicitly optional — type and format rules pass silently when a field is absent. **Rule order matters — `nullable` must come before the rules it gates.**
 
 | Rules | Absent from input | `null` | Present |
 |---|---|---|---|
+| `['string']` | passes — skipped | fails — string | validates |
 | `['required', 'string']` | fails — required | fails — required | validates |
-| `['optional', 'string']` | passes — skipped | passes — skipped | validates |
-| `['nullable', 'string']` | validates — string fails | passes — skipped | validates |
+| `['nullable', 'string']` | passes — skipped | passes — skipped | validates |
+| `['nullable', 'required', 'string']` | fails — required | passes — skipped | validates |
 
 `required` fails if the field is absent, null, or an empty string, then stops propagation so only one error is reported.
 
-`optional` always passes, but stops propagation if the field is absent or null. Subsequent rules are only evaluated when the field is present and non-null.
-
-`nullable` always passes, but stops propagation if the field is null. Subsequent rules are only evaluated when the field is non-null. Use this when a field must be present but is allowed to be null.
+`nullable` always passes, but stops propagation if the field is null. Subsequent rules are only evaluated when the field is non-null. Use `nullable` + `required` when a field must be present but null is an acceptable value.
 
 ## Nested Attributes
 
@@ -122,7 +121,7 @@ Use `*` to validate every element of an array field:
 $result = $validator->validate([
     'tags'        => ['required', 'array'],
     'tags.*.name' => ['required', 'string', 'lengthMax' => 50],
-    'tags.*.slug' => ['optional', 'string'],
+    'tags.*.slug' => ['string'],
 ], $input);
 ```
 
